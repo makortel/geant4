@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-// $Id: G4RunManagerKernel.cc 79223 2014-02-20 15:01:29Z gcosmo $
+// $Id: G4RunManagerKernel.cc 84741 2014-10-20 10:22:35Z gcosmo $
 //
 //
 
@@ -131,6 +131,14 @@ G4RunManagerKernel::G4RunManagerKernel()
   versionString += vs;
   versionString += "   ";
   versionString += G4Date;
+  G4cout << G4endl
+    << "*************************************************************" << G4endl
+    << versionString << G4endl
+    << "                      Copyright : Geant4 Collaboration" << G4endl
+    << "                      Reference : NIM A 506 (2003), 250-303" << G4endl
+    << "                            WWW : http://cern.ch/geant4" << G4endl
+    << "*************************************************************" << G4endl
+    << G4endl;
 }
 
 G4RunManagerKernel::G4RunManagerKernel(RMKType rmkType)
@@ -150,10 +158,7 @@ numberOfParallelWorld(0),geometryNeedsToBeClosed(true),
 #endif
 
 #ifdef G4FPE_DEBUG
-   static G4Mutex aLocalMutex = G4MUTEX_INITIALIZER;
-   G4AutoLock l(&aLocalMutex);
-   InvalidOperationDetection();
-   l.unlock();
+    InvalidOperationDetection();
 #endif
     
     defaultExceptionHandler = new G4ExceptionHandler();
@@ -272,8 +277,6 @@ G4RunManagerKernel::~G4RunManagerKernel()
 
   G4UnitDefinition::ClearUnitsTable();
   if(verboseLevel>1) G4cout << "Units table cleared." << G4endl;
-
-  // deletion of allocators
   G4AllocatorList* allocList = G4AllocatorList::GetAllocatorListIfExist();
   if(allocList)
   {
@@ -433,6 +436,8 @@ void G4RunManagerKernel::SetPhysics(G4VUserPhysicsList* uPhys)
 {
   physicsList = uPhys;
 
+  if(runManagerKernelType==workerRMK) return;
+
   SetupPhysics();
   if(verboseLevel>2) G4ParticleTable::GetParticleTable()->DumpTable();
   if(verboseLevel>1)
@@ -457,7 +462,6 @@ void G4RunManagerKernel::SetPhysics(G4VUserPhysicsList* uPhys)
 void G4RunManagerKernel::SetupPhysics()
 {
     G4ParticleTable::GetParticleTable()->SetReadiness();
-    if(runManagerKernelType==workerRMK) return;
 
     physicsList->ConstructParticle();
 

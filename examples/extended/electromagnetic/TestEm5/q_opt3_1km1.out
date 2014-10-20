@@ -1,0 +1,3072 @@
+
+*************************************************************
+ Geant4 version Name: geant4-10-00-ref-06    (27-June-2014)
+                      Copyright : Geant4 Collaboration
+                      Reference : NIM A 506 (2003), 250-303
+                            WWW : http://cern.ch/geant4
+*************************************************************
+
+/control/cout/ignoreThreadsExcept 0
+/run/verbose 1
+/tracking/verbose 0
+#
+/testem/det/setAbsMat G4_Si
+/testem/det/setAbsThick 2 um
+/run/reinitializeGeometry
+/testem/det/setAbsYZ 50 um
+/run/reinitializeGeometry
+#
+#/testem/phys/addPhysics  standardSS
+#/testem/phys/addPhysics emstandard_opt0
+#/testem/phys/addPhysics emlivermore
+#/testem/phys/addPhysics empenelope
+/testem/phys/addPhysics emstandard_opt3
+PhysicsList::AddPhysicsList: <emstandard_opt3>
+#
+/run/setCut 1 km
+/run/setCutForAGivenParticle proton 0 mm
+#
+/run/initialize
+
+ Material: Galactic    density:  0.000 kg/m3   RadL: 204727512.315 pc   Nucl.Int.Length: 113427275.267 pc 
+                       Imean:  19.200 eV   temperature:   2.73 K  pressure:   0.00 atm
+
+   --->  Element: H (H)   Z =  1.0   N =   1.0   A =   1.01 g/mole
+         --->  Isotope:    H1   Z =  1   N =   1   A =   1.01 g/mole   abundance:  99.99 %
+         --->  Isotope:    H2   Z =  1   N =   2   A =   2.01 g/mole   abundance:   0.01 %
+          ElmMassFraction: 100.00 %  ElmAbundance 100.00 % 
+
+
+ Material:    G4_Si    density:  2.330 g/cm3   RadL:   9.366 cm   Nucl.Int.Length:  45.635 cm 
+                       Imean: 173.000 eV 
+
+   --->  Element: Si (Si)   Z = 14.0   N =  28.1   A =  28.09 g/mole
+         --->  Isotope:  Si28   Z = 14   N =  28   A =  27.98 g/mole   abundance:  92.23 %
+         --->  Isotope:  Si29   Z = 14   N =  29   A =  28.98 g/mole   abundance:   4.68 %
+         --->  Isotope:  Si30   Z = 14   N =  30   A =  29.97 g/mole   abundance:   3.09 %
+          ElmMassFraction: 100.00 %  ElmAbundance 100.00 % 
+
+
+ The  WORLD   is made of 3 um  of Galactic. The transverse size (YZ) of the world is 60 um 
+ The ABSORBER is made of 2 um  of G4_Si. The transverse size (YZ) is 50 um 
+ X position of the middle of the absorber 0 fm 
+/process/em/verbose 1
+/process/em/workerVerbose 0
+#
+/testem/gun/setDefault
+/gun/particle proton
+/gun/energy 500 MeV
+#
+/run/printProgress 10000
+#
+/tracking/verbose 3
+/run/beamOn 10
+
+phot:   for  gamma    SubType= 12
+      LambdaPrime table from 200 keV to 10 TeV in 154 bins 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+       PhotoElectric :  Emin=        0 eV    Emax=       10 TeV   AngularGenSauterGavrila  FluoActive
+
+compt:   for  gamma    SubType= 13
+      Lambda table from 10 eV  to 1 MeV in 100 bins, spline: 1
+      LambdaPrime table from 1 MeV to 10 TeV in 140 bins 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+        KleinNishina :  Emin=        0 eV    Emax=       10 TeV  FluoActive
+
+conv:   for  gamma    SubType= 14
+      Lambda table from 1.022 MeV to 10 TeV in 140 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+        BetheHeitler :  Emin=        0 eV    Emax=       80 GeV
+     BetheHeitlerLPM :  Emin=       80 GeV   Emax=       10 TeV
+
+Rayl:   for  gamma    SubType= 11
+      Lambda table from 10 eV  to 100 keV in 80 bins, spline: 0
+      LambdaPrime table from 100 keV to 10 TeV in 160 bins 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+   LivermoreRayleigh :  Emin=        0 eV    Emax=       10 TeV   CullenGenerator
+
+msc:   for e-    SubType= 10
+      RangeFactor= 0.04, stepLimitType: 2, latDisplacement: 1, skin= 1, geomFactor= 2.5
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 220 bins Emin=    100 eV    Emax=     10 TeV
+
+### ===  Deexcitation model UAtomDeexcitation is activated for 1 region:
+          DefaultRegionForTheWorld
+
+eIoni:   for  e-    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.1, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+        MollerBhabha :  Emin=        0 eV    Emax=       10 TeV
+
+eBrem:   for  e-    SubType= 3
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      LPM flag: 1 for E > 1 GeV
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+             eBremSB :  Emin=        0 eV    Emax=        1 GeV   DipBustGen
+            eBremLPM :  Emin=        1 GeV   Emax=       10 TeV   DipBustGen
+
+msc:   for e+    SubType= 10
+      RangeFactor= 0.04, stepLimitType: 2, latDisplacement: 1, skin= 1, geomFactor= 2.5
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 220 bins Emin=    100 eV    Emax=     10 TeV
+
+eIoni:   for  e+    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.1, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+        MollerBhabha :  Emin=        0 eV    Emax=       10 TeV
+
+eBrem:   for  e+    SubType= 3
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      LPM flag: 1 for E > 1 GeV
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+             eBremSB :  Emin=        0 eV    Emax=        1 GeV   DipBustGen
+            eBremLPM :  Emin=        1 GeV   Emax=       10 TeV   DipBustGen
+
+annihil:   for  e+    SubType= 5
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            eplus2gg :  Emin=        0 eV    Emax=       10 TeV
+
+msc:   for proton    SubType= 10
+      RangeFactor= 0.2, stepLimitType: 0, latDisplacement: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 220 bins Emin=    100 eV    Emax=     10 TeV
+
+hIoni:   for  proton    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.05, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               Bragg :  Emin=        0 eV    Emax=        2 MeV
+          BetheBloch :  Emin=        2 MeV   Emax=       10 TeV
+
+hBrems:   for  proton    SubType= 3
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               hBrem :  Emin=        0 eV    Emax=       10 TeV
+
+hPairProd:   for  proton    SubType= 4
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      Sampling table 13x1001; from 7.50618 GeV to 10 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+           hPairProd :  Emin=        0 eV    Emax=       10 TeV
+
+nuclearStopping:   for  proton    SubType= 8
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+   ICRU49NucStopping :  Emin=        0 eV    Emax=        1 MeV
+
+msc:   for GenericIon    SubType= 10
+      RangeFactor= 0.2, stepLimitType: 0, latDisplacement: 0
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV
+
+ionIoni:   for  GenericIon    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.001, dRoverRange= 0.1, integral: 1, fluct: 1, linLossLimit= 0.02
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+         ParamICRU73 :  Emin=        0 eV    Emax=       10 TeV   deltaVI
+
+nuclearStopping:   for  GenericIon    SubType= 8
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+   ICRU49NucStopping :  Emin=        0 eV    Emax=       10 TeV
+
+msc:   for alpha    SubType= 10
+      RangeFactor= 0.2, stepLimitType: 0, latDisplacement: 0
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 220 bins Emin=    100 eV    Emax=     10 TeV
+
+ionIoni:   for  alpha    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.01, dRoverRange= 0.1, integral: 1, fluct: 1, linLossLimit= 0.02
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            BraggIon :  Emin=        0 eV    Emax=   7.9452 MeV
+          BetheBloch :  Emin=   7.9452 MeV   Emax=       10 TeV
+
+nuclearStopping:   for  alpha    SubType= 8
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+   ICRU49NucStopping :  Emin=        0 eV    Emax=       10 TeV
+
+msc:   for anti_proton    SubType= 10
+      RangeFactor= 0.2, stepLimitType: 0, latDisplacement: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 220 bins Emin=    100 eV    Emax=     10 TeV
+
+hIoni:   for  anti_proton    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.05, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            ICRU73QO :  Emin=        0 eV    Emax=        2 MeV
+          BetheBloch :  Emin=        2 MeV   Emax=       10 TeV
+
+hBrems:   for  anti_proton    SubType= 3
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               hBrem :  Emin=        0 eV    Emax=       10 TeV
+
+hPairProd:   for  anti_proton    SubType= 4
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      Sampling table 13x1001; from 7.50618 GeV to 10 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+           hPairProd :  Emin=        0 eV    Emax=       10 TeV
+
+nuclearStopping:   for  anti_proton    SubType= 8
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+   ICRU49NucStopping :  Emin=        0 eV    Emax=        1 MeV
+
+msc:   for kaon+    SubType= 10
+      RangeFactor= 0.2, stepLimitType: 0, latDisplacement: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 220 bins Emin=    100 eV    Emax=     10 TeV
+
+hIoni:   for  kaon+    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.05, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               Bragg :  Emin=        0 eV    Emax=  1.05231 MeV
+          BetheBloch :  Emin=  1.05231 MeV   Emax=       10 TeV
+
+hBrems:   for  kaon+    SubType= 3
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               hBrem :  Emin=        0 eV    Emax=       10 TeV
+
+hPairProd:   for  kaon+    SubType= 4
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      Sampling table 14x1001; from 3.94942 GeV to 10 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+           hPairProd :  Emin=        0 eV    Emax=       10 TeV
+
+msc:   for kaon-    SubType= 10
+      RangeFactor= 0.2, stepLimitType: 0, latDisplacement: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 220 bins Emin=    100 eV    Emax=     10 TeV
+
+hIoni:   for  kaon-    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.05, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            ICRU73QO :  Emin=        0 eV    Emax=  1.05231 MeV
+          BetheBloch :  Emin=  1.05231 MeV   Emax=       10 TeV
+
+hBrems:   for  kaon-    SubType= 3
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               hBrem :  Emin=        0 eV    Emax=       10 TeV
+
+hPairProd:   for  kaon-    SubType= 4
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      Sampling table 14x1001; from 3.94942 GeV to 10 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+           hPairProd :  Emin=        0 eV    Emax=       10 TeV
+
+msc:   for mu+    SubType= 10
+      RangeFactor= 0.2, step limit type: 0, lateralDisplacement: 1, polarAngleLimit(deg)= 180
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 220 bins Emin=    100 eV    Emax=     10 TeV
+
+muIoni:   for  mu+    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.05, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               Bragg :  Emin=        0 eV    Emax=      200 keV
+          BetheBloch :  Emin=      200 keV   Emax=        1 GeV
+        MuBetheBloch :  Emin=        1 GeV   Emax=       10 TeV
+
+muBrems:   for  mu+    SubType= 3
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+              MuBrem :  Emin=        0 eV    Emax=       10 TeV
+
+muPairProd:   for  mu+    SubType= 4
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      Sampling table 17x1001; from 1 GeV to 10 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+          muPairProd :  Emin=        0 eV    Emax=       10 TeV
+
+msc:   for mu-    SubType= 10
+      RangeFactor= 0.2, step limit type: 0, lateralDisplacement: 1, polarAngleLimit(deg)= 180
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 220 bins Emin=    100 eV    Emax=     10 TeV
+
+muIoni:   for  mu-    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.05, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            ICRU73QO :  Emin=        0 eV    Emax=      200 keV
+          BetheBloch :  Emin=      200 keV   Emax=        1 GeV
+        MuBetheBloch :  Emin=        1 GeV   Emax=       10 TeV
+
+muBrems:   for  mu-    SubType= 3
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+              MuBrem :  Emin=        0 eV    Emax=       10 TeV
+
+muPairProd:   for  mu-    SubType= 4
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      Sampling table 17x1001; from 1 GeV to 10 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+          muPairProd :  Emin=        0 eV    Emax=       10 TeV
+
+msc:   for pi+    SubType= 10
+      RangeFactor= 0.2, stepLimitType: 0, latDisplacement: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 220 bins Emin=    100 eV    Emax=     10 TeV
+
+hIoni:   for  pi+    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.05, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               Bragg :  Emin=        0 eV    Emax=  297.505 keV
+          BetheBloch :  Emin=  297.505 keV   Emax=       10 TeV
+
+hBrems:   for  pi+    SubType= 3
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               hBrem :  Emin=        0 eV    Emax=       10 TeV
+
+hPairProd:   for  pi+    SubType= 4
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      Sampling table 16x1001; from 1.11656 GeV to 10 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+           hPairProd :  Emin=        0 eV    Emax=       10 TeV
+
+msc:   for pi-    SubType= 10
+      RangeFactor= 0.2, stepLimitType: 0, latDisplacement: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 220 bins Emin=    100 eV    Emax=     10 TeV
+
+hIoni:   for  pi-    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.05, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            ICRU73QO :  Emin=        0 eV    Emax=  297.505 keV
+          BetheBloch :  Emin=  297.505 keV   Emax=       10 TeV
+
+hBrems:   for  pi-    SubType= 3
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               hBrem :  Emin=        0 eV    Emax=       10 TeV
+
+hPairProd:   for  pi-    SubType= 4
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      Sampling table 16x1001; from 1.11656 GeV to 10 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+           hPairProd :  Emin=        0 eV    Emax=       10 TeV
+
+========= Table of registered couples ==============================
+
+Index : 0     used in the geometry : Yes
+ Material : Galactic
+ Range cuts        :  gamma  1 km     e-  1 km     e+  1 km  proton 0 fm 
+ Energy thresholds :  gamma  990 eV     e-  990 eV     e+  990 eV  proton 0 eV 
+ Region(s) which use this couple : 
+    DefaultRegionForTheWorld
+
+Index : 1     used in the geometry : Yes
+ Material : G4_Si
+ Range cuts        :  gamma  1 km     e-  1 km     e+  1 km  proton 0 fm 
+ Energy thresholds :  gamma  10 GeV    e-  10 GeV    e+  10 GeV proton 0 eV 
+ Region(s) which use this couple : 
+    DefaultRegionForTheWorld
+
+====================================================================
+
+### Run 0 starts.
+
+--------- Ranecu engine status ---------
+ Initial seed (index) = 0
+ Current couple of seeds = 9876, 54321
+----------------------------------------
+--> Event 0 starts.
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005
+      Energy Deposit (MeV)  : 1.927679979964673e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :              -0.0015              -0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    :                    02.20061432421359e-06
+         Local Time (ns)     :                    02.20061432421359e-06
+         Proper Time (ns)    :                    01.435594110956617e-06
+         Momentum Direct - x :                    1                   1
+         Momentum Direct - y :                    0                   0
+         Momentum Direct - z :                    0                   0
+         Momentum - x (MeV/c):    1090.078902190112   1090.078902190112
+         Momentum - y (MeV/c):                    0                   0
+         Momentum - z (MeV/c):                    0                   0
+         Total Energy (MeV)  :          1438.272013         1438.272013
+         Kinetic Energy (MeV):                  500                 500
+         Velocity (mm/ns)    :     227.209281743942    227.209281743942
+         Volume Name         :                World               World
+         Safety (mm)         :                    0               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :            Undefined          Geom Limit
+         Process defined Step:            Undefined      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni (Forced)
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005
+      Energy Deposit (MeV)  : 1.927679979964673e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :              -0.0015              -0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    :                    02.20061432421359e-06
+         Local Time (ns)     :                    02.20061432421359e-06
+         Proper Time (ns)    :                    01.435594110956617e-06
+         Momentum Direct - x :                    1                   1
+         Momentum Direct - y :                    0                   0
+         Momentum Direct - z :                    0                   0
+         Momentum - x (MeV/c):    1090.078902190112   1090.078902190112
+         Momentum - y (MeV/c):                    0                   0
+         Momentum - z (MeV/c):                    0                   0
+         Total Energy (MeV)  :          1438.272013         1438.272013
+         Kinetic Energy (MeV):                  500                 500
+         Velocity (mm/ns)    :     227.209281743942    227.209281743942
+         Volume Name         :                World            Absorber
+         Safety (mm)         :                    0               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :            Undefined          Geom Limit
+         Process defined Step:            Undefined      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.00200000000616191
+      Energy Deposit (MeV)  : 0.0008177071620964608
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :               -0.001               0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    : 2.20061432421359e-061.100307162106795e-05
+         Local Time (ns)     : 2.20061432421359e-061.100307162106795e-05
+         Proper Time (ns)    : 1.435594110956617e-067.177970554783086e-06
+         Momentum Direct - x :                    1   0.999999994454953
+         Momentum Direct - y :                    09.828805005594977e-05
+         Momentum Direct - z :                    0-3.780943188850826e-05
+         Momentum - x (MeV/c):    1090.078902190112   1090.077817246088
+         Momentum - y (MeV/c):                    0  0.1071416236604693
+         Momentum - z (MeV/c):                    0-0.04121522321288004
+         Total Energy (MeV)  :          1438.272013   1438.271195292838
+         Kinetic Energy (MeV):                  500   499.9991822928379
+         Velocity (mm/ns)    :     227.209281743942   227.2091872881349
+         Volume Name         :             Absorber            Absorber
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.00200000000616191
+      Energy Deposit (MeV)  : 0.0008177071620964608
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :               -0.001               0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    : 2.20061432421359e-061.100307162106795e-05
+         Local Time (ns)     : 2.20061432421359e-061.100307162106795e-05
+         Proper Time (ns)    : 1.435594110956617e-067.177970554783086e-06
+         Momentum Direct - x :                    1   0.999999994454953
+         Momentum Direct - y :                    09.828805005594977e-05
+         Momentum Direct - z :                    0-3.780943188850826e-05
+         Momentum - x (MeV/c):    1090.078902190112   1090.077817246088
+         Momentum - y (MeV/c):                    0  0.1071416236604693
+         Momentum - z (MeV/c):                    0-0.04121522321288004
+         Total Energy (MeV)  :          1438.272013   1438.271195292838
+         Kinetic Energy (MeV):                  500   499.9991822928379
+         Velocity (mm/ns)    :     227.209281743942   227.2091872881349
+         Volume Name         :             Absorber               World
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    2      1 um      0 fm      0 fm    500 MeV   818 eV      2 um    2.5 um   Absorber   Transportation
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005000000027725235
+      Energy Deposit (MeV)  : 1.927681415628714e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :                0.001              0.0015
+         Position - y (mm)   :                    04.914402530048082e-08
+         Position - z (mm)   :                    0-1.890471604908167e-08
+         Global Time (ns)    : 1.100307162106795e-051.320368687232735e-05
+         Local Time (ns)     : 1.100307162106795e-051.320368687232735e-05
+         Proper Time (ns)    : 7.177970554783086e-068.61356608669337e-06
+         Momentum Direct - x :    0.999999994454953   0.999999994454953
+         Momentum Direct - y : 9.828805005594977e-059.828805005594977e-05
+         Momentum Direct - z : -3.780943188850826e-05-3.780943188850826e-05
+         Momentum - x (MeV/c):    1090.077817246088   1090.077817246088
+         Momentum - y (MeV/c):   0.1071416236604693  0.1071416236604693
+         Momentum - z (MeV/c): -0.04121522321288004-0.04121522321288004
+         Total Energy (MeV)  :    1438.271195292838   1438.271195292838
+         Kinetic Energy (MeV):    499.9991822928379   499.9991822928379
+         Velocity (mm/ns)    :    227.2091872881349   227.2091872881349
+         Volume Name         :                World               World
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni (Forced)
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005000000027725235
+      Energy Deposit (MeV)  : 1.927681415628714e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :                0.001              0.0015
+         Position - y (mm)   :                    04.914402530048082e-08
+         Position - z (mm)   :                    0-1.890471604908167e-08
+         Global Time (ns)    : 1.100307162106795e-051.320368687232735e-05
+         Local Time (ns)     : 1.100307162106795e-051.320368687232735e-05
+         Proper Time (ns)    : 7.177970554783086e-068.61356608669337e-06
+         Momentum Direct - x :    0.999999994454953   0.999999994454953
+         Momentum Direct - y : 9.828805005594977e-059.828805005594977e-05
+         Momentum Direct - z : -3.780943188850826e-05-3.780943188850826e-05
+         Momentum - x (MeV/c):    1090.077817246088   1090.077817246088
+         Momentum - y (MeV/c):   0.1071416236604693  0.1071416236604693
+         Momentum - z (MeV/c): -0.04121522321288004-0.04121522321288004
+         Total Energy (MeV)  :    1438.271195292838   1438.271195292838
+         Kinetic Energy (MeV):    499.9991822928379   499.9991822928379
+         Velocity (mm/ns)    :    227.2091872881349   227.2091872881349
+         Volume Name         :                World          OutOfWorld
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    3    1.5 um 4.91e+04 fm -1.89e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005
+      Energy Deposit (MeV)  : 1.927679979964673e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :              -0.0015              -0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    :                    02.20061432421359e-06
+         Local Time (ns)     :                    02.20061432421359e-06
+         Proper Time (ns)    :                    01.435594110956617e-06
+         Momentum Direct - x :                    1                   1
+         Momentum Direct - y :                    0                   0
+         Momentum Direct - z :                    0                   0
+         Momentum - x (MeV/c):    1090.078902190112   1090.078902190112
+         Momentum - y (MeV/c):                    0                   0
+         Momentum - z (MeV/c):                    0                   0
+         Total Energy (MeV)  :          1438.272013         1438.272013
+         Kinetic Energy (MeV):                  500                 500
+         Velocity (mm/ns)    :     227.209281743942    227.209281743942
+         Volume Name         :                World               World
+         Safety (mm)         :                    0               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :            Undefined          Geom Limit
+         Process defined Step:            Undefined      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni (Forced)
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005
+      Energy Deposit (MeV)  : 1.927679979964673e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :              -0.0015              -0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    :                    02.20061432421359e-06
+         Local Time (ns)     :                    02.20061432421359e-06
+         Proper Time (ns)    :                    01.435594110956617e-06
+         Momentum Direct - x :                    1                   1
+         Momentum Direct - y :                    0                   0
+         Momentum Direct - z :                    0                   0
+         Momentum - x (MeV/c):    1090.078902190112   1090.078902190112
+         Momentum - y (MeV/c):                    0                   0
+         Momentum - z (MeV/c):                    0                   0
+         Total Energy (MeV)  :          1438.272013         1438.272013
+         Kinetic Energy (MeV):                  500                 500
+         Velocity (mm/ns)    :     227.209281743942    227.209281743942
+         Volume Name         :                World            Absorber
+         Safety (mm)         :                    0               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :            Undefined          Geom Limit
+         Process defined Step:            Undefined      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.00200000000616191
+      Energy Deposit (MeV)  : 0.002314114887357435
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :               -0.001               0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    : 2.20061432421359e-061.100307162106795e-05
+         Local Time (ns)     : 2.20061432421359e-061.100307162106795e-05
+         Proper Time (ns)    : 1.435594110956617e-067.177970554783086e-06
+         Momentum Direct - x :                    1  0.9999999993662922
+         Momentum Direct - y :                    0-3.239789080033891e-05
+         Momentum Direct - z :                    0-1.475778361295062e-05
+         Momentum - x (MeV/c):    1090.078902190112   1090.075848207809
+         Momentum - y (MeV/c):                    0-0.03531615831670354
+         Momentum - z (MeV/c):                    0-0.01608710349974897
+         Total Energy (MeV)  :          1438.272013   1438.269698885113
+         Kinetic Energy (MeV):                  500   499.9976858851126
+         Velocity (mm/ns)    :     227.209281743942   227.2090144335897
+         Volume Name         :             Absorber            Absorber
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.00200000000616191
+      Energy Deposit (MeV)  : 0.002314114887357435
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :               -0.001               0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    : 2.20061432421359e-061.100307162106795e-05
+         Local Time (ns)     : 2.20061432421359e-061.100307162106795e-05
+         Proper Time (ns)    : 1.435594110956617e-067.177970554783086e-06
+         Momentum Direct - x :                    1  0.9999999993662922
+         Momentum Direct - y :                    0-3.239789080033891e-05
+         Momentum Direct - z :                    0-1.475778361295062e-05
+         Momentum - x (MeV/c):    1090.078902190112   1090.075848207809
+         Momentum - y (MeV/c):                    0-0.03531615831670354
+         Momentum - z (MeV/c):                    0-0.01608710349974897
+         Total Energy (MeV)  :          1438.272013   1438.269698885113
+         Kinetic Energy (MeV):                  500   499.9976858851126
+         Velocity (mm/ns)    :     227.209281743942   227.2090144335897
+         Volume Name         :             Absorber               World
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    2      1 um      0 fm      0 fm    500 MeV  2.31 keV     2 um    2.5 um   Absorber   Transportation
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005000000003168539
+      Energy Deposit (MeV)  : 1.927684013884267e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :                0.001              0.0015
+         Position - y (mm)   :                    0-1.619894541043485e-08
+         Position - z (mm)   :                    0-7.378891811151369e-09
+         Global Time (ns)    : 1.100307162106795e-051.320368853568864e-05
+         Local Time (ns)     : 1.100307162106795e-051.320368853568864e-05
+         Proper Time (ns)    : 7.177970554783086e-068.613568665431967e-06
+         Momentum Direct - x :   0.9999999993662922  0.9999999993662922
+         Momentum Direct - y : -3.239789080033891e-05-3.239789080033891e-05
+         Momentum Direct - z : -1.475778361295062e-05-1.475778361295062e-05
+         Momentum - x (MeV/c):    1090.075848207809   1090.075848207809
+         Momentum - y (MeV/c): -0.03531615831670354-0.03531615831670354
+         Momentum - z (MeV/c): -0.01608710349974897-0.01608710349974897
+         Total Energy (MeV)  :    1438.269698885113   1438.269698885113
+         Kinetic Energy (MeV):    499.9976858851126   499.9976858851126
+         Velocity (mm/ns)    :    227.2090144335897   227.2090144335897
+         Volume Name         :                World               World
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni (Forced)
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005000000003168539
+      Energy Deposit (MeV)  : 1.927684013884267e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :                0.001              0.0015
+         Position - y (mm)   :                    0-1.619894541043485e-08
+         Position - z (mm)   :                    0-7.378891811151369e-09
+         Global Time (ns)    : 1.100307162106795e-051.320368853568864e-05
+         Local Time (ns)     : 1.100307162106795e-051.320368853568864e-05
+         Proper Time (ns)    : 7.177970554783086e-068.613568665431967e-06
+         Momentum Direct - x :   0.9999999993662922  0.9999999993662922
+         Momentum Direct - y : -3.239789080033891e-05-3.239789080033891e-05
+         Momentum Direct - z : -1.475778361295062e-05-1.475778361295062e-05
+         Momentum - x (MeV/c):    1090.075848207809   1090.075848207809
+         Momentum - y (MeV/c): -0.03531615831670354-0.03531615831670354
+         Momentum - z (MeV/c): -0.01608710349974897-0.01608710349974897
+         Total Energy (MeV)  :    1438.269698885113   1438.269698885113
+         Kinetic Energy (MeV):    499.9976858851126   499.9976858851126
+         Velocity (mm/ns)    :    227.2090144335897   227.2090144335897
+         Volume Name         :                World          OutOfWorld
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    3    1.5 um -1.62e+04 fm -7.38e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005
+      Energy Deposit (MeV)  : 1.927679979964673e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :              -0.0015              -0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    :                    02.20061432421359e-06
+         Local Time (ns)     :                    02.20061432421359e-06
+         Proper Time (ns)    :                    01.435594110956617e-06
+         Momentum Direct - x :                    1                   1
+         Momentum Direct - y :                    0                   0
+         Momentum Direct - z :                    0                   0
+         Momentum - x (MeV/c):    1090.078902190112   1090.078902190112
+         Momentum - y (MeV/c):                    0                   0
+         Momentum - z (MeV/c):                    0                   0
+         Total Energy (MeV)  :          1438.272013         1438.272013
+         Kinetic Energy (MeV):                  500                 500
+         Velocity (mm/ns)    :     227.209281743942    227.209281743942
+         Volume Name         :                World               World
+         Safety (mm)         :                    0               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :            Undefined          Geom Limit
+         Process defined Step:            Undefined      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni (Forced)
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005
+      Energy Deposit (MeV)  : 1.927679979964673e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :              -0.0015              -0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    :                    02.20061432421359e-06
+         Local Time (ns)     :                    02.20061432421359e-06
+         Proper Time (ns)    :                    01.435594110956617e-06
+         Momentum Direct - x :                    1                   1
+         Momentum Direct - y :                    0                   0
+         Momentum Direct - z :                    0                   0
+         Momentum - x (MeV/c):    1090.078902190112   1090.078902190112
+         Momentum - y (MeV/c):                    0                   0
+         Momentum - z (MeV/c):                    0                   0
+         Total Energy (MeV)  :          1438.272013         1438.272013
+         Kinetic Energy (MeV):                  500                 500
+         Velocity (mm/ns)    :     227.209281743942    227.209281743942
+         Volume Name         :                World            Absorber
+         Safety (mm)         :                    0               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :            Undefined          Geom Limit
+         Process defined Step:            Undefined      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.00200000000616191
+      Energy Deposit (MeV)  : 0.0007912716362626123
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :               -0.001               0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    : 2.20061432421359e-061.100307162106795e-05
+         Local Time (ns)     : 2.20061432421359e-061.100307162106795e-05
+         Proper Time (ns)    : 1.435594110956617e-067.177970554783086e-06
+         Momentum Direct - x :                    1   0.999999999872155
+         Momentum Direct - y :                    0-1.239152945634412e-05
+         Momentum Direct - z :                    0-1.010642921127479e-05
+         Momentum - x (MeV/c):    1090.078902190112   1090.077858030838
+         Momentum - y (MeV/c):                    0-0.01350773188922452
+         Momentum - z (MeV/c):                    0-0.01101679470837516
+         Total Energy (MeV)  :          1438.272013   1438.271221728364
+         Kinetic Energy (MeV):                  500   499.9992087283637
+         Velocity (mm/ns)    :     227.209281743942   227.2091903417817
+         Volume Name         :             Absorber            Absorber
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.00200000000616191
+      Energy Deposit (MeV)  : 0.0007912716362626123
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :               -0.001               0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    : 2.20061432421359e-061.100307162106795e-05
+         Local Time (ns)     : 2.20061432421359e-061.100307162106795e-05
+         Proper Time (ns)    : 1.435594110956617e-067.177970554783086e-06
+         Momentum Direct - x :                    1   0.999999999872155
+         Momentum Direct - y :                    0-1.239152945634412e-05
+         Momentum Direct - z :                    0-1.010642921127479e-05
+         Momentum - x (MeV/c):    1090.078902190112   1090.077858030838
+         Momentum - y (MeV/c):                    0-0.01350773188922452
+         Momentum - z (MeV/c):                    0-0.01101679470837516
+         Total Energy (MeV)  :          1438.272013   1438.271221728364
+         Kinetic Energy (MeV):                  500   499.9992087283637
+         Velocity (mm/ns)    :     227.209281743942   227.2091903417817
+         Volume Name         :             Absorber               World
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    2      1 um      0 fm      0 fm    500 MeV   791 eV      2 um    2.5 um   Absorber   Transportation
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005000000000639225
+      Energy Deposit (MeV)  : 1.927681359118208e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :                0.001              0.0015
+         Position - y (mm)   :                    0-6.195764728964155e-09
+         Position - z (mm)   :                    0-5.053214606283425e-09
+         Global Time (ns)    : 1.100307162106795e-051.320368683083034e-05
+         Local Time (ns)     : 1.100307162106795e-051.320368683083034e-05
+         Proper Time (ns)    : 7.177970554783086e-068.613566033235991e-06
+         Momentum Direct - x :    0.999999999872155   0.999999999872155
+         Momentum Direct - y : -1.239152945634412e-05-1.239152945634412e-05
+         Momentum Direct - z : -1.010642921127479e-05-1.010642921127479e-05
+         Momentum - x (MeV/c):    1090.077858030838   1090.077858030838
+         Momentum - y (MeV/c): -0.01350773188922452-0.01350773188922452
+         Momentum - z (MeV/c): -0.01101679470837516-0.01101679470837516
+         Total Energy (MeV)  :    1438.271221728364   1438.271221728364
+         Kinetic Energy (MeV):    499.9992087283637   499.9992087283637
+         Velocity (mm/ns)    :    227.2091903417817   227.2091903417817
+         Volume Name         :                World               World
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni (Forced)
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005000000000639225
+      Energy Deposit (MeV)  : 1.927681359118208e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :                0.001              0.0015
+         Position - y (mm)   :                    0-6.195764728964155e-09
+         Position - z (mm)   :                    0-5.053214606283425e-09
+         Global Time (ns)    : 1.100307162106795e-051.320368683083034e-05
+         Local Time (ns)     : 1.100307162106795e-051.320368683083034e-05
+         Proper Time (ns)    : 7.177970554783086e-068.613566033235991e-06
+         Momentum Direct - x :    0.999999999872155   0.999999999872155
+         Momentum Direct - y : -1.239152945634412e-05-1.239152945634412e-05
+         Momentum Direct - z : -1.010642921127479e-05-1.010642921127479e-05
+         Momentum - x (MeV/c):    1090.077858030838   1090.077858030838
+         Momentum - y (MeV/c): -0.01350773188922452-0.01350773188922452
+         Momentum - z (MeV/c): -0.01101679470837516-0.01101679470837516
+         Total Energy (MeV)  :    1438.271221728364   1438.271221728364
+         Kinetic Energy (MeV):    499.9992087283637   499.9992087283637
+         Velocity (mm/ns)    :    227.2091903417817   227.2091903417817
+         Volume Name         :                World          OutOfWorld
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    3    1.5 um -6.2e+03 fm -5.05e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005
+      Energy Deposit (MeV)  : 1.927679979964673e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :              -0.0015              -0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    :                    02.20061432421359e-06
+         Local Time (ns)     :                    02.20061432421359e-06
+         Proper Time (ns)    :                    01.435594110956617e-06
+         Momentum Direct - x :                    1                   1
+         Momentum Direct - y :                    0                   0
+         Momentum Direct - z :                    0                   0
+         Momentum - x (MeV/c):    1090.078902190112   1090.078902190112
+         Momentum - y (MeV/c):                    0                   0
+         Momentum - z (MeV/c):                    0                   0
+         Total Energy (MeV)  :          1438.272013         1438.272013
+         Kinetic Energy (MeV):                  500                 500
+         Velocity (mm/ns)    :     227.209281743942    227.209281743942
+         Volume Name         :                World               World
+         Safety (mm)         :                    0               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :            Undefined          Geom Limit
+         Process defined Step:            Undefined      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni (Forced)
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005
+      Energy Deposit (MeV)  : 1.927679979964673e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :              -0.0015              -0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    :                    02.20061432421359e-06
+         Local Time (ns)     :                    02.20061432421359e-06
+         Proper Time (ns)    :                    01.435594110956617e-06
+         Momentum Direct - x :                    1                   1
+         Momentum Direct - y :                    0                   0
+         Momentum Direct - z :                    0                   0
+         Momentum - x (MeV/c):    1090.078902190112   1090.078902190112
+         Momentum - y (MeV/c):                    0                   0
+         Momentum - z (MeV/c):                    0                   0
+         Total Energy (MeV)  :          1438.272013         1438.272013
+         Kinetic Energy (MeV):                  500                 500
+         Velocity (mm/ns)    :     227.209281743942    227.209281743942
+         Volume Name         :                World            Absorber
+         Safety (mm)         :                    0               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :            Undefined          Geom Limit
+         Process defined Step:            Undefined      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.00200000000616191
+      Energy Deposit (MeV)  : 0.0006075180810723778
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :               -0.001               0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    : 2.20061432421359e-061.100307162106795e-05
+         Local Time (ns)     : 2.20061432421359e-061.100307162106795e-05
+         Proper Time (ns)    : 1.435594110956617e-067.177970554783086e-06
+         Momentum Direct - x :                    1  0.9999999964863868
+         Momentum Direct - y :                    0-8.362896677371126e-05
+         Momentum Direct - z :                    05.781198871072914e-06
+         Momentum - x (MeV/c):    1090.078902190112   1090.078096788307
+         Momentum - y (MeV/c):                    0-0.09116210525736812
+         Momentum - z (MeV/c):                    00.006301958284676516
+         Total Energy (MeV)  :          1438.272013   1438.271405481919
+         Kinetic Energy (MeV):                  500   499.9993924819189
+         Velocity (mm/ns)    :     227.209281743942   227.2092115677061
+         Volume Name         :             Absorber            Absorber
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.00200000000616191
+      Energy Deposit (MeV)  : 0.0006075180810723778
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :               -0.001               0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    : 2.20061432421359e-061.100307162106795e-05
+         Local Time (ns)     : 2.20061432421359e-061.100307162106795e-05
+         Proper Time (ns)    : 1.435594110956617e-067.177970554783086e-06
+         Momentum Direct - x :                    1  0.9999999964863868
+         Momentum Direct - y :                    0-8.362896677371126e-05
+         Momentum Direct - z :                    05.781198871072914e-06
+         Momentum - x (MeV/c):    1090.078902190112   1090.078096788307
+         Momentum - y (MeV/c):                    0-0.09116210525736812
+         Momentum - z (MeV/c):                    00.006301958284676516
+         Total Energy (MeV)  :          1438.272013   1438.271405481919
+         Kinetic Energy (MeV):                  500   499.9993924819189
+         Velocity (mm/ns)    :     227.209281743942   227.2092115677061
+         Volume Name         :             Absorber               World
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    2      1 um      0 fm      0 fm    500 MeV   608 eV      2 um    2.5 um   Absorber   Transportation
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005000000017568066
+      Energy Deposit (MeV)  : 1.927681045426915e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :                0.001              0.0015
+         Position - y (mm)   :                    0-4.181448353377555e-08
+         Position - z (mm)   :                    02.890599445692905e-09
+         Global Time (ns)    : 1.100307162106795e-051.320368663269925e-05
+         Local Time (ns)     : 1.100307162106795e-051.320368663269925e-05
+         Proper Time (ns)    : 7.177970554783086e-068.613565720571341e-06
+         Momentum Direct - x :   0.9999999964863868  0.9999999964863868
+         Momentum Direct - y : -8.362896677371126e-05-8.362896677371126e-05
+         Momentum Direct - z : 5.781198871072914e-065.781198871072914e-06
+         Momentum - x (MeV/c):    1090.078096788307   1090.078096788307
+         Momentum - y (MeV/c): -0.09116210525736812-0.09116210525736812
+         Momentum - z (MeV/c): 0.0063019582846765160.006301958284676516
+         Total Energy (MeV)  :    1438.271405481919   1438.271405481919
+         Kinetic Energy (MeV):    499.9993924819189   499.9993924819189
+         Velocity (mm/ns)    :    227.2092115677061   227.2092115677061
+         Volume Name         :                World               World
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni (Forced)
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005000000017568066
+      Energy Deposit (MeV)  : 1.927681045426915e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :                0.001              0.0015
+         Position - y (mm)   :                    0-4.181448353377555e-08
+         Position - z (mm)   :                    02.890599445692905e-09
+         Global Time (ns)    : 1.100307162106795e-051.320368663269925e-05
+         Local Time (ns)     : 1.100307162106795e-051.320368663269925e-05
+         Proper Time (ns)    : 7.177970554783086e-068.613565720571341e-06
+         Momentum Direct - x :   0.9999999964863868  0.9999999964863868
+         Momentum Direct - y : -8.362896677371126e-05-8.362896677371126e-05
+         Momentum Direct - z : 5.781198871072914e-065.781198871072914e-06
+         Momentum - x (MeV/c):    1090.078096788307   1090.078096788307
+         Momentum - y (MeV/c): -0.09116210525736812-0.09116210525736812
+         Momentum - z (MeV/c): 0.0063019582846765160.006301958284676516
+         Total Energy (MeV)  :    1438.271405481919   1438.271405481919
+         Kinetic Energy (MeV):    499.9993924819189   499.9993924819189
+         Velocity (mm/ns)    :    227.2092115677061   227.2092115677061
+         Volume Name         :                World          OutOfWorld
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    3    1.5 um -4.18e+04 fm 2.89e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005
+      Energy Deposit (MeV)  : 1.927679979964673e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :              -0.0015              -0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    :                    02.20061432421359e-06
+         Local Time (ns)     :                    02.20061432421359e-06
+         Proper Time (ns)    :                    01.435594110956617e-06
+         Momentum Direct - x :                    1                   1
+         Momentum Direct - y :                    0                   0
+         Momentum Direct - z :                    0                   0
+         Momentum - x (MeV/c):    1090.078902190112   1090.078902190112
+         Momentum - y (MeV/c):                    0                   0
+         Momentum - z (MeV/c):                    0                   0
+         Total Energy (MeV)  :          1438.272013         1438.272013
+         Kinetic Energy (MeV):                  500                 500
+         Velocity (mm/ns)    :     227.209281743942    227.209281743942
+         Volume Name         :                World               World
+         Safety (mm)         :                    0               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :            Undefined          Geom Limit
+         Process defined Step:            Undefined      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni (Forced)
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005
+      Energy Deposit (MeV)  : 1.927679979964673e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :              -0.0015              -0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    :                    02.20061432421359e-06
+         Local Time (ns)     :                    02.20061432421359e-06
+         Proper Time (ns)    :                    01.435594110956617e-06
+         Momentum Direct - x :                    1                   1
+         Momentum Direct - y :                    0                   0
+         Momentum Direct - z :                    0                   0
+         Momentum - x (MeV/c):    1090.078902190112   1090.078902190112
+         Momentum - y (MeV/c):                    0                   0
+         Momentum - z (MeV/c):                    0                   0
+         Total Energy (MeV)  :          1438.272013         1438.272013
+         Kinetic Energy (MeV):                  500                 500
+         Velocity (mm/ns)    :     227.209281743942    227.209281743942
+         Volume Name         :                World            Absorber
+         Safety (mm)         :                    0               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :            Undefined          Geom Limit
+         Process defined Step:            Undefined      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.00200000000616191
+      Energy Deposit (MeV)  : 0.0005264009287451014
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :               -0.001               0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    : 2.20061432421359e-061.100307162106795e-05
+         Local Time (ns)     : 2.20061432421359e-061.100307162106795e-05
+         Proper Time (ns)    : 1.435594110956617e-067.177970554783086e-06
+         Momentum Direct - x :                    1  0.9999999991239716
+         Momentum Direct - y :                    0-3.447679402291696e-05
+         Momentum Direct - z :                    02.373620431030194e-05
+         Momentum - x (MeV/c):    1090.078902190112   1090.078206691113
+         Momentum - y (MeV/c):                    0-0.03758240183388345
+         Momentum - z (MeV/c):                    0 0.02587431905089445
+         Total Energy (MeV)  :          1438.272013   1438.271486599071
+         Kinetic Energy (MeV):                  500   499.9994735990713
+         Velocity (mm/ns)    :     227.209281743942   227.2092209377917
+         Volume Name         :             Absorber            Absorber
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.00200000000616191
+      Energy Deposit (MeV)  : 0.0005264009287451014
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :               -0.001               0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    : 2.20061432421359e-061.100307162106795e-05
+         Local Time (ns)     : 2.20061432421359e-061.100307162106795e-05
+         Proper Time (ns)    : 1.435594110956617e-067.177970554783086e-06
+         Momentum Direct - x :                    1  0.9999999991239716
+         Momentum Direct - y :                    0-3.447679402291696e-05
+         Momentum Direct - z :                    02.373620431030194e-05
+         Momentum - x (MeV/c):    1090.078902190112   1090.078206691113
+         Momentum - y (MeV/c):                    0-0.03758240183388345
+         Momentum - z (MeV/c):                    0 0.02587431905089445
+         Total Energy (MeV)  :          1438.272013   1438.271486599071
+         Kinetic Energy (MeV):                  500   499.9994735990713
+         Velocity (mm/ns)    :     227.209281743942   227.2092209377917
+         Volume Name         :             Absorber               World
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    2      1 um      0 fm      0 fm    500 MeV   526 eV      2 um    2.5 um   Absorber   Transportation
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005000000004380142
+      Energy Deposit (MeV)  : 1.927680898983835e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :                0.001              0.0015
+         Position - y (mm)   :                    0-1.72383970265598e-08
+         Position - z (mm)   :                    01.186810216554777e-08
+         Global Time (ns)    : 1.100307162106795e-051.32036865361418e-05
+         Local Time (ns)     : 1.100307162106795e-051.32036865361418e-05
+         Proper Time (ns)    : 7.177970554783086e-068.613565576614829e-06
+         Momentum Direct - x :   0.9999999991239716  0.9999999991239716
+         Momentum Direct - y : -3.447679402291696e-05-3.447679402291696e-05
+         Momentum Direct - z : 2.373620431030194e-052.373620431030194e-05
+         Momentum - x (MeV/c):    1090.078206691113   1090.078206691113
+         Momentum - y (MeV/c): -0.03758240183388345-0.03758240183388345
+         Momentum - z (MeV/c):  0.02587431905089445 0.02587431905089445
+         Total Energy (MeV)  :    1438.271486599071   1438.271486599071
+         Kinetic Energy (MeV):    499.9994735990713   499.9994735990713
+         Velocity (mm/ns)    :    227.2092209377917   227.2092209377917
+         Volume Name         :                World               World
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni (Forced)
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005000000004380142
+      Energy Deposit (MeV)  : 1.927680898983835e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :                0.001              0.0015
+         Position - y (mm)   :                    0-1.72383970265598e-08
+         Position - z (mm)   :                    01.186810216554777e-08
+         Global Time (ns)    : 1.100307162106795e-051.32036865361418e-05
+         Local Time (ns)     : 1.100307162106795e-051.32036865361418e-05
+         Proper Time (ns)    : 7.177970554783086e-068.613565576614829e-06
+         Momentum Direct - x :   0.9999999991239716  0.9999999991239716
+         Momentum Direct - y : -3.447679402291696e-05-3.447679402291696e-05
+         Momentum Direct - z : 2.373620431030194e-052.373620431030194e-05
+         Momentum - x (MeV/c):    1090.078206691113   1090.078206691113
+         Momentum - y (MeV/c): -0.03758240183388345-0.03758240183388345
+         Momentum - z (MeV/c):  0.02587431905089445 0.02587431905089445
+         Total Energy (MeV)  :    1438.271486599071   1438.271486599071
+         Kinetic Energy (MeV):    499.9994735990713   499.9994735990713
+         Velocity (mm/ns)    :    227.2092209377917   227.2092209377917
+         Volume Name         :                World          OutOfWorld
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    3    1.5 um -1.72e+04 fm 1.19e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005
+      Energy Deposit (MeV)  : 1.927679979964673e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :              -0.0015              -0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    :                    02.20061432421359e-06
+         Local Time (ns)     :                    02.20061432421359e-06
+         Proper Time (ns)    :                    01.435594110956617e-06
+         Momentum Direct - x :                    1                   1
+         Momentum Direct - y :                    0                   0
+         Momentum Direct - z :                    0                   0
+         Momentum - x (MeV/c):    1090.078902190112   1090.078902190112
+         Momentum - y (MeV/c):                    0                   0
+         Momentum - z (MeV/c):                    0                   0
+         Total Energy (MeV)  :          1438.272013         1438.272013
+         Kinetic Energy (MeV):                  500                 500
+         Velocity (mm/ns)    :     227.209281743942    227.209281743942
+         Volume Name         :                World               World
+         Safety (mm)         :                    0               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :            Undefined          Geom Limit
+         Process defined Step:            Undefined      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni (Forced)
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005
+      Energy Deposit (MeV)  : 1.927679979964673e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :              -0.0015              -0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    :                    02.20061432421359e-06
+         Local Time (ns)     :                    02.20061432421359e-06
+         Proper Time (ns)    :                    01.435594110956617e-06
+         Momentum Direct - x :                    1                   1
+         Momentum Direct - y :                    0                   0
+         Momentum Direct - z :                    0                   0
+         Momentum - x (MeV/c):    1090.078902190112   1090.078902190112
+         Momentum - y (MeV/c):                    0                   0
+         Momentum - z (MeV/c):                    0                   0
+         Total Energy (MeV)  :          1438.272013         1438.272013
+         Kinetic Energy (MeV):                  500                 500
+         Velocity (mm/ns)    :     227.209281743942    227.209281743942
+         Volume Name         :                World            Absorber
+         Safety (mm)         :                    0               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :            Undefined          Geom Limit
+         Process defined Step:            Undefined      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.00200000000616191
+      Energy Deposit (MeV)  : 0.001550338236824275
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :               -0.001               0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    : 2.20061432421359e-061.100307162106795e-05
+         Local Time (ns)     : 2.20061432421359e-061.100307162106795e-05
+         Proper Time (ns)    : 1.435594110956617e-067.177970554783086e-06
+         Momentum Direct - x :                    1  0.9999999984344647
+         Momentum Direct - y :                    05.21967407107595e-05
+         Momentum Direct - z :                    0-2.016360014223505e-05
+         Momentum - x (MeV/c):    1090.078902190112   1090.076854935312
+         Momentum - y (MeV/c):                    0 0.05689845904093521
+         Momentum - z (MeV/c):                    0-0.02197987386163106
+         Total Energy (MeV)  :          1438.272013   1438.270462661763
+         Kinetic Energy (MeV):                  500   499.9984496617632
+         Velocity (mm/ns)    :     227.209281743942   227.2091026597217
+         Volume Name         :             Absorber            Absorber
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.00200000000616191
+      Energy Deposit (MeV)  : 0.001550338236824275
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :               -0.001               0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    : 2.20061432421359e-061.100307162106795e-05
+         Local Time (ns)     : 2.20061432421359e-061.100307162106795e-05
+         Proper Time (ns)    : 1.435594110956617e-067.177970554783086e-06
+         Momentum Direct - x :                    1  0.9999999984344647
+         Momentum Direct - y :                    05.21967407107595e-05
+         Momentum Direct - z :                    0-2.016360014223505e-05
+         Momentum - x (MeV/c):    1090.078902190112   1090.076854935312
+         Momentum - y (MeV/c):                    0 0.05689845904093521
+         Momentum - z (MeV/c):                    0-0.02197987386163106
+         Total Energy (MeV)  :          1438.272013   1438.270462661763
+         Kinetic Energy (MeV):                  500   499.9984496617632
+         Velocity (mm/ns)    :     227.209281743942   227.2091026597217
+         Volume Name         :             Absorber               World
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    2      1 um      0 fm      0 fm    500 MeV  1.55 keV     2 um    2.5 um   Absorber   Transportation
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005000000007827676
+      Energy Deposit (MeV)  : 1.927682684678975e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :                0.001              0.0015
+         Position - y (mm)   :                    02.609837039623767e-08
+         Position - z (mm)   :                    0-1.008180008690094e-08
+         Global Time (ns)    : 1.100307162106795e-051.320368768323157e-05
+         Local Time (ns)     : 1.100307162106795e-051.320368768323157e-05
+         Proper Time (ns)    : 7.177970554783086e-068.613567346964426e-06
+         Momentum Direct - x :   0.9999999984344647  0.9999999984344647
+         Momentum Direct - y : 5.21967407107595e-055.21967407107595e-05
+         Momentum Direct - z : -2.016360014223505e-05-2.016360014223505e-05
+         Momentum - x (MeV/c):    1090.076854935312   1090.076854935312
+         Momentum - y (MeV/c):  0.05689845904093521 0.05689845904093521
+         Momentum - z (MeV/c): -0.02197987386163106-0.02197987386163106
+         Total Energy (MeV)  :    1438.270462661763   1438.270462661763
+         Kinetic Energy (MeV):    499.9984496617632   499.9984496617632
+         Velocity (mm/ns)    :    227.2091026597217   227.2091026597217
+         Volume Name         :                World               World
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni (Forced)
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005000000007827676
+      Energy Deposit (MeV)  : 1.927682684678975e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :                0.001              0.0015
+         Position - y (mm)   :                    02.609837039623767e-08
+         Position - z (mm)   :                    0-1.008180008690094e-08
+         Global Time (ns)    : 1.100307162106795e-051.320368768323157e-05
+         Local Time (ns)     : 1.100307162106795e-051.320368768323157e-05
+         Proper Time (ns)    : 7.177970554783086e-068.613567346964426e-06
+         Momentum Direct - x :   0.9999999984344647  0.9999999984344647
+         Momentum Direct - y : 5.21967407107595e-055.21967407107595e-05
+         Momentum Direct - z : -2.016360014223505e-05-2.016360014223505e-05
+         Momentum - x (MeV/c):    1090.076854935312   1090.076854935312
+         Momentum - y (MeV/c):  0.05689845904093521 0.05689845904093521
+         Momentum - z (MeV/c): -0.02197987386163106-0.02197987386163106
+         Total Energy (MeV)  :    1438.270462661763   1438.270462661763
+         Kinetic Energy (MeV):    499.9984496617632   499.9984496617632
+         Velocity (mm/ns)    :    227.2091026597217   227.2091026597217
+         Volume Name         :                World          OutOfWorld
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    3    1.5 um 2.61e+04 fm -1.01e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005
+      Energy Deposit (MeV)  : 1.927679979964673e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :              -0.0015              -0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    :                    02.20061432421359e-06
+         Local Time (ns)     :                    02.20061432421359e-06
+         Proper Time (ns)    :                    01.435594110956617e-06
+         Momentum Direct - x :                    1                   1
+         Momentum Direct - y :                    0                   0
+         Momentum Direct - z :                    0                   0
+         Momentum - x (MeV/c):    1090.078902190112   1090.078902190112
+         Momentum - y (MeV/c):                    0                   0
+         Momentum - z (MeV/c):                    0                   0
+         Total Energy (MeV)  :          1438.272013         1438.272013
+         Kinetic Energy (MeV):                  500                 500
+         Velocity (mm/ns)    :     227.209281743942    227.209281743942
+         Volume Name         :                World               World
+         Safety (mm)         :                    0               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :            Undefined          Geom Limit
+         Process defined Step:            Undefined      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni (Forced)
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005
+      Energy Deposit (MeV)  : 1.927679979964673e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :              -0.0015              -0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    :                    02.20061432421359e-06
+         Local Time (ns)     :                    02.20061432421359e-06
+         Proper Time (ns)    :                    01.435594110956617e-06
+         Momentum Direct - x :                    1                   1
+         Momentum Direct - y :                    0                   0
+         Momentum Direct - z :                    0                   0
+         Momentum - x (MeV/c):    1090.078902190112   1090.078902190112
+         Momentum - y (MeV/c):                    0                   0
+         Momentum - z (MeV/c):                    0                   0
+         Total Energy (MeV)  :          1438.272013         1438.272013
+         Kinetic Energy (MeV):                  500                 500
+         Velocity (mm/ns)    :     227.209281743942    227.209281743942
+         Volume Name         :                World            Absorber
+         Safety (mm)         :                    0               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :            Undefined          Geom Limit
+         Process defined Step:            Undefined      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.00200000000616191
+      Energy Deposit (MeV)  : 0.0002633895524420296
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :               -0.001               0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    : 2.20061432421359e-061.100307162106795e-05
+         Local Time (ns)     : 2.20061432421359e-061.100307162106795e-05
+         Proper Time (ns)    : 1.435594110956617e-067.177970554783086e-06
+         Momentum Direct - x :                    1  0.9999999994126439
+         Momentum Direct - y :                    0-2.809876051861086e-05
+         Momentum Direct - z :                    01.962579329199501e-05
+         Momentum - x (MeV/c):    1090.078902190112   1090.078554028355
+         Momentum - y (MeV/c):                    0-0.03062985625410699
+         Momentum - z (MeV/c):                    0 0.02139365638596301
+         Total Energy (MeV)  :          1438.272013   1438.271749610448
+         Kinetic Energy (MeV):                  500   499.9997366104475
+         Velocity (mm/ns)    :     227.209281743942   227.2092513190247
+         Volume Name         :             Absorber            Absorber
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.00200000000616191
+      Energy Deposit (MeV)  : 0.0002633895524420296
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :               -0.001               0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    : 2.20061432421359e-061.100307162106795e-05
+         Local Time (ns)     : 2.20061432421359e-061.100307162106795e-05
+         Proper Time (ns)    : 1.435594110956617e-067.177970554783086e-06
+         Momentum Direct - x :                    1  0.9999999994126439
+         Momentum Direct - y :                    0-2.809876051861086e-05
+         Momentum Direct - z :                    01.962579329199501e-05
+         Momentum - x (MeV/c):    1090.078902190112   1090.078554028355
+         Momentum - y (MeV/c):                    0-0.03062985625410699
+         Momentum - z (MeV/c):                    0 0.02139365638596301
+         Total Energy (MeV)  :          1438.272013   1438.271749610448
+         Kinetic Energy (MeV):                  500   499.9997366104475
+         Velocity (mm/ns)    :     227.209281743942   227.2092513190247
+         Volume Name         :             Absorber               World
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    2      1 um      0 fm      0 fm    500 MeV   263 eV      2 um    2.5 um   Absorber   Transportation
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005000000002936781
+      Energy Deposit (MeV)  : 1.927680440091399e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :                0.001              0.0015
+         Position - y (mm)   :                    0-1.404938026755742e-08
+         Position - z (mm)   :                    09.812896651761169e-09
+         Global Time (ns)    : 1.100307162106795e-051.320368624125182e-05
+         Local Time (ns)     : 1.100307162106795e-051.320368624125182e-05
+         Proper Time (ns)    : 7.177970554783086e-068.613565121718295e-06
+         Momentum Direct - x :   0.9999999994126439  0.9999999994126439
+         Momentum Direct - y : -2.809876051861086e-05-2.809876051861086e-05
+         Momentum Direct - z : 1.962579329199501e-051.962579329199501e-05
+         Momentum - x (MeV/c):    1090.078554028355   1090.078554028355
+         Momentum - y (MeV/c): -0.03062985625410699-0.03062985625410699
+         Momentum - z (MeV/c):  0.02139365638596301 0.02139365638596301
+         Total Energy (MeV)  :    1438.271749610448   1438.271749610448
+         Kinetic Energy (MeV):    499.9997366104475   499.9997366104475
+         Velocity (mm/ns)    :    227.2092513190247   227.2092513190247
+         Volume Name         :                World               World
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni (Forced)
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005000000002936781
+      Energy Deposit (MeV)  : 1.927680440091399e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :                0.001              0.0015
+         Position - y (mm)   :                    0-1.404938026755742e-08
+         Position - z (mm)   :                    09.812896651761169e-09
+         Global Time (ns)    : 1.100307162106795e-051.320368624125182e-05
+         Local Time (ns)     : 1.100307162106795e-051.320368624125182e-05
+         Proper Time (ns)    : 7.177970554783086e-068.613565121718295e-06
+         Momentum Direct - x :   0.9999999994126439  0.9999999994126439
+         Momentum Direct - y : -2.809876051861086e-05-2.809876051861086e-05
+         Momentum Direct - z : 1.962579329199501e-051.962579329199501e-05
+         Momentum - x (MeV/c):    1090.078554028355   1090.078554028355
+         Momentum - y (MeV/c): -0.03062985625410699-0.03062985625410699
+         Momentum - z (MeV/c):  0.02139365638596301 0.02139365638596301
+         Total Energy (MeV)  :    1438.271749610448   1438.271749610448
+         Kinetic Energy (MeV):    499.9997366104475   499.9997366104475
+         Velocity (mm/ns)    :    227.2092513190247   227.2092513190247
+         Volume Name         :                World          OutOfWorld
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    3    1.5 um -1.4e+04 fm 9.81e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005
+      Energy Deposit (MeV)  : 1.927679979964673e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :              -0.0015              -0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    :                    02.20061432421359e-06
+         Local Time (ns)     :                    02.20061432421359e-06
+         Proper Time (ns)    :                    01.435594110956617e-06
+         Momentum Direct - x :                    1                   1
+         Momentum Direct - y :                    0                   0
+         Momentum Direct - z :                    0                   0
+         Momentum - x (MeV/c):    1090.078902190112   1090.078902190112
+         Momentum - y (MeV/c):                    0                   0
+         Momentum - z (MeV/c):                    0                   0
+         Total Energy (MeV)  :          1438.272013         1438.272013
+         Kinetic Energy (MeV):                  500                 500
+         Velocity (mm/ns)    :     227.209281743942    227.209281743942
+         Volume Name         :                World               World
+         Safety (mm)         :                    0               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :            Undefined          Geom Limit
+         Process defined Step:            Undefined      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni (Forced)
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005
+      Energy Deposit (MeV)  : 1.927679979964673e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :              -0.0015              -0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    :                    02.20061432421359e-06
+         Local Time (ns)     :                    02.20061432421359e-06
+         Proper Time (ns)    :                    01.435594110956617e-06
+         Momentum Direct - x :                    1                   1
+         Momentum Direct - y :                    0                   0
+         Momentum Direct - z :                    0                   0
+         Momentum - x (MeV/c):    1090.078902190112   1090.078902190112
+         Momentum - y (MeV/c):                    0                   0
+         Momentum - z (MeV/c):                    0                   0
+         Total Energy (MeV)  :          1438.272013         1438.272013
+         Kinetic Energy (MeV):                  500                 500
+         Velocity (mm/ns)    :     227.209281743942    227.209281743942
+         Volume Name         :                World            Absorber
+         Safety (mm)         :                    0               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :            Undefined          Geom Limit
+         Process defined Step:            Undefined      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.00200000000616191
+      Energy Deposit (MeV)  : 0.0004191156021635724
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :               -0.001               0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    : 2.20061432421359e-061.100307162106795e-05
+         Local Time (ns)     : 2.20061432421359e-061.100307162106795e-05
+         Proper Time (ns)    : 1.435594110956617e-067.177970554783086e-06
+         Momentum Direct - x :                    1  0.9999999997643833
+         Momentum Direct - y :                    02.170267372477215e-05
+         Momentum Direct - z :                    0-4.769169832394861e-07
+         Momentum - x (MeV/c):    1090.078902190112   1090.078348943663
+         Momentum - y (MeV/c):                    0 0.02365761474713676
+         Momentum - z (MeV/c):                    0-0.0005198768777953831
+         Total Energy (MeV)  :          1438.272013   1438.271593884398
+         Kinetic Energy (MeV):                  500   499.9995808843979
+         Velocity (mm/ns)    :     227.209281743942   227.2092333306416
+         Volume Name         :             Absorber            Absorber
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.00200000000616191
+      Energy Deposit (MeV)  : 0.0004191156021635724
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :               -0.001               0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    : 2.20061432421359e-061.100307162106795e-05
+         Local Time (ns)     : 2.20061432421359e-061.100307162106795e-05
+         Proper Time (ns)    : 1.435594110956617e-067.177970554783086e-06
+         Momentum Direct - x :                    1  0.9999999997643833
+         Momentum Direct - y :                    02.170267372477215e-05
+         Momentum Direct - z :                    0-4.769169832394861e-07
+         Momentum - x (MeV/c):    1090.078902190112   1090.078348943663
+         Momentum - y (MeV/c):                    0 0.02365761474713676
+         Momentum - z (MeV/c):                    0-0.0005198768777953831
+         Total Energy (MeV)  :          1438.272013   1438.271593884398
+         Kinetic Energy (MeV):                  500   499.9995808843979
+         Velocity (mm/ns)    :     227.209281743942   227.2092333306416
+         Volume Name         :             Absorber               World
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    2      1 um      0 fm      0 fm    500 MeV   419 eV      2 um    2.5 um   Absorber   Transportation
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005000000001178083
+      Energy Deposit (MeV)  : 1.92768071078882e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :                0.001              0.0015
+         Position - y (mm)   :                    01.085133686494283e-08
+         Position - z (mm)   :                    0-2.384584916759279e-10
+         Global Time (ns)    : 1.100307162106795e-051.320368641470265e-05
+         Local Time (ns)     : 1.100307162106795e-051.320368641470265e-05
+         Proper Time (ns)    : 7.177970554783086e-068.613565390307015e-06
+         Momentum Direct - x :   0.9999999997643833  0.9999999997643833
+         Momentum Direct - y : 2.170267372477215e-052.170267372477215e-05
+         Momentum Direct - z : -4.769169832394861e-07-4.769169832394861e-07
+         Momentum - x (MeV/c):    1090.078348943663   1090.078348943663
+         Momentum - y (MeV/c):  0.02365761474713676 0.02365761474713676
+         Momentum - z (MeV/c): -0.0005198768777953831-0.0005198768777953831
+         Total Energy (MeV)  :    1438.271593884398   1438.271593884398
+         Kinetic Energy (MeV):    499.9995808843979   499.9995808843979
+         Velocity (mm/ns)    :    227.2092333306416   227.2092333306416
+         Volume Name         :                World               World
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni (Forced)
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005000000001178083
+      Energy Deposit (MeV)  : 1.92768071078882e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :                0.001              0.0015
+         Position - y (mm)   :                    01.085133686494283e-08
+         Position - z (mm)   :                    0-2.384584916759279e-10
+         Global Time (ns)    : 1.100307162106795e-051.320368641470265e-05
+         Local Time (ns)     : 1.100307162106795e-051.320368641470265e-05
+         Proper Time (ns)    : 7.177970554783086e-068.613565390307015e-06
+         Momentum Direct - x :   0.9999999997643833  0.9999999997643833
+         Momentum Direct - y : 2.170267372477215e-052.170267372477215e-05
+         Momentum Direct - z : -4.769169832394861e-07-4.769169832394861e-07
+         Momentum - x (MeV/c):    1090.078348943663   1090.078348943663
+         Momentum - y (MeV/c):  0.02365761474713676 0.02365761474713676
+         Momentum - z (MeV/c): -0.0005198768777953831-0.0005198768777953831
+         Total Energy (MeV)  :    1438.271593884398   1438.271593884398
+         Kinetic Energy (MeV):    499.9995808843979   499.9995808843979
+         Velocity (mm/ns)    :    227.2092333306416   227.2092333306416
+         Volume Name         :                World          OutOfWorld
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    3    1.5 um 1.09e+04 fm   -238 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005
+      Energy Deposit (MeV)  : 1.927679979964673e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :              -0.0015              -0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    :                    02.20061432421359e-06
+         Local Time (ns)     :                    02.20061432421359e-06
+         Proper Time (ns)    :                    01.435594110956617e-06
+         Momentum Direct - x :                    1                   1
+         Momentum Direct - y :                    0                   0
+         Momentum Direct - z :                    0                   0
+         Momentum - x (MeV/c):    1090.078902190112   1090.078902190112
+         Momentum - y (MeV/c):                    0                   0
+         Momentum - z (MeV/c):                    0                   0
+         Total Energy (MeV)  :          1438.272013         1438.272013
+         Kinetic Energy (MeV):                  500                 500
+         Velocity (mm/ns)    :     227.209281743942    227.209281743942
+         Volume Name         :                World               World
+         Safety (mm)         :                    0               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :            Undefined          Geom Limit
+         Process defined Step:            Undefined      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni (Forced)
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005
+      Energy Deposit (MeV)  : 1.927679979964673e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :              -0.0015              -0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    :                    02.20061432421359e-06
+         Local Time (ns)     :                    02.20061432421359e-06
+         Proper Time (ns)    :                    01.435594110956617e-06
+         Momentum Direct - x :                    1                   1
+         Momentum Direct - y :                    0                   0
+         Momentum Direct - z :                    0                   0
+         Momentum - x (MeV/c):    1090.078902190112   1090.078902190112
+         Momentum - y (MeV/c):                    0                   0
+         Momentum - z (MeV/c):                    0                   0
+         Total Energy (MeV)  :          1438.272013         1438.272013
+         Kinetic Energy (MeV):                  500                 500
+         Velocity (mm/ns)    :     227.209281743942    227.209281743942
+         Volume Name         :                World            Absorber
+         Safety (mm)         :                    0               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :            Undefined          Geom Limit
+         Process defined Step:            Undefined      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.00200000000616191
+      Energy Deposit (MeV)  : 0.001707985873114894
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :               -0.001               0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    : 2.20061432421359e-061.100307162106795e-05
+         Local Time (ns)     : 2.20061432421359e-061.100307162106795e-05
+         Proper Time (ns)    : 1.435594110956617e-067.177970554783086e-06
+         Momentum Direct - x :                    1  0.9999999996586028
+         Momentum Direct - y :                    0-2.245887112945195e-05
+         Momentum Direct - z :                    0-1.335640651861687e-05
+         Momentum - x (MeV/c):    1090.078902190112   1090.076648266082
+         Momentum - y (MeV/c):                    0-0.02448189097299091
+         Momentum - z (MeV/c):                    0 -0.0145595068556637
+         Total Energy (MeV)  :          1438.272013   1438.270305014127
+         Kinetic Energy (MeV):                  500   499.9982920141269
+         Velocity (mm/ns)    :     227.209281743942   227.2090844493704
+         Volume Name         :             Absorber            Absorber
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.00200000000616191
+      Energy Deposit (MeV)  : 0.001707985873114894
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :               -0.001               0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    : 2.20061432421359e-061.100307162106795e-05
+         Local Time (ns)     : 2.20061432421359e-061.100307162106795e-05
+         Proper Time (ns)    : 1.435594110956617e-067.177970554783086e-06
+         Momentum Direct - x :                    1  0.9999999996586028
+         Momentum Direct - y :                    0-2.245887112945195e-05
+         Momentum Direct - z :                    0-1.335640651861687e-05
+         Momentum - x (MeV/c):    1090.078902190112   1090.076648266082
+         Momentum - y (MeV/c):                    0-0.02448189097299091
+         Momentum - z (MeV/c):                    0 -0.0145595068556637
+         Total Energy (MeV)  :          1438.272013   1438.270305014127
+         Kinetic Energy (MeV):                  500   499.9982920141269
+         Velocity (mm/ns)    :     227.209281743942   227.2090844493704
+         Volume Name         :             Absorber               World
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    2      1 um      0 fm      0 fm    500 MeV  1.71 keV     2 um    2.5 um   Absorber   Transportation
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005000000001706986
+      Energy Deposit (MeV)  : 1.927682957044807e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :                0.001              0.0015
+         Position - y (mm)   :                    0-1.122943556855968e-08
+         Position - z (mm)   :                    0-6.678203261588356e-09
+         Global Time (ns)    : 1.100307162106795e-051.320368785691267e-05
+         Local Time (ns)     : 1.100307162106795e-051.320368785691267e-05
+         Proper Time (ns)    : 7.177970554783086e-068.613567617621861e-06
+         Momentum Direct - x :   0.9999999996586028  0.9999999996586028
+         Momentum Direct - y : -2.245887112945195e-05-2.245887112945195e-05
+         Momentum Direct - z : -1.335640651861687e-05-1.335640651861687e-05
+         Momentum - x (MeV/c):    1090.076648266082   1090.076648266082
+         Momentum - y (MeV/c): -0.02448189097299091-0.02448189097299091
+         Momentum - z (MeV/c):  -0.0145595068556637 -0.0145595068556637
+         Total Energy (MeV)  :    1438.270305014127   1438.270305014127
+         Kinetic Energy (MeV):    499.9982920141269   499.9982920141269
+         Velocity (mm/ns)    :    227.2090844493704   227.2090844493704
+         Volume Name         :                World               World
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni (Forced)
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005000000001706986
+      Energy Deposit (MeV)  : 1.927682957044807e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :                0.001              0.0015
+         Position - y (mm)   :                    0-1.122943556855968e-08
+         Position - z (mm)   :                    0-6.678203261588356e-09
+         Global Time (ns)    : 1.100307162106795e-051.320368785691267e-05
+         Local Time (ns)     : 1.100307162106795e-051.320368785691267e-05
+         Proper Time (ns)    : 7.177970554783086e-068.613567617621861e-06
+         Momentum Direct - x :   0.9999999996586028  0.9999999996586028
+         Momentum Direct - y : -2.245887112945195e-05-2.245887112945195e-05
+         Momentum Direct - z : -1.335640651861687e-05-1.335640651861687e-05
+         Momentum - x (MeV/c):    1090.076648266082   1090.076648266082
+         Momentum - y (MeV/c): -0.02448189097299091-0.02448189097299091
+         Momentum - z (MeV/c):  -0.0145595068556637 -0.0145595068556637
+         Total Energy (MeV)  :    1438.270305014127   1438.270305014127
+         Kinetic Energy (MeV):    499.9982920141269   499.9982920141269
+         Velocity (mm/ns)    :    227.2090844493704   227.2090844493704
+         Volume Name         :                World          OutOfWorld
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    3    1.5 um -1.12e+04 fm -6.68e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005
+      Energy Deposit (MeV)  : 1.927679979964673e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :              -0.0015              -0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    :                    02.20061432421359e-06
+         Local Time (ns)     :                    02.20061432421359e-06
+         Proper Time (ns)    :                    01.435594110956617e-06
+         Momentum Direct - x :                    1                   1
+         Momentum Direct - y :                    0                   0
+         Momentum Direct - z :                    0                   0
+         Momentum - x (MeV/c):    1090.078902190112   1090.078902190112
+         Momentum - y (MeV/c):                    0                   0
+         Momentum - z (MeV/c):                    0                   0
+         Total Energy (MeV)  :          1438.272013         1438.272013
+         Kinetic Energy (MeV):                  500                 500
+         Velocity (mm/ns)    :     227.209281743942    227.209281743942
+         Volume Name         :                World               World
+         Safety (mm)         :                    0               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :            Undefined          Geom Limit
+         Process defined Step:            Undefined      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni (Forced)
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005
+      Energy Deposit (MeV)  : 1.927679979964673e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :              -0.0015              -0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    :                    02.20061432421359e-06
+         Local Time (ns)     :                    02.20061432421359e-06
+         Proper Time (ns)    :                    01.435594110956617e-06
+         Momentum Direct - x :                    1                   1
+         Momentum Direct - y :                    0                   0
+         Momentum Direct - z :                    0                   0
+         Momentum - x (MeV/c):    1090.078902190112   1090.078902190112
+         Momentum - y (MeV/c):                    0                   0
+         Momentum - z (MeV/c):                    0                   0
+         Total Energy (MeV)  :          1438.272013         1438.272013
+         Kinetic Energy (MeV):                  500                 500
+         Velocity (mm/ns)    :     227.209281743942    227.209281743942
+         Volume Name         :                World            Absorber
+         Safety (mm)         :                    0               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :            Undefined          Geom Limit
+         Process defined Step:            Undefined      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.00200000000616191
+      Energy Deposit (MeV)  : 0.001219178019943772
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :               -0.001               0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    : 2.20061432421359e-061.100307162106795e-05
+         Local Time (ns)     : 2.20061432421359e-061.100307162106795e-05
+         Proper Time (ns)    : 1.435594110956617e-067.177970554783086e-06
+         Momentum Direct - x :                    1  0.9999999994175232
+         Momentum Direct - y :                    01.948986771947401e-05
+         Momentum Direct - z :                    02.801961357706827e-05
+         Momentum - x (MeV/c):    1090.078902190112   1090.077292946678
+         Momentum - y (MeV/c):                    0 0.02124546225590808
+         Momentum - z (MeV/c):                    0 0.03054354453529349
+         Total Energy (MeV)  :          1438.272013    1438.27079382198
+         Kinetic Energy (MeV):                  500   499.9987808219801
+         Velocity (mm/ns)    :     227.209281743942   227.2091409130318
+         Volume Name         :             Absorber            Absorber
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.00200000000616191
+      Energy Deposit (MeV)  : 0.001219178019943772
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :               -0.001               0.001
+         Position - y (mm)   :                    0                   0
+         Position - z (mm)   :                    0                   0
+         Global Time (ns)    : 2.20061432421359e-061.100307162106795e-05
+         Local Time (ns)     : 2.20061432421359e-061.100307162106795e-05
+         Proper Time (ns)    : 1.435594110956617e-067.177970554783086e-06
+         Momentum Direct - x :                    1  0.9999999994175232
+         Momentum Direct - y :                    01.948986771947401e-05
+         Momentum Direct - z :                    02.801961357706827e-05
+         Momentum - x (MeV/c):    1090.078902190112   1090.077292946678
+         Momentum - y (MeV/c):                    0 0.02124546225590808
+         Momentum - z (MeV/c):                    0 0.03054354453529349
+         Total Energy (MeV)  :          1438.272013    1438.27079382198
+         Kinetic Energy (MeV):                  500   499.9987808219801
+         Velocity (mm/ns)    :     227.209281743942   227.2091409130318
+         Volume Name         :             Absorber               World
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    2      1 um      0 fm      0 fm    500 MeV  1.22 keV     2 um    2.5 um   Absorber   Transportation
+
+ >>AlongStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni
+      4) nuclearStopping
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005000000002912384
+      Energy Deposit (MeV)  : 1.927682105686236e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :                0.001              0.0015
+         Position - y (mm)   :                    09.744933865413204e-09
+         Position - z (mm)   :                    01.400980679669452e-08
+         Global Time (ns)    : 1.100307162106795e-051.320368731056885e-05
+         Local Time (ns)     : 1.100307162106795e-051.320368731056885e-05
+         Proper Time (ns)    : 7.177970554783086e-068.613566773309204e-06
+         Momentum Direct - x :   0.9999999994175232  0.9999999994175232
+         Momentum Direct - y : 1.948986771947401e-051.948986771947401e-05
+         Momentum Direct - z : 2.801961357706827e-052.801961357706827e-05
+         Momentum - x (MeV/c):    1090.077292946678   1090.077292946678
+         Momentum - y (MeV/c):  0.02124546225590808 0.02124546225590808
+         Momentum - z (MeV/c):  0.03054354453529349 0.03054354453529349
+         Total Energy (MeV)  :     1438.27079382198    1438.27079382198
+         Kinetic Energy (MeV):    499.9987808219801   499.9987808219801
+         Velocity (mm/ns)    :    227.2091409130318   227.2091409130318
+         Volume Name         :                World               World
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit          Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+
+ **PostStepDoIt (after all invocations):
+    ++List of invoked processes 
+      1) Transportation
+      2) msc
+      3) hIoni (Forced)
+
+    ++G4Step Information 
+      Address of G4Track    : 0xf110950
+      Step Length (mm)      : 0.0005000000002912384
+      Energy Deposit (MeV)  : 1.927682105686236e-29
+      -----------------------------------------------------------------------
+        StepPoint Information               PreStep            PostStep
+      -----------------------------------------------------------------------
+         Position - x (mm)   :                0.001              0.0015
+         Position - y (mm)   :                    09.744933865413204e-09
+         Position - z (mm)   :                    01.400980679669452e-08
+         Global Time (ns)    : 1.100307162106795e-051.320368731056885e-05
+         Local Time (ns)     : 1.100307162106795e-051.320368731056885e-05
+         Proper Time (ns)    : 7.177970554783086e-068.613566773309204e-06
+         Momentum Direct - x :   0.9999999994175232  0.9999999994175232
+         Momentum Direct - y : 1.948986771947401e-051.948986771947401e-05
+         Momentum Direct - z : 2.801961357706827e-052.801961357706827e-05
+         Momentum - x (MeV/c):    1090.077292946678   1090.077292946678
+         Momentum - y (MeV/c):  0.02124546225590808 0.02124546225590808
+         Momentum - z (MeV/c):  0.03054354453529349 0.03054354453529349
+         Total Energy (MeV)  :     1438.27079382198    1438.27079382198
+         Kinetic Energy (MeV):    499.9987808219801   499.9987808219801
+         Velocity (mm/ns)    :    227.2091409130318   227.2091409130318
+         Volume Name         :                World          OutOfWorld
+         Safety (mm)         :                5e-10               5e-10
+         Polarization - x    :                    0                   0
+         Polarization - y    :                    0                   0
+         Polarization - Z    :                    0                   0
+         Weight              :                    1                   1
+         Step Status         :           Geom Limit
+         Process defined Step:       Transportation      Transportation
+      -----------------------------------------------------------------------
+
+    ++List of secondaries generated (x,y,z,kE,t,PID):  No. of secodaries = 0
+      [Note]Secondaries from AlongStepDoIt included.
+
+#Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    3    1.5 um 9.74e+03 fm 1.4e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+Run terminated.
+Run Summary
+  Number of events processed : 10
+  User=0.01s Real=0.02s Sys=0.01s
+
+ ======================== run summary ======================
+
+ The run was 10 proton of 500 MeV through 2 um  of G4_Si (density: 2.33 g/cm3 )
+
+ Total energy deposit in absorber per event = 1.022 keV +- 197.7 eV 
+
+ -----> Mean dE/dx = 5.109 MeV/cm	(2.192 MeV*cm2/g)
+
+ From formulas :
+   restricted dEdx = 5.201 MeV/cm	(2.232 MeV*cm2/g)
+   full dEdx       = 5.202 MeV/cm	(2.233 MeV*cm2/g)
+
+ Leakage :  primary = 500 MeV +- 197.7 eV    secondaries = 0 eV  +- 0 eV 
+ Energy balance :  edep + eleak = 500 MeV
+
+ Total track length (charged) in absorber per event = 2 um  +- 0 fm 
+ Total track length (neutral) in absorber per event = 0 fm  +- 0 fm 
+
+ Number of steps (charged) in absorber per event = 1 +- 0
+ Number of steps (neutral) in absorber per event = 0 +- 0
+
+ Number of secondaries per event : Gammas = 0;   electrons = 0;   positrons = 0
+
+ Number of events with the primary particle transmitted = 100 %
+ Number of events with at least  1 particle transmitted (same charge as primary) = 100 %
+
+ Number of events with the primary particle reflected = 0 %
+ Number of events with at least  1 particle reflected (same charge as primary) = 0 %
+
+ MultipleScattering:
+  rms proj angle of transmit primary particle = 0.03737 mrad (central part only)
+  computed theta0 (Highland formula)          = 0.04498 mrad
+  central part defined as +- 0.1349 mrad;   Tail ratio = 0 %
+
+--------- Ranecu engine status ---------
+ Initial seed (index) = 0
+ Current couple of seeds = 527416919, 141566537
+----------------------------------------
+#/run/particle/storePhysicsTable physdata
+#
+G4 kernel has come to Quit state.
+Total navigation history collections cleaned: 7
+================== Deleting memory pools ===================
+Number of memory pools allocated: 10; of which, static: 0
+Dynamic pools deleted: 10 / Total memory freed: 0.26 Mb
+============================================================
+RunManagerKernel is deleted. Good bye :)

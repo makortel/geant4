@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-// $Id: G4IonTable.cc 79333 2014-02-24 10:36:17Z gcosmo $
+// $Id: G4IonTable.cc 84433 2014-10-15 13:34:41Z gcosmo $
 //
 // 
 // --------------------------------------------------------------
@@ -339,7 +339,7 @@ G4ParticleDefinition* G4IonTable::CreateIon(G4int Z, G4int A, G4double E)
     }
   }
 #endif
-  
+
   return ion;
 }
 
@@ -1735,20 +1735,18 @@ G4double G4IonTable::GetLifeTime(const G4ParticleDefinition* particle) const
   if(!(particle->IsGeneralIon())) return particle->GetPDGLifeTime();
 
   const G4Ions* ion = static_cast<const G4Ions*>(particle);
-  G4int Z = ion->GetAtomicNumber();
-  G4int A = ion->GetAtomicMass();
+  G4double Z = ion->GetAtomicNumber();
+  G4double A = ion->GetAtomicMass();
   G4double E = ion->GetExcitationEnergy();
 
   if(!pNuclideTable)
   {
    G4Exception("G4IonTable::GetLifeTime()","ParticleIon1001",FatalException,
                "Method is invoked before G4IonTable is initialized.");
-   return 0.;
-  } else {
-   G4IsotopeProperty* isoP = pNuclideTable->GetIsotope(Z,A,E);
-    if(!isoP) return -1001.0;
-    return isoP->GetLifeTime();
   }
+  G4IsotopeProperty* isoP = pNuclideTable->GetIsotope(Z,A,E);
+  if(!isoP) return -1001.0;
+  return isoP->GetLifeTime();
 }
 
 

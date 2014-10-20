@@ -1,0 +1,8 @@
+/tracking/verbose 1
+#/N02/det/setChamberMate Air
+/N02/det/setField 2 T
+/gun/energy    200 MeV
+/gun/particle proton
+/run/beamOn 1
+
+exit

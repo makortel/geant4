@@ -1,0 +1,573 @@
+
+*************************************************************
+ Geant4 version Name: geant4-09-06-ref-01    (20-December-2012)
+                      Copyright : Geant4 Collaboration
+                      Reference : NIM A 506 (2003), 250-303
+                            WWW : http://cern.ch/geant4
+*************************************************************
+
+
+The materials defined are : 
+
+
+***** Table : Nb of materials = 3 *****
+
+ Material:      Air    density:  1.290 mg/cm3  RadL: 285.161 m    Nucl.Int.Length: 662.904 m    Imean:  85.703 eV   temperature: 273.15 K  pressure:   1.00 atm
+   --->  Element: Nitrogen (N)   Z =  7.0   N =  14.0   A =  14.01 g/mole
+         --->  Isotope:   N14   Z =  7   N =  14   A =  14.00 g/mole   abundance:  99.63 %
+         --->  Isotope:   N15   Z =  7   N =  15   A =  15.00 g/mole   abundance:   0.37 %
+          ElmMassFraction:  70.00 %  ElmAbundance  72.71 % 
+
+   --->  Element: Oxygen (O)   Z =  8.0   N =  16.0   A =  16.00 g/mole
+         --->  Isotope:   O16   Z =  8   N =  16   A =  15.99 g/mole   abundance:  99.76 %
+         --->  Isotope:   O17   Z =  8   N =  17   A =  17.00 g/mole   abundance:   0.04 %
+         --->  Isotope:   O18   Z =  8   N =  18   A =  18.00 g/mole   abundance:   0.20 %
+          ElmMassFraction:  30.00 %  ElmAbundance  27.29 % 
+
+
+ Material:     Lead    density: 11.350 g/cm3   RadL:   5.612 mm   Nucl.Int.Length:  18.258 cm   Imean: 823.000 eV 
+   --->  Element: Lead ( )   Z = 82.0   N = 207.2   A = 207.19 g/mole
+         --->  Isotope:   204   Z = 82   N = 204   A = 203.97 g/mole   abundance:   1.40 %
+         --->  Isotope:   206   Z = 82   N = 206   A = 205.97 g/mole   abundance:  24.10 %
+         --->  Isotope:   207   Z = 82   N = 207   A = 206.98 g/mole   abundance:  22.10 %
+         --->  Isotope:   208   Z = 82   N = 208   A = 207.98 g/mole   abundance:  52.40 %
+          ElmMassFraction: 100.00 %  ElmAbundance 100.00 % 
+
+
+ Material: XenonGas    density:  5.458 mg/cm3  RadL:  15.539 m    Nucl.Int.Length: 326.401 m    Imean: 482.000 eV   temperature: 293.15 K  pressure:   1.00 atm
+   --->  Element: XenonGas ( )   Z = 54.0   N = 131.3   A = 131.29 g/mole
+         --->  Isotope:   124   Z = 54   N = 124   A = 123.91 g/mole   abundance:   0.09 %
+         --->  Isotope:   126   Z = 54   N = 126   A = 125.90 g/mole   abundance:   0.09 %
+         --->  Isotope:   128   Z = 54   N = 128   A = 127.90 g/mole   abundance:   1.92 %
+         --->  Isotope:   129   Z = 54   N = 129   A = 128.91 g/mole   abundance:  26.44 %
+         --->  Isotope:   130   Z = 54   N = 130   A = 129.90 g/mole   abundance:   4.08 %
+         --->  Isotope:   131   Z = 54   N = 131   A = 130.90 g/mole   abundance:  21.18 %
+         --->  Isotope:   132   Z = 54   N = 132   A = 131.90 g/mole   abundance:  26.89 %
+         --->  Isotope:   134   Z = 54   N = 134   A = 133.91 g/mole   abundance:  10.44 %
+         --->  Isotope:   136   Z = 54   N = 136   A = 135.91 g/mole   abundance:   8.87 %
+          ElmMassFraction: 100.00 %  ElmAbundance 100.00 % 
+
+
+
+Computed tolerance = 5.82e-08 mm
+Target is 5 cm of Lead
+There are 5 chambers in the tracker region. The chambers are 200 mm of XenonGas
+ The distance between chamber is 80 cm
+Visualization Manager instantiating with verbosity "warnings (3)"...
+Visualization Manager initialising...
+Registering graphics systems...
+
+You have successfully registered the following graphics systems.
+Current available graphics systems are:
+  ASCIITree (ATree)
+  DAWNFILE (DAWNFILE)
+  G4HepRep (HepRepXML)
+  G4HepRepFile (HepRepFile)
+  OpenGLImmediateX (OGLI, OGLIX)
+  OpenGLStoredX (OGL, OGLS, OGLSX)
+  RayTracer (RayTracer)
+  VRML1FILE (VRML1FILE)
+  VRML2FILE (VRML2FILE)
+  gMocrenFile (gMocrenFile)
+
+Registering model factories...
+
+You have successfully registered the following model factories.
+Registered model factories:
+  generic
+  drawByCharge
+  drawByParticleID
+  drawByOriginVolume
+  drawByAttribute
+
+Registered filter factories:
+  chargeFilter
+  particleFilter
+  originVolumeFilter
+  attributeFilter
+
+You have successfully registered the following user vis actions.
+Run Duration User Vis Actions: none
+End of Event User Vis Actions: none
+End of Run User Vis Actions: none
+
+Some /vis commands (optionally) take a string to specify colour.
+Available colours:
+  black, blue, brown, cyan, gray, green, grey, magenta, red, white, yellow
+
+
+----> The chambers are 20 cm of Air
+
+phot:   for  gamma    SubType= 12
+      LambdaPrime table from 200 keV to 10 TeV in 54 bins 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+       PhotoElectric :  Emin=        0 eV    Emax=       10 TeV   AngularGenSauterGavrila
+
+compt:   for  gamma    SubType= 13
+      Lambda table from 100 eV  to 1 MeV in 28 bins, spline: 1
+      LambdaPrime table from 1 MeV to 10 TeV in 49 bins 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+       Klein-Nishina :  Emin=        0 eV    Emax=       10 TeV
+
+conv:   for  gamma    SubType= 14
+      Lambda table from 1.022 MeV to 10 TeV in 49 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+        BetheHeitler :  Emin=        0 eV    Emax=       80 GeV
+     BetheHeitlerLPM :  Emin=       80 GeV   Emax=       10 TeV
+
+msc:   for e-    SubType= 10
+      RangeFactor= 0.04, stepLimitType: 1, latDisplacement: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+          UrbanMsc95 :  Emin=        0 eV    Emax=       10 TeV  Table with 77 bins Emin=    100 eV    Emax=     10 TeV
+
+eIoni:   for  e-    SubType= 2
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV in 77 bins, spline: 1
+      finalRange(mm)= 1, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+        MollerBhabha :  Emin=        0 eV    Emax=       10 TeV
+
+eBrem:   for  e-    SubType= 3
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV in 77 bins, spline: 1
+      LPM flag: 1 for E > 1 GeV
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+             eBremSB :  Emin=        0 eV    Emax=        1 GeV   DipBustGen
+            eBremLPM :  Emin=        1 GeV   Emax=       10 TeV   DipBustGen
+
+msc:   for e+    SubType= 10
+      RangeFactor= 0.04, stepLimitType: 1, latDisplacement: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+          UrbanMsc95 :  Emin=        0 eV    Emax=       10 TeV  Table with 77 bins Emin=    100 eV    Emax=     10 TeV
+
+eIoni:   for  e+    SubType= 2
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV in 77 bins, spline: 1
+      finalRange(mm)= 1, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+        MollerBhabha :  Emin=        0 eV    Emax=       10 TeV
+
+eBrem:   for  e+    SubType= 3
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV in 77 bins, spline: 1
+      LPM flag: 1 for E > 1 GeV
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+             eBremSB :  Emin=        0 eV    Emax=        1 GeV   DipBustGen
+            eBremLPM :  Emin=        1 GeV   Emax=       10 TeV   DipBustGen
+
+annihil:   for  e+    SubType= 5
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            eplus2gg :  Emin=        0 eV    Emax=       10 TeV
+
+msc:   for proton    SubType= 10
+      RangeFactor= 0.2, stepLimitType: 0, latDisplacement: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+          UrbanMsc95 :  Emin=        0 eV    Emax=       10 TeV  Table with 77 bins Emin=    100 eV    Emax=     10 TeV
+
+hIoni:   for  proton    SubType= 2
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV in 77 bins, spline: 1
+      finalRange(mm)= 0.1, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               Bragg :  Emin=        0 eV    Emax=        2 MeV
+          BetheBloch :  Emin=        2 MeV   Emax=       10 TeV
+
+hBrems:   for  proton    SubType= 3
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV in 77 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               hBrem :  Emin=        0 eV    Emax=       10 TeV
+
+hPairProd:   for  proton    SubType= 4
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV in 77 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+           hPairProd :  Emin=        0 eV    Emax=       10 TeV
+
+msc:   for anti_proton    SubType= 10
+      RangeFactor= 0.2, stepLimitType: 0, latDisplacement: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+          UrbanMsc95 :  Emin=        0 eV    Emax=       10 TeV  Table with 77 bins Emin=    100 eV    Emax=     10 TeV
+
+hIoni:   for  anti_proton    SubType= 2
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV in 77 bins, spline: 1
+      finalRange(mm)= 0.1, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            ICRU73QO :  Emin=        0 eV    Emax=        2 MeV
+          BetheBloch :  Emin=        2 MeV   Emax=       10 TeV
+
+msc:   for kaon+    SubType= 10
+      RangeFactor= 0.2, stepLimitType: 0, latDisplacement: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+          UrbanMsc95 :  Emin=        0 eV    Emax=       10 TeV  Table with 77 bins Emin=    100 eV    Emax=     10 TeV
+
+hIoni:   for  kaon+    SubType= 2
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV in 77 bins, spline: 1
+      finalRange(mm)= 0.1, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               Bragg :  Emin=        0 eV    Emax=  1.05231 MeV
+          BetheBloch :  Emin=  1.05231 MeV   Emax=       10 TeV
+
+msc:   for kaon-    SubType= 10
+      RangeFactor= 0.2, stepLimitType: 0, latDisplacement: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+          UrbanMsc95 :  Emin=        0 eV    Emax=       10 TeV  Table with 77 bins Emin=    100 eV    Emax=     10 TeV
+
+hIoni:   for  kaon-    SubType= 2
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV in 77 bins, spline: 1
+      finalRange(mm)= 0.1, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            ICRU73QO :  Emin=        0 eV    Emax=  1.05231 MeV
+          BetheBloch :  Emin=  1.05231 MeV   Emax=       10 TeV
+
+msc:   for mu+    SubType= 10
+      RangeFactor= 0.2, step limit type: 0, lateralDisplacement: 1, polarAngleLimit(deg)= 0
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+          UrbanMsc95 :  Emin=        0 eV    Emax=       10 TeV  Table with 77 bins Emin=    100 eV    Emax=     10 TeV
+
+muIoni:   for  mu+    SubType= 2
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV in 77 bins, spline: 1
+      finalRange(mm)= 1, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               Bragg :  Emin=        0 eV    Emax=      200 keV
+          BetheBloch :  Emin=      200 keV   Emax=        1 GeV
+        MuBetheBloch :  Emin=        1 GeV   Emax=       10 TeV
+
+muBrems:   for  mu+    SubType= 3
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV in 77 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+              MuBrem :  Emin=        0 eV    Emax=       10 TeV
+
+muPairProd:   for  mu+    SubType= 4
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV in 77 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+          muPairProd :  Emin=        0 eV    Emax=       10 TeV
+
+msc:   for mu-    SubType= 10
+      RangeFactor= 0.2, step limit type: 0, lateralDisplacement: 1, polarAngleLimit(deg)= 0
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+          UrbanMsc95 :  Emin=        0 eV    Emax=       10 TeV  Table with 77 bins Emin=    100 eV    Emax=     10 TeV
+
+muIoni:   for  mu-    SubType= 2
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV in 77 bins, spline: 1
+      finalRange(mm)= 1, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            ICRU73QO :  Emin=        0 eV    Emax=      200 keV
+          BetheBloch :  Emin=      200 keV   Emax=        1 GeV
+        MuBetheBloch :  Emin=        1 GeV   Emax=       10 TeV
+
+muBrems:   for  mu-    SubType= 3
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV in 77 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+              MuBrem :  Emin=        0 eV    Emax=       10 TeV
+
+muPairProd:   for  mu-    SubType= 4
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV in 77 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+          muPairProd :  Emin=        0 eV    Emax=       10 TeV
+
+msc:   for pi+    SubType= 10
+      RangeFactor= 0.2, stepLimitType: 0, latDisplacement: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+          UrbanMsc95 :  Emin=        0 eV    Emax=       10 TeV  Table with 77 bins Emin=    100 eV    Emax=     10 TeV
+
+hIoni:   for  pi+    SubType= 2
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV in 77 bins, spline: 1
+      finalRange(mm)= 0.1, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               Bragg :  Emin=        0 eV    Emax=  297.505 keV
+          BetheBloch :  Emin=  297.505 keV   Emax=       10 TeV
+
+hBrems:   for  pi+    SubType= 3
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV in 77 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               hBrem :  Emin=        0 eV    Emax=       10 TeV
+
+hPairProd:   for  pi+    SubType= 4
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV in 77 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+           hPairProd :  Emin=        0 eV    Emax=       10 TeV
+
+msc:   for pi-    SubType= 10
+      RangeFactor= 0.2, stepLimitType: 0, latDisplacement: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+          UrbanMsc95 :  Emin=        0 eV    Emax=       10 TeV  Table with 77 bins Emin=    100 eV    Emax=     10 TeV
+
+hIoni:   for  pi-    SubType= 2
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV in 77 bins, spline: 1
+      finalRange(mm)= 0.1, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            ICRU73QO :  Emin=        0 eV    Emax=  297.505 keV
+          BetheBloch :  Emin=  297.505 keV   Emax=       10 TeV
+
+hBrems:   for  pi-    SubType= 3
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV in 77 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               hBrem :  Emin=        0 eV    Emax=       10 TeV
+
+hPairProd:   for  pi-    SubType= 4
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV in 77 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+           hPairProd :  Emin=        0 eV    Emax=       10 TeV
+
+========= Table of registered couples ==============================
+
+Index : 0     used in the geometry : Yes     recalculation needed : No 
+ Material : Air
+ Range cuts        :  gamma  1 cm     e-  1 cm     e+  1 cm  proton 1 cm 
+ Energy thresholds :  gamma  990 eV     e-  17.6927 keV    e+  17.1942 keV proton 1 MeV
+ Region(s) which use this couple : 
+    DefaultRegionForTheWorld
+
+Index : 1     used in the geometry : Yes     recalculation needed : No 
+ Material : Lead
+ Range cuts        :  gamma  1 cm     e-  1 cm     e+  1 cm  proton 1 cm 
+ Energy thresholds :  gamma  283.792 keV    e-  15.3667 MeV    e+  13.9869 MeV proton 1 MeV
+ Region(s) which use this couple : 
+    DefaultRegionForTheWorld
+
+====================================================================
+
+### Run 0 start.
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0      0 fm      0 fm  -2.91 m     200 MeV     0 eV      0 fm      0 fm      World   initStep
+    1      0 fm   12.9 cm   -2.4 m     200 MeV   201 keV  53.1 cm   53.1 cm      World   Transportation
+    2    151 um   13.4 cm   -2.3 m     200 MeV  41.3 keV    10 cm   63.1 cm    Tracker   StepLimiter
+    3    215 um   13.4 cm  -2.27 m     200 MeV  35.2 keV  2.95 cm   66.1 cm    Tracker        hIoni
+    4    453 um   13.9 cm  -2.17 m     200 MeV  46.8 keV    10 cm   76.1 cm    Tracker   StepLimiter
+    5    725 um   14.4 cm  -2.07 m     200 MeV  36.6 keV    10 cm   86.1 cm    Tracker   StepLimiter
+    6    821 um   14.5 cm  -2.03 m     200 MeV  17.6 keV  3.82 cm   89.9 cm    Tracker        hIoni
+    7    991 um     15 cm  -1.93 m     200 MeV    39 keV    10 cm   99.9 cm    Tracker   StepLimiter
+    8   1.27 mm   15.5 cm  -1.83 m     199 MeV  41.3 keV    10 cm    1.1 m     Tracker   StepLimiter
+    9   1.49 mm   15.8 cm  -1.76 m     199 MeV  37.3 keV  7.61 cm   1.18 m     Tracker        hIoni
+   10   1.66 mm   16.2 cm  -1.67 m     199 MeV  34.8 keV  8.49 cm   1.26 m     Tracker        hIoni
+   11   1.78 mm   16.5 cm   -1.6 m     199 MeV  26.7 keV  7.24 cm   1.33 m     Tracker   Transportation
+   12   2.06 mm   17.9 cm  -1.43 m     199 MeV  65.5 keV    17 cm    1.5 m     Chamber        hIoni
+   13   2.09 mm     18 cm   -1.4 m     199 MeV  22.6 keV  3.05 cm   1.53 m     Chamber   Transportation
+   14   2.17 mm   18.5 cm   -1.3 m     199 MeV  35.2 keV    10 cm   1.63 m     Tracker   StepLimiter
+   15   2.31 mm     19 cm   -1.2 m     199 MeV  37.8 keV    10 cm   1.73 m     Tracker   StepLimiter
+   16   2.37 mm   19.2 cm  -1.15 m     199 MeV    18 keV  5.16 cm   1.78 m     Tracker        hIoni
+   17   2.49 mm   19.7 cm  -1.05 m     199 MeV    34 keV    10 cm   1.88 m     Tracker   StepLimiter
+   18   2.55 mm   20.2 cm  -94.9 cm    199 MeV  29.6 keV    10 cm   1.98 m     Tracker   StepLimiter
+   19   2.51 mm   20.7 cm  -84.9 cm    199 MeV  33.4 keV    10 cm   2.08 m     Tracker   StepLimiter
+   20   2.46 mm   20.8 cm    -80 cm    199 MeV    18 keV  4.93 cm   2.13 m     Tracker   Transportation
+   21   2.29 mm   22.8 cm    -60 cm    199 MeV  75.5 keV  20.1 cm   2.34 m     Chamber   Transportation
+   22   2.35 mm   23.3 cm    -50 cm    199 MeV  45.5 keV    10 cm   2.44 m     Tracker   StepLimiter
+   23   2.42 mm   23.7 cm  -41.5 cm    199 MeV  32.9 keV  8.53 cm   2.52 m     Tracker        hIoni
+   24   2.43 mm   24.2 cm  -31.5 cm    199 MeV  37.3 keV    10 cm   2.62 m     Tracker   StepLimiter
+   25    2.4 mm   24.7 cm  -21.5 cm    198 MeV  35.7 keV    10 cm   2.72 m     Tracker   StepLimiter
+   26   2.38 mm   24.9 cm    -17 cm    198 MeV  21.9 keV  4.56 cm   2.77 m     Tracker        hIoni
+   27   2.33 mm   25.4 cm  -6.99 cm    198 MeV  57.4 keV    10 cm   2.87 m     Tracker   StepLimiter
+   28   2.33 mm   25.6 cm      0 fm    198 MeV  22.5 keV     7 cm   2.94 m     Tracker   Transportation
+   29   2.39 mm   27.7 cm     20 cm    198 MeV  88.3 keV  20.1 cm   3.14 m     Chamber   Transportation
+   30   2.51 mm   28.2 cm     30 cm    198 MeV    37 keV    10 cm   3.24 m     Tracker   StepLimiter
+   31   2.67 mm   28.7 cm     40 cm    198 MeV  40.5 keV    10 cm   3.34 m     Tracker   StepLimiter
+   32   2.75 mm   29.2 cm   49.9 cm    198 MeV  38.8 keV    10 cm   3.44 m     Tracker   StepLimiter
+   33   2.91 mm   29.8 cm   59.9 cm    198 MeV  40.2 keV    10 cm   3.54 m     Tracker   StepLimiter
+   34   3.04 mm   30.1 cm   67.2 cm    198 MeV  28.1 keV  7.27 cm   3.61 m     Tracker        hIoni
+   35   3.24 mm   30.5 cm   76.7 cm    198 MeV  35.5 keV  9.56 cm   3.71 m     Tracker        hIoni
+   36    3.3 mm   30.6 cm     80 cm    198 MeV  9.53 keV  3.26 cm   3.74 m     Tracker   Transportation
+   37   3.66 mm   32.6 cm      1 m     198 MeV  90.9 keV  20.1 cm   3.94 m     Chamber   Transportation
+   38   4.02 mm   33.1 cm    1.1 m     198 MeV  53.9 keV    10 cm   4.04 m     Tracker   StepLimiter
+   39   4.41 mm   33.7 cm    1.2 m     198 MeV  33.8 keV    10 cm   4.14 m     Tracker   StepLimiter
+   40   4.77 mm   34.2 cm    1.3 m     198 MeV    44 keV    10 cm   4.24 m     Tracker   StepLimiter
+   41   5.11 mm   34.7 cm    1.4 m     198 MeV  38.5 keV    10 cm   4.34 m     Tracker   StepLimiter
+   42   5.42 mm   35.3 cm    1.5 m     198 MeV  41.2 keV    10 cm   4.44 m     Tracker   StepLimiter
+   43   5.71 mm   35.8 cm    1.6 m     198 MeV  63.6 keV    10 cm   4.54 m     Tracker   StepLimiter
+   44   5.71 mm   35.8 cm    1.6 m     198 MeV   551 eV   1.07 mm   4.54 m     Tracker   Transportation
+   45      6 mm   36.2 cm   1.69 m     197 MeV  58.2 keV  8.64 cm   4.63 m     Chamber        hIoni
+   46   6.32 mm   36.9 cm    1.8 m     197 MeV  72.8 keV  11.4 cm   4.74 m     Chamber   Transportation
+   47    6.6 mm   37.4 cm    1.9 m     197 MeV  54.2 keV    10 cm   4.84 m     Tracker   StepLimiter
+   48    6.6 mm   37.4 cm    1.9 m     197 MeV   250 eV   1.51 mm   4.84 m     Tracker        hIoni
+   49   6.88 mm   37.9 cm      2 m     197 MeV  48.1 keV    10 cm   4.94 m     Tracker   StepLimiter
+   50   7.12 mm   38.5 cm    2.1 m     197 MeV  36.3 keV    10 cm   5.04 m     Tracker   StepLimiter
+   51   7.16 mm   38.5 cm   2.11 m     197 MeV  5.51 keV  1.37 cm   5.06 m     Tracker        hIoni
+   52   7.42 mm     39 cm   2.21 m     197 MeV  49.1 keV    10 cm   5.16 m     Tracker   StepLimiter
+   53   7.71 mm   39.5 cm   2.31 m     197 MeV  43.3 keV    10 cm   5.26 m     Tracker   StepLimiter
+   54      8 mm   39.9 cm    2.4 m     197 MeV  36.1 keV  8.58 cm   5.34 m     Tracker   Transportation
+   55    9.8 mm   53.1 cm   2.91 m     197 MeV   211 keV  53.2 cm   5.87 m       World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = e-,   Track ID = 11,   Parent ID = 1
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0    6.6 mm   37.4 cm    1.9 m    26.6 keV     0 eV      0 fm      0 fm    Tracker   initStep
+    1   6.15 mm   37.4 cm    1.9 m    21.6 keV  4.95 keV  4.05 mm   4.05 mm    Tracker        eIoni
+    2   5.29 mm   37.4 cm    1.9 m    17.9 keV  3.76 keV  3.25 mm    7.3 mm    Tracker        eIoni
+    3   5.06 mm   37.3 cm    1.9 m    14.6 keV  3.31 keV  2.72 mm      1 cm    Tracker        eIoni
+    4   7.07 mm   37.4 cm    1.9 m    8.39 keV  6.19 keV  2.29 mm   1.23 cm    Tracker        eIoni
+    5   7.73 mm   37.4 cm    1.9 m    1.86 keV  6.53 keV  1.45 mm   1.38 cm    Tracker        eIoni
+    6   7.69 mm   37.4 cm    1.9 m       0 eV   1.86 keV   135 um   1.39 cm    Tracker        eIoni
+
+*********************************************************************************************************
+* G4Track Information:   Particle = e-,   Track ID = 10,   Parent ID = 1
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0      6 mm   36.2 cm   1.69 m    36.4 keV     0 eV      0 fm      0 fm    Chamber   initStep
+    1   1.16 cm   36.4 cm   1.68 m    32.5 keV  3.96 keV  5.94 mm   5.94 mm    Chamber        eIoni
+    2   1.49 cm   36.4 cm   1.69 m    25.5 keV  6.99 keV  5.13 mm   1.11 cm    Chamber        eIoni
+    3    1.7 cm   36.3 cm   1.69 m      19 keV  6.45 keV  3.86 mm   1.49 cm    Chamber        eIoni
+    4   1.81 cm   36.3 cm   1.68 m    15.6 keV  3.42 keV  2.88 mm   1.78 cm    Chamber        eIoni
+    5      2 cm   36.3 cm   1.68 m     9.8 keV  5.82 keV  2.42 mm   2.02 cm    Chamber        eIoni
+    6   2.08 cm   36.2 cm   1.68 m    5.09 keV  4.72 keV  1.67 mm   2.19 cm    Chamber        eIoni
+    7   2.07 cm   36.2 cm   1.68 m       0 eV   5.09 keV   701 um   2.26 cm    Chamber        eIoni
+
+*********************************************************************************************************
+* G4Track Information:   Particle = e-,   Track ID = 9,   Parent ID = 1
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   3.24 mm   30.5 cm   76.7 cm     18 keV     0 eV      0 fm      0 fm    Tracker   initStep
+    1   5.48 mm   30.6 cm   76.7 cm   14.9 keV  3.09 keV  2.73 mm   2.73 mm    Tracker        eIoni
+    2   7.19 mm   30.5 cm   76.7 cm   10.3 keV  4.63 keV  2.33 mm   5.06 mm    Tracker        eIoni
+    3   8.35 mm   30.6 cm   76.6 cm   5.25 keV  5.02 keV  1.73 mm   6.79 mm    Tracker        eIoni
+    4   8.53 mm   30.6 cm   76.6 cm      0 eV   5.25 keV   740 um   7.53 mm    Tracker        eIoni
+
+*********************************************************************************************************
+* G4Track Information:   Particle = e-,   Track ID = 8,   Parent ID = 1
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   3.04 mm   30.1 cm   67.2 cm    136 keV     0 eV      0 fm      0 fm    Tracker   initStep
+    1     -3 cm   28.4 cm   66.2 cm    119 keV  17.2 keV  4.59 cm   4.59 cm    Tracker        eIoni
+    2  -6.09 cm   27.8 cm     67 cm    107 keV  11.9 keV  3.68 cm   8.27 cm    Tracker        eIoni
+    3  -7.72 cm   27.7 cm   65.8 cm   90.1 keV    17 keV  3.09 cm   11.4 cm    Tracker        eIoni
+    4  -8.97 cm     28 cm   65.5 cm   80.7 keV   9.4 keV  2.33 cm   13.7 cm    Tracker        eIoni
+    5  -9.62 cm   28.1 cm     65 cm   74.3 keV  6.39 keV  1.95 cm   15.6 cm    Tracker        eIoni
+    6   -9.6 cm   28.1 cm   64.7 cm   62.7 keV  11.7 keV  1.71 cm   17.3 cm    Tracker        eIoni
+    7  -9.75 cm   27.8 cm   64.9 cm   55.7 keV  6.97 keV   1.3 cm   18.6 cm    Tracker        eIoni
+    8  -9.55 cm     28 cm   64.5 cm   48.8 keV  6.92 keV  1.09 cm   19.7 cm    Tracker        eIoni
+    9  -9.22 cm   28.1 cm   64.3 cm   42.9 keV  5.84 keV  8.91 mm   20.6 cm    Tracker        eIoni
+   10  -9.04 cm   27.9 cm   64.3 cm   27.2 keV  15.8 keV  7.42 mm   21.4 cm    Tracker        eIoni
+   11  -8.76 cm   28.1 cm   64.2 cm   20.8 keV  6.38 keV  4.14 mm   21.8 cm    Tracker        eIoni
+   12  -8.74 cm   28.3 cm   64.2 cm   13.4 keV  7.34 keV  3.13 mm   22.1 cm    Tracker        eIoni
+   13  -8.74 cm   28.4 cm   64.3 cm   9.77 keV  3.67 keV  2.14 mm   22.3 cm    Tracker        eIoni
+   14  -8.61 cm   28.3 cm   64.3 cm   2.62 keV  7.15 keV  1.66 mm   22.5 cm    Tracker        eIoni
+   15  -8.61 cm   28.3 cm   64.3 cm      0 eV   2.62 keV   232 um   22.5 cm    Tracker        eIoni
+
+*********************************************************************************************************
+* G4Track Information:   Particle = e-,   Track ID = 7,   Parent ID = 1
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   2.42 mm   23.7 cm  -41.5 cm    189 keV     0 eV      0 fm      0 fm    Tracker   initStep
+    1   2.28 cm     24 cm  -39.3 cm    170 keV  18.7 keV  7.82 cm   7.82 cm    Tracker        eIoni
+    2   3.08 cm   23.3 cm  -40.1 cm    138 keV  31.4 keV   6.6 cm   14.4 cm    Tracker        eIoni
+    3   6.43 cm   24.6 cm  -39.3 cm    122 keV    16 keV  4.72 cm   19.1 cm    Tracker        eIoni
+    4     10 cm   23.5 cm  -39.3 cm    109 keV  13.9 keV  3.86 cm     23 cm    Tracker        eIoni
+    5   10.8 cm   23.6 cm  -39.4 cm   77.7 keV  4.99 keV  8.65 mm   23.9 cm    Tracker        eIoni
+    6   12.2 cm   23.9 cm  -39.3 cm   71.1 keV  6.61 keV  1.83 cm   25.7 cm    Tracker        eIoni
+    7   12.1 cm     24 cm    -39 cm   58.9 keV  12.2 keV  1.59 cm   27.3 cm    Tracker        eIoni
+    8   12.7 cm   23.9 cm  -38.6 cm   51.4 keV  7.42 keV  1.18 cm   28.5 cm    Tracker        eIoni
+    9   12.6 cm     24 cm  -38.5 cm   44.7 keV  6.73 keV  9.63 mm   29.4 cm    Tracker        eIoni
+   10     13 cm     24 cm  -38.3 cm   36.7 keV  7.97 keV  7.85 mm   30.2 cm    Tracker        eIoni
+   11   13.4 cm   23.8 cm  -38.4 cm   29.5 keV  7.24 keV     6 mm   30.8 cm    Tracker        eIoni
+   12   13.8 cm     24 cm  -38.5 cm   25.5 keV  3.96 keV  4.56 mm   31.3 cm    Tracker        eIoni
+   13   14.2 cm   24.1 cm  -38.4 cm   20.5 keV  4.99 keV  3.87 mm   31.7 cm    Tracker        eIoni
+   14   14.4 cm   24.1 cm  -38.2 cm   6.07 keV  14.5 keV  3.09 mm     32 cm    Tracker        eIoni
+   15   14.4 cm   24.1 cm  -38.2 cm      0 eV   6.07 keV   949 um   32.1 cm    Tracker        eIoni
+
+*********************************************************************************************************
+* G4Track Information:   Particle = e-,   Track ID = 12,   Parent ID = 7
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   10.8 cm   23.6 cm  -39.4 cm   25.9 keV     0 eV      0 fm      0 fm    Tracker   initStep
+    1   10.8 cm   23.6 cm  -39.4 cm   22.4 keV  3.47 keV  3.93 mm   3.93 mm    Tracker        eIoni
+    2   10.8 cm   23.5 cm  -39.3 cm   17.8 keV  4.59 keV  3.37 mm    7.3 mm    Tracker        eIoni
+    3   10.7 cm   23.5 cm  -39.3 cm   12.7 keV  5.17 keV  2.71 mm      1 cm    Tracker        eIoni
+    4   10.6 cm   23.5 cm  -39.4 cm   8.44 keV  4.24 keV  2.05 mm   1.21 cm    Tracker        eIoni
+    5   10.5 cm   23.5 cm  -39.4 cm   5.51 keV  2.93 keV  1.46 mm   1.35 cm    Tracker        eIoni
+    6   10.5 cm   23.5 cm  -39.4 cm      0 eV   5.51 keV   805 um   1.43 cm    Tracker        eIoni
+
+*********************************************************************************************************
+* G4Track Information:   Particle = e-,   Track ID = 6,   Parent ID = 1
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   2.37 mm   19.2 cm  -1.15 m    18.9 keV     0 eV      0 fm      0 fm    Tracker   initStep
+    1   4.57 mm     19 cm  -1.15 m    15.2 keV   3.7 keV  2.86 mm   2.86 mm    Tracker        eIoni
+    2   6.38 mm     19 cm  -1.15 m    9.75 keV  5.46 keV  2.37 mm   5.23 mm    Tracker        eIoni
+    3   7.54 mm     19 cm  -1.15 m    3.52 keV  6.23 keV  1.66 mm   6.88 mm    Tracker        eIoni
+    4   7.49 mm     19 cm  -1.15 m       0 eV   3.52 keV   377 um   7.26 mm    Tracker        eIoni
+
+*********************************************************************************************************
+* G4Track Information:   Particle = e-,   Track ID = 5,   Parent ID = 1
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   2.06 mm   17.9 cm  -1.43 m     148 keV     0 eV      0 fm      0 fm    Chamber   initStep
+    1   2.91 cm   16.9 cm  -1.43 m     131 keV  16.2 keV  5.25 cm   5.25 cm    Chamber        eIoni
+    2   6.68 cm   16.6 cm  -1.42 m     115 keV  16.6 keV  4.33 cm   9.58 cm    Chamber        eIoni
+    3   7.69 cm   17.5 cm  -1.41 m     101 keV  13.7 keV  3.47 cm     13 cm    Chamber        eIoni
+    4   8.61 cm   17.1 cm  -1.42 m    90.7 keV  10.4 keV  2.82 cm   15.9 cm    Chamber        eIoni
+    5   9.43 cm   16.8 cm  -1.42 m    80.9 keV  9.85 keV  2.36 cm   18.2 cm    Chamber        eIoni
+    6   9.59 cm   16.6 cm  -1.42 m    71.2 keV  9.65 keV  1.95 cm   20.2 cm    Chamber        eIoni
+    7   9.38 cm   16.6 cm  -1.42 m      56 keV  15.3 keV  1.59 cm   21.8 cm    Chamber        eIoni
+    8   9.22 cm   16.6 cm  -1.42 m    49.8 keV  6.21 keV  1.09 cm   22.9 cm    Chamber        eIoni
+    9   9.11 cm   16.8 cm  -1.43 m    44.9 keV  4.84 keV  9.17 mm   23.8 cm    Chamber        eIoni
+   10    8.7 cm   16.7 cm  -1.43 m    37.5 keV  7.41 keV   7.9 mm   24.6 cm    Chamber        eIoni
+   11   8.96 cm   16.8 cm  -1.43 m      30 keV  7.47 keV  6.17 mm   25.2 cm    Chamber        eIoni
+   12   9.37 cm   16.9 cm  -1.43 m    25.7 keV  4.34 keV  4.66 mm   25.7 cm    Chamber        eIoni
+   13   9.37 cm   16.9 cm  -1.43 m      15 keV  10.7 keV  3.89 mm     26 cm    Chamber        eIoni
+   14   9.49 cm   16.8 cm  -1.43 m    11.3 keV  3.72 keV  2.34 mm   26.3 cm    Chamber        eIoni
+   15   9.62 cm   16.7 cm  -1.43 m    7.09 keV  4.19 keV  1.87 mm   26.5 cm    Chamber        eIoni
+   16   9.62 cm   16.7 cm  -1.43 m       0 eV   7.09 keV   1.2 mm   26.6 cm    Chamber        eIoni
+
+*********************************************************************************************************
+* G4Track Information:   Particle = e-,   Track ID = 4,   Parent ID = 1
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   1.49 mm   15.8 cm  -1.76 m    19.8 keV     0 eV      0 fm      0 fm    Tracker   initStep
+    1   2.93 mm   15.8 cm  -1.76 m    15.8 keV  3.97 keV  2.98 mm   2.98 mm    Tracker        eIoni
+    2   4.03 mm   15.7 cm  -1.76 m    9.34 keV  6.46 keV  2.44 mm   5.42 mm    Tracker        eIoni
+    3   4.45 mm   15.7 cm  -1.76 m    1.15 keV  8.19 keV   1.6 mm   7.02 mm    Tracker        eIoni
+    4   4.46 mm   15.7 cm  -1.76 m       0 eV   1.15 keV  65.4 um   7.09 mm    Tracker        eIoni
+
+*********************************************************************************************************
+* G4Track Information:   Particle = e-,   Track ID = 3,   Parent ID = 1
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0    821 um   14.5 cm  -2.03 m    28.1 keV     0 eV      0 fm      0 fm    Tracker   initStep
+    1   3.36 mm   14.5 cm  -2.03 m    22.6 keV  5.57 keV  4.31 mm   4.31 mm    Tracker        eIoni
+    2   5.58 mm   14.6 cm  -2.04 m      20 keV  2.55 keV  3.39 mm   7.71 mm    Tracker        eIoni
+    3   7.53 mm   14.6 cm  -2.04 m    16.4 keV  3.61 keV  3.01 mm   1.07 cm    Tracker        eIoni
+    4      1 cm   14.5 cm  -2.03 m    11.9 keV  4.49 keV  2.52 mm   1.32 cm    Tracker        eIoni
+    5   1.08 cm   14.5 cm  -2.03 m    5.89 keV  6.02 keV  1.95 mm   1.52 cm    Tracker        eIoni
+    6   1.07 cm   14.4 cm  -2.03 m       0 eV   5.89 keV   902 um   1.61 cm    Tracker        eIoni
+
+*********************************************************************************************************
+* G4Track Information:   Particle = e-,   Track ID = 2,   Parent ID = 1
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0    215 um   13.4 cm  -2.27 m    19.9 keV     0 eV      0 fm      0 fm    Tracker   initStep
+    1   1.11 mm   13.4 cm  -2.27 m    9.75 keV  10.1 keV  2.99 mm   2.99 mm    Tracker        eIoni
+    2    298 um   13.4 cm  -2.27 m    5.34 keV   4.4 keV  1.66 mm   4.65 mm    Tracker        eIoni
+    3    316 um   13.4 cm  -2.27 m       0 eV   5.34 keV   763 um   5.41 mm    Tracker        eIoni
+>>> Event 0
+    0 trajectories stored in this event.

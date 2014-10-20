@@ -14,12 +14,9 @@ code and to keep track of all tags.
      * Please list in reverse chronological order (last date on top)
      ---------------------------------------------------------------
 
-08-August-2014 V.Ivanchenko  hadr-pre-V09-06-06-cms
--------------------------------------------------
-- G4PreCompoundIon - cleanup transition probability computation
-- G4PreCompoundAlpha, G4PreCompoundHe3, G4PreCompoundTriton - fixed
-    FactorialFactor method - correct denominator
-- G4PreCompoundAlpha - fixed bug #1646 - integer overflow 
+7-July-2014 V.Ivanchenko+J.M.Juesada  hadr-pre-V09-06-06
+--------------------------------------------------------
+- G4PreCompoundAlpha - fixed bug #1646 - integer overflow
 
 23-October-2013 V.Ivanchenko  hadr-pre-V09-06-05
 -------------------------------------------------

@@ -1,0 +1,2663 @@
+
+*************************************************************
+ Geant4 version Name: geant4-10-00-ref-06    (27-June-2014)
+                      Copyright : Geant4 Collaboration
+                      Reference : NIM A 506 (2003), 250-303
+                            WWW : http://cern.ch/geant4
+*************************************************************
+
+/control/cout/ignoreThreadsExcept 0
+/run/verbose 1
+/tracking/verbose 0
+#
+/testem/det/setAbsMat G4_Si
+/testem/det/setAbsThick 2 um
+/run/reinitializeGeometry
+/testem/det/setAbsYZ 50 um
+/run/reinitializeGeometry
+#
+#/testem/phys/addPhysics  standardSS
+#/testem/phys/addPhysics emstandard_opt0
+#/testem/phys/addPhysics emlivermore
+#/testem/phys/addPhysics empenelope
+/testem/phys/addPhysics emstandard_opt3
+PhysicsList::AddPhysicsList: <emstandard_opt3>
+#
+/run/setCut 1 km
+/run/setCutForAGivenParticle proton 0 mm
+#
+/run/initialize
+
+ Material: Galactic    density:  0.000 kg/m3   RadL: 204727512.315 pc   Nucl.Int.Length: 113427275.267 pc 
+                       Imean:  19.200 eV   temperature:   2.73 K  pressure:   0.00 atm
+
+   --->  Element: H (H)   Z =  1.0   N =   1.0   A =   1.01 g/mole
+         --->  Isotope:    H1   Z =  1   N =   1   A =   1.01 g/mole   abundance:  99.99 %
+         --->  Isotope:    H2   Z =  1   N =   2   A =   2.01 g/mole   abundance:   0.01 %
+          ElmMassFraction: 100.00 %  ElmAbundance 100.00 % 
+
+
+ Material:    G4_Si    density:  2.330 g/cm3   RadL:   9.366 cm   Nucl.Int.Length:  45.635 cm 
+                       Imean: 173.000 eV 
+
+   --->  Element: Si (Si)   Z = 14.0   N =  28.1   A =  28.09 g/mole
+         --->  Isotope:  Si28   Z = 14   N =  28   A =  27.98 g/mole   abundance:  92.23 %
+         --->  Isotope:  Si29   Z = 14   N =  29   A =  28.98 g/mole   abundance:   4.68 %
+         --->  Isotope:  Si30   Z = 14   N =  30   A =  29.97 g/mole   abundance:   3.09 %
+          ElmMassFraction: 100.00 %  ElmAbundance 100.00 % 
+
+
+ The  WORLD   is made of 3 um  of Galactic. The transverse size (YZ) of the world is 60 um 
+ The ABSORBER is made of 2 um  of G4_Si. The transverse size (YZ) is 50 um 
+ X position of the middle of the absorber 0 fm 
+/process/em/verbose 1
+/process/em/workerVerbose 0
+#/process/eLoss/fluct false
+#
+/testem/gun/setDefault
+/gun/particle proton
+/gun/energy 500 MeV
+#
+/run/printProgress 100
+#
+/tracking/verbose 1
+/run/beamOn 100
+
+phot:   for  gamma    SubType= 12
+      LambdaPrime table from 200 keV to 10 TeV in 154 bins 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+       PhotoElectric :  Emin=        0 eV    Emax=       10 TeV   AngularGenSauterGavrila  FluoActive
+
+compt:   for  gamma    SubType= 13
+      Lambda table from 10 eV  to 1 MeV in 100 bins, spline: 1
+      LambdaPrime table from 1 MeV to 10 TeV in 140 bins 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+        KleinNishina :  Emin=        0 eV    Emax=       10 TeV  FluoActive
+
+conv:   for  gamma    SubType= 14
+      Lambda table from 1.022 MeV to 10 TeV in 140 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+        BetheHeitler :  Emin=        0 eV    Emax=       80 GeV
+     BetheHeitlerLPM :  Emin=       80 GeV   Emax=       10 TeV
+
+Rayl:   for  gamma    SubType= 11
+      Lambda table from 10 eV  to 100 keV in 80 bins, spline: 0
+      LambdaPrime table from 100 keV to 10 TeV in 160 bins 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+   LivermoreRayleigh :  Emin=        0 eV    Emax=       10 TeV   CullenGenerator
+
+msc:   for e-    SubType= 10
+      RangeFactor= 0.04, stepLimitType: 2, latDisplacement: 1, skin= 1, geomFactor= 2.5
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 220 bins Emin=    100 eV    Emax=     10 TeV
+
+### ===  Deexcitation model UAtomDeexcitation is activated for 1 region:
+          DefaultRegionForTheWorld
+
+eIoni:   for  e-    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.1, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+        MollerBhabha :  Emin=        0 eV    Emax=       10 TeV
+
+eBrem:   for  e-    SubType= 3
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      LPM flag: 1 for E > 1 GeV
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+             eBremSB :  Emin=        0 eV    Emax=        1 GeV   DipBustGen
+            eBremLPM :  Emin=        1 GeV   Emax=       10 TeV   DipBustGen
+
+msc:   for e+    SubType= 10
+      RangeFactor= 0.04, stepLimitType: 2, latDisplacement: 1, skin= 1, geomFactor= 2.5
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 220 bins Emin=    100 eV    Emax=     10 TeV
+
+eIoni:   for  e+    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.1, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+        MollerBhabha :  Emin=        0 eV    Emax=       10 TeV
+
+eBrem:   for  e+    SubType= 3
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      LPM flag: 1 for E > 1 GeV
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+             eBremSB :  Emin=        0 eV    Emax=        1 GeV   DipBustGen
+            eBremLPM :  Emin=        1 GeV   Emax=       10 TeV   DipBustGen
+
+annihil:   for  e+    SubType= 5
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            eplus2gg :  Emin=        0 eV    Emax=       10 TeV
+
+msc:   for proton    SubType= 10
+      RangeFactor= 0.2, stepLimitType: 0, latDisplacement: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 220 bins Emin=    100 eV    Emax=     10 TeV
+
+hIoni:   for  proton    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.05, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               Bragg :  Emin=        0 eV    Emax=        2 MeV
+          BetheBloch :  Emin=        2 MeV   Emax=       10 TeV
+
+hBrems:   for  proton    SubType= 3
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               hBrem :  Emin=        0 eV    Emax=       10 TeV
+
+hPairProd:   for  proton    SubType= 4
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      Sampling table 13x1001; from 7.50618 GeV to 10 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+           hPairProd :  Emin=        0 eV    Emax=       10 TeV
+
+nuclearStopping:   for  proton    SubType= 8
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+   ICRU49NucStopping :  Emin=        0 eV    Emax=        1 MeV
+
+msc:   for GenericIon    SubType= 10
+      RangeFactor= 0.2, stepLimitType: 0, latDisplacement: 0
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV
+
+ionIoni:   for  GenericIon    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.001, dRoverRange= 0.1, integral: 1, fluct: 1, linLossLimit= 0.02
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+         ParamICRU73 :  Emin=        0 eV    Emax=       10 TeV   deltaVI
+
+nuclearStopping:   for  GenericIon    SubType= 8
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+   ICRU49NucStopping :  Emin=        0 eV    Emax=       10 TeV
+
+msc:   for alpha    SubType= 10
+      RangeFactor= 0.2, stepLimitType: 0, latDisplacement: 0
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 220 bins Emin=    100 eV    Emax=     10 TeV
+
+ionIoni:   for  alpha    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.01, dRoverRange= 0.1, integral: 1, fluct: 1, linLossLimit= 0.02
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            BraggIon :  Emin=        0 eV    Emax=   7.9452 MeV
+          BetheBloch :  Emin=   7.9452 MeV   Emax=       10 TeV
+
+nuclearStopping:   for  alpha    SubType= 8
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+   ICRU49NucStopping :  Emin=        0 eV    Emax=       10 TeV
+
+msc:   for anti_proton    SubType= 10
+      RangeFactor= 0.2, stepLimitType: 0, latDisplacement: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 220 bins Emin=    100 eV    Emax=     10 TeV
+
+hIoni:   for  anti_proton    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.05, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            ICRU73QO :  Emin=        0 eV    Emax=        2 MeV
+          BetheBloch :  Emin=        2 MeV   Emax=       10 TeV
+
+hBrems:   for  anti_proton    SubType= 3
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               hBrem :  Emin=        0 eV    Emax=       10 TeV
+
+hPairProd:   for  anti_proton    SubType= 4
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      Sampling table 13x1001; from 7.50618 GeV to 10 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+           hPairProd :  Emin=        0 eV    Emax=       10 TeV
+
+nuclearStopping:   for  anti_proton    SubType= 8
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+   ICRU49NucStopping :  Emin=        0 eV    Emax=        1 MeV
+
+msc:   for kaon+    SubType= 10
+      RangeFactor= 0.2, stepLimitType: 0, latDisplacement: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 220 bins Emin=    100 eV    Emax=     10 TeV
+
+hIoni:   for  kaon+    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.05, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               Bragg :  Emin=        0 eV    Emax=  1.05231 MeV
+          BetheBloch :  Emin=  1.05231 MeV   Emax=       10 TeV
+
+hBrems:   for  kaon+    SubType= 3
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               hBrem :  Emin=        0 eV    Emax=       10 TeV
+
+hPairProd:   for  kaon+    SubType= 4
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      Sampling table 14x1001; from 3.94942 GeV to 10 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+           hPairProd :  Emin=        0 eV    Emax=       10 TeV
+
+msc:   for kaon-    SubType= 10
+      RangeFactor= 0.2, stepLimitType: 0, latDisplacement: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 220 bins Emin=    100 eV    Emax=     10 TeV
+
+hIoni:   for  kaon-    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.05, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            ICRU73QO :  Emin=        0 eV    Emax=  1.05231 MeV
+          BetheBloch :  Emin=  1.05231 MeV   Emax=       10 TeV
+
+hBrems:   for  kaon-    SubType= 3
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               hBrem :  Emin=        0 eV    Emax=       10 TeV
+
+hPairProd:   for  kaon-    SubType= 4
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      Sampling table 14x1001; from 3.94942 GeV to 10 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+           hPairProd :  Emin=        0 eV    Emax=       10 TeV
+
+msc:   for mu+    SubType= 10
+      RangeFactor= 0.2, step limit type: 0, lateralDisplacement: 1, polarAngleLimit(deg)= 180
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 220 bins Emin=    100 eV    Emax=     10 TeV
+
+muIoni:   for  mu+    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.05, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               Bragg :  Emin=        0 eV    Emax=      200 keV
+          BetheBloch :  Emin=      200 keV   Emax=        1 GeV
+        MuBetheBloch :  Emin=        1 GeV   Emax=       10 TeV
+
+muBrems:   for  mu+    SubType= 3
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+              MuBrem :  Emin=        0 eV    Emax=       10 TeV
+
+muPairProd:   for  mu+    SubType= 4
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      Sampling table 17x1001; from 1 GeV to 10 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+          muPairProd :  Emin=        0 eV    Emax=       10 TeV
+
+msc:   for mu-    SubType= 10
+      RangeFactor= 0.2, step limit type: 0, lateralDisplacement: 1, polarAngleLimit(deg)= 180
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 220 bins Emin=    100 eV    Emax=     10 TeV
+
+muIoni:   for  mu-    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.05, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            ICRU73QO :  Emin=        0 eV    Emax=      200 keV
+          BetheBloch :  Emin=      200 keV   Emax=        1 GeV
+        MuBetheBloch :  Emin=        1 GeV   Emax=       10 TeV
+
+muBrems:   for  mu-    SubType= 3
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+              MuBrem :  Emin=        0 eV    Emax=       10 TeV
+
+muPairProd:   for  mu-    SubType= 4
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      Sampling table 17x1001; from 1 GeV to 10 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+          muPairProd :  Emin=        0 eV    Emax=       10 TeV
+
+msc:   for pi+    SubType= 10
+      RangeFactor= 0.2, stepLimitType: 0, latDisplacement: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 220 bins Emin=    100 eV    Emax=     10 TeV
+
+hIoni:   for  pi+    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.05, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               Bragg :  Emin=        0 eV    Emax=  297.505 keV
+          BetheBloch :  Emin=  297.505 keV   Emax=       10 TeV
+
+hBrems:   for  pi+    SubType= 3
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               hBrem :  Emin=        0 eV    Emax=       10 TeV
+
+hPairProd:   for  pi+    SubType= 4
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      Sampling table 16x1001; from 1.11656 GeV to 10 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+           hPairProd :  Emin=        0 eV    Emax=       10 TeV
+
+msc:   for pi-    SubType= 10
+      RangeFactor= 0.2, stepLimitType: 0, latDisplacement: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 220 bins Emin=    100 eV    Emax=     10 TeV
+
+hIoni:   for  pi-    SubType= 2
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      finalRange(mm)= 0.05, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            ICRU73QO :  Emin=        0 eV    Emax=  297.505 keV
+          BetheBloch :  Emin=  297.505 keV   Emax=       10 TeV
+
+hBrems:   for  pi-    SubType= 3
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               hBrem :  Emin=        0 eV    Emax=       10 TeV
+
+hPairProd:   for  pi-    SubType= 4
+      dE/dx and range tables from 10 eV  to 10 TeV in 240 bins
+      Lambda tables from threshold to 10 TeV in 240 bins, spline: 1
+      Sampling table 16x1001; from 1.11656 GeV to 10 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+           hPairProd :  Emin=        0 eV    Emax=       10 TeV
+
+========= Table of registered couples ==============================
+
+Index : 0     used in the geometry : Yes
+ Material : Galactic
+ Range cuts        :  gamma  1 km     e-  1 km     e+  1 km  proton 0 fm 
+ Energy thresholds :  gamma  990 eV     e-  990 eV     e+  990 eV  proton 0 eV 
+ Region(s) which use this couple : 
+    DefaultRegionForTheWorld
+
+Index : 1     used in the geometry : Yes
+ Material : G4_Si
+ Range cuts        :  gamma  1 km     e-  1 km     e+  1 km  proton 0 fm 
+ Energy thresholds :  gamma  10 GeV    e-  10 GeV    e+  10 GeV proton 0 eV 
+ Region(s) which use this couple : 
+    DefaultRegionForTheWorld
+
+====================================================================
+
+### Run 0 starts.
+
+--------- Ranecu engine status ---------
+ Initial seed (index) = 0
+ Current couple of seeds = 9876, 54321
+----------------------------------------
+--> Event 0 starts.
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000817707 fluc= -0.000222426 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   818 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 4.91e+04 fm -1.89e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00231411 fluc= 0.00127398 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  2.31 keV     2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.998 step(mm)= 0.0005 range(mm)= 8.14006e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.62e+04 fm -7.38e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000791272 fluc= -0.000248862 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   791 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -6.2e+03 fm -5.05e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000607518 fluc= -0.000432615 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   608 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -4.18e+04 fm 2.89e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000526401 fluc= -0.000513732 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   526 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.72e+04 fm 1.19e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00155034 fluc= 0.000510205 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  1.55 keV     2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.998 step(mm)= 0.0005 range(mm)= 8.14008e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 2.61e+04 fm -1.01e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00026339 fluc= -0.000776744 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   263 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.4e+04 fm 9.81e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000419116 fluc= -0.000621018 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   419 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 1.09e+04 fm   -238 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00170799 fluc= 0.000667852 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  1.71 keV     2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.998 step(mm)= 0.0005 range(mm)= 8.14008e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.12e+04 fm -6.68e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00121918 fluc= 0.000179045 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  1.22 keV     2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14009e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 9.74e+03 fm 1.4e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000457709 fluc= -0.000582424 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   458 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 4.56e+03 fm 1.24e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 9.14609e-05 fluc= -0.000948672 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  91.5 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 4.07e+03 fm -4.19e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00116008 fluc= 0.000119942 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  1.16 keV     2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14009e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -5.11e+04 fm -9.2e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00052001 fluc= -0.000520124 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   520 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -3.25e+03 fm 1.3e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000904832 fluc= -0.000135302 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   905 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -2.35e+04 fm -1.1e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000507985 fluc= -0.000532148 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   508 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.94e+03 fm -1.44e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000668402 fluc= -0.000371732 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   668 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.2e+03 fm 2.3e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000989834 fluc= -5.02996e-05 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   990 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 2.52e+04 fm 5.5e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000521769 fluc= -0.000518364 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   522 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -4.64e+03 fm 1.49e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00217719 fluc= 0.00113706 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  2.18 keV     2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.998 step(mm)= 0.0005 range(mm)= 8.14007e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.32e+04 fm 3.48e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000962757 fluc= -7.73766e-05 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   963 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 2.96e+04 fm 1.63e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000426137 fluc= -0.000613996 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   426 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -6.1e+03 fm -5.54e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000562837 fluc= -0.000477296 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   563 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -2.37e+04 fm 5.92e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000410725 fluc= -0.000629409 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   411 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.99e+04 fm 9.56e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000489939 fluc= -0.000550195 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   490 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.03e+04 fm -1.42e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00039369 fluc= -0.000646443 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   394 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.73e+04 fm    949 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00173696 fluc= 0.000696828 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  1.74 keV     2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.998 step(mm)= 0.0005 range(mm)= 8.14008e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 8.45e+03 fm 1.95e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000228935 fluc= -0.000811198 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   229 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 1.57e+04 fm -4.41e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00130207 fluc= 0.000261932 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   1.3 keV     2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14009e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 3.14e+04 fm 3.36e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00244333 fluc= 0.0014032 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  2.44 keV     2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.998 step(mm)= 0.0005 range(mm)= 8.14006e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -2.03e+04 fm 1.97e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00103789 fluc= -2.24357e-06 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  1.04 keV     2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.61e+04 fm -6.19e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000680496 fluc= -0.000359637 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   680 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -4.08e+03 fm -2.91e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00103013 fluc= -9.99964e-06 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  1.03 keV     2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -9.87e+03 fm 2.47e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00119179 fluc= 0.000151655 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  1.19 keV     2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14009e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -6.03e+03 fm -2.22e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000567264 fluc= -0.000472869 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   567 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.88e+04 fm 1.49e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000526325 fluc= -0.000513808 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   526 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 1.68e+04 fm 2.13e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000190998 fluc= -0.000849135 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   191 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 2.76e+04 fm 1.29e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00136059 fluc= 0.000320458 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  1.36 keV     2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14009e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.82e+04 fm -3.26e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000628183 fluc= -0.00041195 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   628 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.3e+04 fm -2.88e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000613496 fluc= -0.000426638 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   613 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 3.19e+03 fm 2.64e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000893586 fluc= -0.000146547 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   894 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.06e+04 fm -1.06e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000741026 fluc= -0.000299108 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   741 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -2.77e+03 fm -4.58e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00032013 fluc= -0.000720003 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   320 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.42e+04 fm 9.84e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00110698 fluc= 6.68481e-05 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  1.11 keV     2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 7.63e+03 fm -1.5e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00075635 fluc= -0.000283784 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   756 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -2.07e+04 fm -2.66e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000830405 fluc= -0.000209728 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   830 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -4.99e+03 fm 1.62e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000854652 fluc= -0.000185482 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   855 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.82e+04 fm -2.61e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000886478 fluc= -0.000153656 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   886 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 1.74e+04 fm 3.41e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000493127 fluc= -0.000547007 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   493 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -2.29e+04 fm -8.54e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000791294 fluc= -0.000248839 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   791 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 3.83e+04 fm 4.35e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000382438 fluc= -0.000657695 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   382 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 2.56e+04 fm 2.42e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00033691 fluc= -0.000703223 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   337 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 4.85e+04 fm 8.98e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000825876 fluc= -0.000214257 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   826 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 6.37e+04 fm  4e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.0162168 fluc= 0.0151767 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  16.2 keV     2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92771e-29
+Before fluct: eloss(MeV)= 1.92771e-29 e-eloss= 499.984 step(mm)= 0.0005 range(mm)= 8.1397e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92771e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -4.32e+04 fm 1.22e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 7.10672e-05 fluc= -0.000969066 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  71.1 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 3.79e+04 fm -2.61e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000416137 fluc= -0.000623996 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   416 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 2.85e+04 fm -1.76e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.0003702 fluc= -0.000669933 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   370 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -2.42e+04 fm 2.86e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.0006533 fluc= -0.000386833 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   653 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.4e+04 fm -7.86e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000629516 fluc= -0.000410618 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   630 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -3.66e+03 fm -1.38e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000200163 fluc= -0.00083997 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   200 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -9.45e+04 fm 7.61e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000377727 fluc= -0.000662407 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   378 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 1.88e+04 fm 1.94e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000116546 fluc= -0.000923588 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   117 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 2.7e+04 fm 1.16e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000592186 fluc= -0.000447947 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   592 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um   -294 fm -8.27e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000619659 fluc= -0.000420475 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   620 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 1.73e+04 fm -3.99e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00102474 fluc= -1.53933e-05 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  1.02 keV     2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 2.36e+04 fm -1.29e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00033499 fluc= -0.000705144 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   335 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -4.19e+03 fm -1.11e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000676132 fluc= -0.000364001 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   676 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 4.08e+04 fm 1.43e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000359424 fluc= -0.00068071 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   359 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.83e+04 fm 6.74e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00105229 fluc= 1.21604e-05 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  1.05 keV     2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 9.38e+03 fm 1.02e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00208552 fluc= 0.00104538 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  2.09 keV     2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.998 step(mm)= 0.0005 range(mm)= 8.14007e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 2.62e+04 fm 3.3e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00165587 fluc= 0.000615739 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  1.66 keV     2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.998 step(mm)= 0.0005 range(mm)= 8.14008e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.48e+04 fm 5.49e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000624451 fluc= -0.000415683 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   624 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 1.08e+04 fm 3.27e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000656297 fluc= -0.000383836 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   656 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 9.95e+03 fm 1.75e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000954692 fluc= -8.54411e-05 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   955 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 1.85e+04 fm -3.37e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000528163 fluc= -0.000511971 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   528 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -8.67e+03 fm -9.21e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000686808 fluc= -0.000353326 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   687 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 3.21e+04 fm -8.53e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000824453 fluc= -0.00021568 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   824 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 9.84e+03 fm 1.85e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000944203 fluc= -9.59304e-05 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   944 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.26e+04 fm -1.1e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00192362 fluc= 0.000883487 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  1.92 keV     2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.998 step(mm)= 0.0005 range(mm)= 8.14007e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -4.98e+04 fm 1.6e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000133874 fluc= -0.000906259 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   134 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -2.27e+04 fm 1.46e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000518946 fluc= -0.000521188 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   519 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -6.43e+04 fm -6.31e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000379121 fluc= -0.000661013 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   379 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 5.88e+03 fm 8.62e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000876832 fluc= -0.000163301 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   877 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 1.58e+04 fm -1.25e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000589427 fluc= -0.000450707 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   589 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -4.72e+03 fm -2.68e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000391062 fluc= -0.000649071 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   391 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.09e+03 fm  -72.5 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000764571 fluc= -0.000275562 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   765 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 3.18e+04 fm 3.87e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000707787 fluc= -0.000332346 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   708 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -3.07e+03 fm 2.8e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000910751 fluc= -0.000129382 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   911 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.51e+04 fm -2.82e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000216897 fluc= -0.000823236 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   217 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -2.21e+03 fm 1.45e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000662331 fluc= -0.000377803 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   662 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 4.67e+03 fm -2.97e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000420368 fluc= -0.000619766 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   420 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 1.09e+04 fm -2.72e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000348991 fluc= -0.000691143 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   349 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 7.55e+03 fm 2.07e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000366351 fluc= -0.000673782 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   366 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.09e+04 fm 1.01e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000289788 fluc= -0.000750345 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   290 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -2.99e+04 fm 6.66e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 2.66209e-05 fluc= -0.00101351 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  26.6 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 6.28e+03 fm -1e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00313864 fluc= 0.00209851 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  3.14 keV     2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92769e-29
+Before fluct: eloss(MeV)= 1.92769e-29 e-eloss= 499.997 step(mm)= 0.0005 range(mm)= 8.14004e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92769e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um -1.83e+04 fm 2.78e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000960795 fluc= -7.93388e-05 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   961 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 2.15e+04 fm -2.23e+04 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000465309 fluc= -0.000574825 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   465 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14011e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um   1.11 Ang -4.05 Ang   500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.00106512 fluc= 2.49896e-05 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV  1.07 keV     2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um 3.51e+04 fm -1.41e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+
+*********************************************************************************************************
+* G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+*********************************************************************************************************
+
+Step#      X         Y         Z        KineE    dEStep   StepLeng  TrakLeng    Volume     Process
+    0   -1.5 um      0 fm      0 fm    500 MeV     0 eV      0 fm      0 fm      World   initStep
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 500 step(mm)= 0.0005 range(mm)= 8.14012e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    1     -1 um      0 fm      0 fm    500 MeV1.93e-23 eV    500 nm    500 nm      World   Transportation
+0xf444900  idx= 1  hIoni  G4_Si
+eloss= 0.00104013
+Before fluct: eloss(MeV)= 0.00104013 e-eloss= 499.999 step(mm)= 0.002 range(mm)= 620.766 fluct= 1
+After fluct: eloss(MeV)= 0.000755029 fluc= -0.000285104 ChargeSqRatio= 1 massRatio= 1 tmax= 1.37716
+    2      1 um      0 fm      0 fm    500 MeV   755 eV      2 um    2.5 um   Absorber   Transportation
+0xf444900  idx= 0  hIoni  Galactic
+eloss= 1.92768e-29
+Before fluct: eloss(MeV)= 1.92768e-29 e-eloss= 499.999 step(mm)= 0.0005 range(mm)= 8.1401e+27 fluct= 1
+After fluct: eloss(MeV)= 1.92768e-29 fluc= 0 ChargeSqRatio= 1 massRatio= 1 tmax= 0.00099
+    3    1.5 um  4e+03 fm -6.85e+03 fm    500 MeV1.93e-23 eV    500 nm      3 um      World   OutOfWorld
+Run terminated.
+Run Summary
+  Number of events processed : 100
+  User=0.02s Real=0.04s Sys=0.01s
+
+ ======================== run summary ======================
+
+ The run was 100 proton of 500 MeV through 2 um  of G4_Si (density: 2.33 g/cm3 )
+
+ Total energy deposit in absorber per event = 928 eV  +- 162.8 eV 
+
+ -----> Mean dE/dx = 4.64 MeV/cm	(1.991 MeV*cm2/g)
+
+ From formulas :
+   restricted dEdx = 5.201 MeV/cm	(2.232 MeV*cm2/g)
+   full dEdx       = 5.202 MeV/cm	(2.233 MeV*cm2/g)
+
+ Leakage :  primary = 500 MeV +- 162.8 eV    secondaries = 0 eV  +- 0 eV 
+ Energy balance :  edep + eleak = 500 MeV
+
+ Total track length (charged) in absorber per event = 2 um  +- 13.34 fm 
+ Total track length (neutral) in absorber per event = 0 fm  +- 0 fm 
+
+ Number of steps (charged) in absorber per event = 1 +- 0
+ Number of steps (neutral) in absorber per event = 0 +- 0
+
+ Number of secondaries per event : Gammas = 0;   electrons = 0;   positrons = 0
+
+ Number of events with the primary particle transmitted = 100 %
+ Number of events with at least  1 particle transmitted (same charge as primary) = 100 %
+
+ Number of events with the primary particle reflected = 0 %
+ Number of events with at least  1 particle reflected (same charge as primary) = 0 %
+
+ MultipleScattering:
+  rms proj angle of transmit primary particle = 0.04347 mrad (central part only)
+  computed theta0 (Highland formula)          = 0.04498 mrad
+  central part defined as +- 0.1349 mrad;   Tail ratio = 2.5 %
+
+--------- Ranecu engine status ---------
+ Initial seed (index) = 0
+ Current couple of seeds = 1802311424, 2068807619
+----------------------------------------
+#/run/particle/storePhysicsTable physdata
+#
+G4 kernel has come to Quit state.
+Total navigation history collections cleaned: 7
+================== Deleting memory pools ===================
+Number of memory pools allocated: 10; of which, static: 0
+Dynamic pools deleted: 10 / Total memory freed: 0.26 Mb
+============================================================
+RunManagerKernel is deleted. Good bye :)

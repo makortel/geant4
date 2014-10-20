@@ -1,0 +1,40 @@
+$Id: History 81592 2014-06-03 13:42:45Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+March 14th,  2014 J.Apostolakis
+----------------------------------
+Updated interface to use field manager to set charge momentum, mass' testProElectroMagField.cc
+Deleted directory field03 - its contents were input files for another example (copies from TestEm5).
+
+March 12th,  2013 J.Apostolakis
+----------------------------------
+Deleted directory field02 - it has been moved to examples/extended/field/field02 (like field01)
+
+June 13th, 2012 G.Cosmo
+-----------------------
+Fixed compilation errors and warnings (except in field* directories...).
+
+February  3rd,  2011 J.Apostolakis
+----------------------------------
+testPropagateMagField.cc
+  Migrated Exception to new signature.
+
+February  2nd,  2011 J.Apostolakis
+----------------------------------
+Added field07 test to check for getting stuck on surfaces.
