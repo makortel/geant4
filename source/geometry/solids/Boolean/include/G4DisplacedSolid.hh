@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-// $Id: G4DisplacedSolid.hh 84620 2014-10-17 09:30:48Z gcosmo $
+// $Id: G4DisplacedSolid.hh 83572 2014-09-01 15:23:27Z gcosmo $
 //
 //
 // class G4DisplacedSolid

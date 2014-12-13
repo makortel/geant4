@@ -1,4 +1,4 @@
-$Id: History 81893 2014-06-06 13:30:07Z gcosmo $
+$Id: History 86964 2014-11-21 11:47:44Z gcosmo $
 -------------------------------------------------------------------
 
      =========================================================
@@ -17,11 +17,23 @@ committal in the CVS repository !
      * Reverse chronological order (last date on top), please *
      ----------------------------------------------------------
 
-May   27st 2014, V.Ivanchenko transport-V09-06-08
+November 21st 2014, J.Apostolakis transport-V10-00-06
+--------------------------------- (corrected version of transport-V10-00-04)
+- Added initialization of G4CoupledTransportation data members (fixes Coverity issue 15280)
+  Renamed data member, to make its name canonical.
+     
+October 15th 2014, M.Asai transport-V10-00-05
+-------------------------
+- G4CoupledTransportation is reverted to transport-V10-00-03.
+- G4Transportation and G4CoupledTransportation : made data member
+  fUseMagneticMoment and its set method EnableUseMagneticMoment()
+  static.
+
+May   27st 2014, V.Ivanchenko transport-V10-00-03
 ------------------------------
 - G4UserSpecialCuts - fixed trivial Coverity report
 
-May   21st 2014, J.Apostolakis
+May   21st 2014, J.Apostolakis transport-V10-00-02
 ------------------------------
 - Revised  AlongStepDoIt methods of G4Transportation and 
    G4CoupledTransportation:
@@ -34,7 +46,7 @@ May   21st 2014, J.Apostolakis
 NOTE: Requires tag field-V10-00-03 of geometry/magneticfield 
 
 
-March 14th 2014, J.Apostolakis
+March 14th 2014, J.Apostolakis transport-V10-00-01
 ------------------------------
 - Fix time in case of zero step, in G4CoupledTransportation.
   This caused a 'going back in time' error, when a zero step occurred

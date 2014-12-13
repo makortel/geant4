@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-// $Id: testG4Cons2.cc 84622 2014-10-17 09:43:17Z gcosmo $
+// $Id: testG4Cons2.cc 83851 2014-09-19 10:12:12Z gcosmo $
 //
 // Simple test of G4Cons
 // Basic checks on each function + awkward cases for tracking / geom algorithms

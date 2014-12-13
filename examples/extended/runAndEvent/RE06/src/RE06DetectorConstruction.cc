@@ -26,7 +26,7 @@
 /// \file RE06/src/RE06DetectorConstruction.cc
 /// \brief Implementation of the RE06DetectorConstruction class
 //
-// $Id: RE06DetectorConstruction.cc 84613 2014-10-17 08:34:52Z gcosmo $
+// $Id: RE06DetectorConstruction.cc 83381 2014-08-21 14:18:13Z gcosmo $
 // 
 
 #include "RE06DetectorConstruction.hh"
@@ -120,8 +120,8 @@ G4VPhysicalVolume* RE06DetectorConstruction::Construct()
   return fWorldPhysical;
 }
 
-void RE06DetectorConstruction::ConstructSDandField() {
-
+void RE06DetectorConstruction::ConstructSDandField() 
+{
   if(!fConstructedSDandField)
   {
     fConstructedSDandField = true;

@@ -23,7 +23,7 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: RE05PrimaryGeneratorAction.cc 84630 2014-10-17 10:31:29Z gcosmo $
+// $Id: RE05PrimaryGeneratorAction.cc 83391 2014-08-21 14:35:11Z gcosmo $
 //
 /// \file RE05/src/RE05PrimaryGeneratorAction.cc
 /// \brief Implementation of the RE05PrimaryGeneratorAction class

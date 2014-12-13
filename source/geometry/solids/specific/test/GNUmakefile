@@ -1,4 +1,4 @@
-# $Id: GNUmakefile 84624 2014-10-17 09:56:00Z gcosmo $
+# $Id: GNUmakefile 85530 2014-10-30 16:17:43Z gcosmo $
 # ----------------------------------------------------------------
 # Makes test program in environment variable G4TARGET.
 # ----------------------------------------------------------------
@@ -23,7 +23,6 @@ include $(G4INSTALL)/config/architecture.gmk
 #            -I$(G4BASE)/geometry/solids/CSG/include \
 #            -I$(G4BASE)/geometry/solids/specific/include \
 #            -I$(G4BASE)/geometry/solids/Boolean/include \
-#            -I$(G4BASE)/geometry/solids/usolids/include \
 #            -I$(G4BASE)/geometry/management/include \
 #            -I$(G4BASE)/materials/include \
 #            -I$(G4BASE)/global/management/include \

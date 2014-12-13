@@ -1,4 +1,4 @@
-# $Id: GNUmakefile 84622 2014-10-17 09:43:17Z gcosmo $
+# $Id: GNUmakefile 85530 2014-10-30 16:17:43Z gcosmo $
 # ----------------------------------------------------------------
 # Makes test program in environment variable G4TARGET.
 # ----------------------------------------------------------------
@@ -20,14 +20,13 @@ include $(G4INSTALL)/config/architecture.gmk
 #INCFLAGS := -I$(G4BASE)/geometry/management/include \
 #            -I$(G4BASE)/geometry/solids/CSG/include \
 #            -I$(G4BASE)/geometry/solids/specific/include \
-#            -I$(G4BASE)/geometry/solids/usolids/include \
 #            -I$(G4BASE)/global/management/include \
 #            -I$(G4BASE)/global/HEPRandom/include \
 #            -I$(G4BASE)/global/HEPNumerics/include \
 #            -I$(G4BASE)/global/HEPGeometry/include \
 #            -I$(G4BASE)/graphics_reps/include
 #
-#LDLIBS   := -lG4csg -lG4specsolids -lG4geomUSolids -lG4geometrymng \
+#LDLIBS   := -lG4csg -lG4specsolids -lG4geometrymng \
 #            -lG4graphics_reps \
 #            -lG4intercoms \
 #            -lG4hepnumerics -lG4globman

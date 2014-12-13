@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-// $Id: testPropagateSpin.cc 69699 2013-05-13 08:50:30Z gcosmo $
+// $Id: testPropagateSpin.cc 85845 2014-11-05 15:43:58Z gcosmo $
 //
 //  
 //
@@ -369,8 +369,9 @@ G4bool testG4PropagatorInField(G4VPhysicalVolume*,     // *pTopNode,
         ( pMagFieldPropagator->GetChordFinder()->GetIntegrationDriver()->GetStepper())
         ->GetEquationOfMotion();
    
+    G4ChargeState chargeSt(1.0, 0.0, 0.5 );    // Charge, MagDipole , spin
     equationOfMotion->SetChargeMomentumMass(  
-			    +1.,                    // charge in e+ units
+                            chargeSt, 
 			    0.1*GeV,                // Momentum in Mev/c ?
 			    0.105658387*GeV );
     // pNavig->SetWorldVolume(pTopNode);
@@ -416,8 +417,10 @@ G4bool testG4PropagatorInField(G4VPhysicalVolume*,     // *pTopNode,
                   ( std::sqrt( momentum_sq + rest_mass * rest_mass ) 
 		    + rest_mass );
        G4double labTof= 10.0*ns, properTof= 0.1*ns;
+
+       //  G4ChargeState chargeSt(1.0, 0.0, 0.5 );    // Charge, MagDipole , spin
        equationOfMotion->SetChargeMomentumMass(
-		      +1,                    // charge in e+ units
+                      chargeSt, 
                       momentum_val, 
                       rest_mass);
 

@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-// $Id: G4PAIxSection.cc 84489 2014-10-16 09:51:31Z gcosmo $
+// $Id: G4PAIxSection.cc 83662 2014-09-08 10:00:20Z gcosmo $
 // GEANT4 tag $Name: geant4-09-03-ref-06 $
 //
 // 
@@ -45,8 +45,6 @@
 // 20.11.98 adapted to a new Material/SandiaTable interface, mma 
 // 11.06.97 V. Grichine, 1st version 
 //
-
-
 
 #include "G4PAIxSection.hh"
 
@@ -133,7 +131,10 @@ G4PAIxSection::G4PAIxSection(G4MaterialCutsCouple* matCC)
   fDensity       = matCC->GetMaterial()->GetDensity();
   G4int matIndex = matCC->GetMaterial()->GetIndex();
   fMaterialIndex = matIndex;   
-  fSandia        = new G4SandiaTable(matIndex);
+
+  const G4MaterialTable* theMaterialTable = G4Material::GetMaterialTable();
+  fSandia = (*theMaterialTable)[matIndex]->GetSandiaTable();
+
   fVerbose = 0;
 
   G4int i, j; 

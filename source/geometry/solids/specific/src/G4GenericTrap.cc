@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-// $Id: G4GenericTrap.cc 84624 2014-10-17 09:56:00Z gcosmo $
+// $Id: G4GenericTrap.cc 83851 2014-09-19 10:12:12Z gcosmo $
 //
 //
 // --------------------------------------------------------------------
@@ -41,9 +41,12 @@
 //                to CreatePolyhedron() for Visualisation of Boolean       
 // --------------------------------------------------------------------
 
+#include "G4GenericTrap.hh"
+
+#if !defined(G4GEOM_USE_UGENERICTRAP)
+
 #include <iomanip>
 
-#include "G4GenericTrap.hh"
 #include "G4PhysicalConstants.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4TessellatedSolid.hh"
@@ -2253,3 +2256,5 @@ G4Polyhedron* G4GenericTrap::CreatePolyhedron() const
 }
 
 // --------------------------------------------------------------------
+
+#endif

@@ -37,6 +37,7 @@ extern "C" int setntuc_();
 #endif
 
 #include <iostream>
+#include <cstdlib>
 
 int main(int,char**) {
 
@@ -72,8 +73,8 @@ int main(int,char**) {
   //hfile.mkcd("histo");
 
   unsigned int entries = 100000;
-  tools::randf::gauss rg(0,1);
-  tools::randf::bw rbw(0,1);
+  tools::rgaussf rg(0,1);
+  tools::rbwf rbw(0,1);
 
   /////////////////////////////////////////////////////////////////////////
   // create some histos under //PAWC/LUN1/histo.
@@ -215,8 +216,7 @@ int main(int,char**) {
   hfile.cd_home();      //go under //PAWC/LUN1
   hfile.cd("ntuple");
 
-  tools::ntuple_booking nbk;
-  nbk.m_title = "An ntuple";
+  tools::ntuple_booking nbk("","An ntuple");
   nbk.add_column<double>("rg");
   nbk.add_column<float>("rbw");
   nbk.add_column<int>("count");

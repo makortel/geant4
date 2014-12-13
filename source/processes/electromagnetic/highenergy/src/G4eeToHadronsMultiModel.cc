@@ -23,7 +23,7 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: G4eeToHadronsMultiModel.cc 84488 2014-10-16 09:28:02Z gcosmo $
+// $Id: G4eeToHadronsMultiModel.cc 82961 2014-07-21 09:20:49Z gcosmo $
 //
 // -------------------------------------------------------------------
 //

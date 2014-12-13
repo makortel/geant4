@@ -1,4 +1,4 @@
-# $Id: GNUmakefile 66356 2012-12-18 09:02:32Z gcosmo $
+# $Id: GNUmakefile 87386 2014-12-02 09:07:34Z gcosmo $
 # --------------------------------------------------------------
 # Makes test program in environment variable G4TARGET.
 # --------------------------------------------------------------
@@ -17,21 +17,22 @@ include $(G4INSTALL)/config/architecture.gmk
 
 # Override some variables for binmake.gmk.
 #
-INCFLAGS := -I$(G4BASE)/geometry/management/include \
-            -I$(G4BASE)/geometry/volumes/include \
-            -I$(G4BASE)/geometry/navigation/include \
-            -I$(G4BASE)/geometry/divisions/include \
-            -I$(G4BASE)/geometry/solids/CSG/include \
-            -I$(G4BASE)/geometry/solids/specific/include \
-            -I$(G4BASE)/global/management/include \
-            -I$(G4BASE)/global/HEPRandom/include \
-            -I$(G4BASE)/global/HEPGeometry/include
-
-LDLIBS   := -lG4geomdivision -lG4specsolids -lG4csg \
-            -lG4navigation -lG4volumes -lG4magneticfield \
-            -lG4geometrymng -lG4graphics_reps \
-            -lG4intercoms -lG4UIbasic -lG4UIcommon \
-            -lG4hepnumerics -lG4globman 
+#INCFLAGS := -I$(G4BASE)/geometry/management/include \
+#            -I$(G4BASE)/geometry/volumes/include \
+#            -I$(G4BASE)/geometry/navigation/include \
+#            -I$(G4BASE)/geometry/divisions/include \
+#            -I$(G4BASE)/geometry/solids/CSG/include \
+#            -I$(G4BASE)/geometry/solids/specific/include \
+#            -I$(G4BASE)/graphics_reps/include \
+#            -I$(G4BASE)/global/management/include \
+#            -I$(G4BASE)/global/HEPRandom/include \
+#            -I$(G4BASE)/global/HEPGeometry/include
+#
+#LDLIBS   := -lG4geomdivision -lG4specsolids -lG4csg \
+#            -lG4navigation -lG4volumes -lG4magneticfield \
+#            -lG4geometrymng -lG4graphics_reps \
+#            -lG4intercoms -lG4UIbasic -lG4UIcommon \
+#            -lG4hepnumerics -lG4globman 
 
 include  $(G4INSTALL)/config/binmake.gmk
 

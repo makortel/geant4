@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-// $Id: G4FieldTrackUpdator.cc 81898 2014-06-06 13:43:20Z gcosmo $
+// $Id: G4FieldTrackUpdator.cc 81134 2014-05-21 13:12:24Z gcosmo $
 //
 //   M. Asai - first implementation Apr/28/2006
 //

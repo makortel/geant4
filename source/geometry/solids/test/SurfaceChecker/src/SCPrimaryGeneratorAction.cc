@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-// $Id: SCPrimaryGeneratorAction.cc 84628 2014-10-17 10:12:21Z gcosmo $
+// $Id: SCPrimaryGeneratorAction.cc 83851 2014-09-19 10:12:12Z gcosmo $
 //
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

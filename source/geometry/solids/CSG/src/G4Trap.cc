@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-// $Id: G4Trap.cc 84622 2014-10-17 09:43:17Z gcosmo $
+// $Id: G4Trap.cc 83851 2014-09-19 10:12:12Z gcosmo $
 //
 // class G4Trap
 //
@@ -48,6 +48,8 @@
 //////////////////////////////////////////////////////////////////////////////////// 
 
 #include "G4Trap.hh"
+
+#if !defined(G4GEOM_USE_UTRAP)
 
 #include "globals.hh"
 
@@ -1967,3 +1969,5 @@ G4Polyhedron* G4Trap::CreatePolyhedron () const
                               fDy1, fDx1, fDx2, alpha1,
                               fDy2, fDx3, fDx4, alpha2);
 }
+
+#endif

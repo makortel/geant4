@@ -1,4 +1,4 @@
-# $Id: GNUmakefile 64307 2012-10-31 13:01:35Z gcosmo $
+# $Id: GNUmakefile 86834 2014-11-19 08:27:45Z gcosmo $
 # ----------------------------------------------------------------
 # Makes test program in environment variable G4TARGET.
 # ----------------------------------------------------------------
@@ -29,11 +29,11 @@ INCFLAGS := -I$(G4BASE)/geometry/management/include \
             -I$(G4BASE)/graphics_reps/include \
             -I$(G4BASE)/intercoms/include
 
-LDLIBS   := -lG4geometry -lG4graphics_reps -lG4materials \
-            -lG4intercoms -lG4global
+# LDLIBS   := -lG4geometry -lG4graphics_reps -lG4materials \
+#             -lG4intercoms -lG4global
 #  For external CLHEP must not include G4clhep
 #ifndef CLHEP_BASE_DIR
-LDLIBS   += -lG4clhep
+# LDLIBS   += -lG4clhep
 # endif            
 
 include $(G4INSTALL)/config/binmake.gmk

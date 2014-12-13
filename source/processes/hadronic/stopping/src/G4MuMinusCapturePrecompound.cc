@@ -23,7 +23,7 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: G4MuMinusCapturePrecompound.cc 81888 2014-06-06 13:17:25Z gcosmo $
+// $Id: G4MuMinusCapturePrecompound.cc 80902 2014-05-15 09:33:52Z gcosmo $
 //
 //-----------------------------------------------------------------------------
 //

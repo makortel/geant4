@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-// $Id: testG4Polyhedron.cc 66376 2012-12-18 09:42:59Z gcosmo $
+// $Id: testG4Polyhedron.cc 78955 2014-02-05 09:45:46Z gcosmo $
 //
 // 
 
@@ -61,8 +61,8 @@ int main() {
 
   G4cout << "=== G4PolyhedronTrap" << G4endl;
   polyhedron = G4PolyhedronTrap(390., 0.*deg, 0.*deg,
-				60., 40., 90., 15.*deg,
-				120., 80., 180., 15.*deg);
+                                60., 40., 90., 15.*deg,
+                                120., 80., 180., 15.*deg);
 
 //   T U B E
 

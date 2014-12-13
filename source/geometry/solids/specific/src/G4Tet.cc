@@ -27,7 +27,7 @@
 // *                                                                  *
 // ********************************************************************
 //
-// $Id: G4Tet.cc 84624 2014-10-17 09:56:00Z gcosmo $
+// $Id: G4Tet.cc 83572 2014-09-01 15:23:27Z gcosmo $
 //
 // class G4Tet
 //
@@ -58,7 +58,7 @@
 
 #if !defined(G4GEOM_USE_UTET)
 
-const char G4Tet::CVSVers[]="$Id: G4Tet.cc 84624 2014-10-17 09:56:00Z gcosmo $";
+const char G4Tet::CVSVers[]="$Id: G4Tet.cc 83572 2014-09-01 15:23:27Z gcosmo $";
 
 #include "G4VoxelLimits.hh"
 #include "G4AffineTransform.hh"

@@ -23,7 +23,7 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: G4EmCalculator.cc 79268 2014-02-20 16:46:31Z gcosmo $
+// $Id: G4EmCalculator.cc 83007 2014-07-24 14:46:57Z gcosmo $
 //
 // -------------------------------------------------------------------
 //
@@ -1256,6 +1256,25 @@ G4EmCalculator::FindMscProcess(const G4ParticleDefinition* part,
   }
   return proc;
 }
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
+
+G4VProcess* G4EmCalculator::FindProcess(const G4ParticleDefinition* part,
+					const G4String& processName)
+{
+  G4VProcess* proc = 0;
+  const G4ProcessManager* procman = part->GetProcessManager();
+  G4ProcessVector* pv = procman->GetProcessList();
+  G4int nproc = pv->size();
+  for(G4int i=0; i<nproc; ++i) {
+    if(processName == (*pv)[i]->GetProcessName()) {
+      proc = (*pv)[i];
+      break;
+    }
+  }
+  return proc;
+}
+
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 

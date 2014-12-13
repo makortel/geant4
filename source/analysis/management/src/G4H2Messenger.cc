@@ -37,6 +37,8 @@
 
 #include <iostream>
 
+using namespace G4Analysis;
+
 namespace {
 
 void Exception(G4UIcommand* command, G4int nofParameters)
@@ -118,7 +120,7 @@ void G4H2Messenger::CreateH2Cmd()
   h2xValMax0->SetDefaultValue(1.);
 
   G4UIparameter* h2xValUnit0 = new G4UIparameter("xvalUnit0", 's', true);
-  h2xValUnit0->SetGuidance("The unit of xvalMin0 and xvalMax0");
+  h2xValUnit0->SetGuidance("The unit applied to filled x-values and xvalMin0, xvalMax0");
   h2xValUnit0->SetDefaultValue("none");
   
   G4UIparameter* h2xValFcn0 = new G4UIparameter("xvalFcn0", 's', true);
@@ -149,7 +151,7 @@ void G4H2Messenger::CreateH2Cmd()
   h2yValMax0->SetDefaultValue(1.);
 
   G4UIparameter* h2yValUnit0 = new G4UIparameter("yvalUnit0", 's', true);
-  h2yValUnit0->SetGuidance("The unit of yvalMin0 and yvalMax0");
+  h2yValUnit0->SetGuidance("The unit applied to filled y-values and yvalMin0, yvalMax0");
   h2yValUnit0->SetDefaultValue("none");
   
   G4UIparameter* h2yValFcn0 = new G4UIparameter("yvalFcn0", 's', true);
@@ -201,7 +203,7 @@ void G4H2Messenger::SetH2Cmd()
   h2xValMax->SetGuidance("Maximum x-value, expressed in unit");
   
   G4UIparameter* h2xValUnit = new G4UIparameter("xvalUnit", 's', false);
-  h2xValUnit->SetGuidance("The unit of xvalMin and xvalMax");
+  h2xValUnit->SetGuidance("The unit applied to filled x-values and xvalMin, xvalMax");
   h2xValUnit->SetDefaultValue("none");
  
   G4UIparameter* h2xValFcn = new G4UIparameter("xvalFcn", 's', false);
@@ -226,7 +228,7 @@ void G4H2Messenger::SetH2Cmd()
   h2yValMax->SetGuidance("Maximum y-value, expressed in unit");
   
   G4UIparameter* h2yValUnit = new G4UIparameter("yvalUnit", 's', true);
-  h2yValUnit->SetGuidance("The unit of yvalMin and yvalMax");
+  h2yValUnit->SetGuidance("The unit applied to filled y-values and yvalMin, yvalMax");
   h2yValUnit->SetDefaultValue("none");
  
   G4UIparameter* h2yValFcn = new G4UIparameter("yvalFcn", 's', false);
@@ -360,14 +362,17 @@ void G4H2Messenger::SetNewValue(G4UIcommand* command, G4String newValues)
     G4String xsunit = parameters[counter++];
     G4String xsfcn = parameters[counter++];
     G4String xsbinScheme = parameters[counter++];
+    G4double xunit = GetUnitValue(xsunit);
     G4int ynbins = G4UIcommand::ConvertToInt(parameters[counter++]); 
     G4double yvmin = G4UIcommand::ConvertToDouble(parameters[counter++]); 
     G4double yvmax = G4UIcommand::ConvertToDouble(parameters[counter++]); ; 
     G4String ysunit = parameters[counter++];
     G4String ysfcn = parameters[counter++];
     G4String ysbinScheme = parameters[counter++];
+    G4double yunit = GetUnitValue(ysunit);
     fManager->CreateH2(name, title, 
-                       xnbins, xvmin, xvmax, ynbins, yvmin, yvmax, 
+                       xnbins, xvmin*xunit, xvmax*xunit, 
+                       ynbins, yvmin*yunit, yvmax*yunit, 
                        xsunit, ysunit, xsfcn, ysfcn, xsbinScheme, ysbinScheme);     
   }
   else if ( command == fSetH2Cmd ) {
@@ -379,14 +384,17 @@ void G4H2Messenger::SetNewValue(G4UIcommand* command, G4String newValues)
     G4String xsunit = parameters[counter++];
     G4String xsfcn = parameters[counter++];
     G4String xsbinScheme = parameters[counter++];
+    G4double xunit = GetUnitValue(xsunit);
     G4int ynbins = G4UIcommand::ConvertToInt(parameters[counter++]); 
     G4double yvmin = G4UIcommand::ConvertToDouble(parameters[counter++]); 
     G4double yvmax = G4UIcommand::ConvertToDouble(parameters[counter++]); ; 
     G4String ysunit = parameters[counter++];
     G4String ysfcn = parameters[counter++];
     G4String ysbinScheme = parameters[counter++];
+    G4double yunit = GetUnitValue(ysunit);
     fManager->SetH2(id, 
-                    xnbins, xvmin, xvmax, ynbins, yvmin, yvmax, 
+                    xnbins, xvmin*xunit, xvmax*xunit,
+                    ynbins, yvmin*yunit, yvmax*yunit, 
                     xsunit, ysunit, xsfcn, ysfcn, xsbinScheme, ysbinScheme);     
   }
   else if ( command == fSetH2TitleCmd ) {

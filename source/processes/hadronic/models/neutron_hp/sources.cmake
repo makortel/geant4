@@ -11,7 +11,7 @@
 #
 # Generated on : 24/9/2010
 #
-# $Id: sources.cmake 81879 2014-06-06 12:32:01Z gcosmo $
+# $Id: sources.cmake 86780 2014-11-18 08:38:07Z gcosmo $
 #
 #-----------------------------------------------------------------------
 
@@ -150,7 +150,7 @@ GEANT4_DEFINE_MODULE(NAME G4had_neu_hp
     G4NeutronHPPInelasticFS.hh
     G4NeutronHPPTInelasticFS.hh
     G4NeutronHPPhotonDist.hh
-    G4NeutronHPPhotonXSection.hh
+    #G4NeutronHPPhotonXSection.hh
     G4NeutronHPPolynomExpansion.hh
     G4NeutronHPSCFissionFS.hh
     G4NeutronHPSimpleEvapSpectrum.hh
@@ -165,7 +165,9 @@ GEANT4_DEFINE_MODULE(NAME G4had_neu_hp
     G4VNeutronHPEnergyAngular.hh
     G4NeutronHPBGGNucleonInelasticXS.hh
     G4NeutronHPManager.hh
+    G4NeutronHPThreadLocalManager.hh
     G4NeutronHPReactionWhiteBoard.hh
+    G4NeutronHPMessenger.hh
 ### Fission Fragment Generator - start
 	G4ArrayOps.hh
 	G4ENDFTapeRead.hh
@@ -291,7 +293,9 @@ GEANT4_DEFINE_MODULE(NAME G4had_neu_hp
     G4NeutronHPWattSpectrum.cc
     G4NeutronHPBGGNucleonInelasticXS.cc
     G4NeutronHPManager.cc
+    G4NeutronHPThreadLocalManager.cc
     G4NeutronHPReactionWhiteBoard.cc
+    G4NeutronHPMessenger.cc
 ### Fission Fragment Generator - start
 	G4ENDFTapeRead.cc
 	G4ENDFYieldDataContainer.cc

@@ -28,7 +28,7 @@
 // ********************************************************************
 //
 //
-// $Id: G4Tet.hh 84624 2014-10-17 09:56:00Z gcosmo $
+// $Id: G4Tet.hh 83572 2014-09-01 15:23:27Z gcosmo $
 //
 //
 // --------------------------------------------------------------------
@@ -130,7 +130,7 @@ class G4Tet : public G4VSolid
       // Copy constructor and assignment operator.
 
     const char* CVSHeaderVers()
-      { return "$Id: G4Tet.hh 84624 2014-10-17 09:56:00Z gcosmo $"; }
+      { return "$Id: G4Tet.hh 83572 2014-09-01 15:23:27Z gcosmo $"; }
     const char* CVSFileVers()
       { return CVSVers; }
     void PrintWarnings(G4bool flag)

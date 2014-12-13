@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-// $Id: G4DisplacedSolid.cc 84620 2014-10-17 09:30:48Z gcosmo $
+// $Id: G4DisplacedSolid.cc 84211 2014-10-10 14:47:30Z gcosmo $
 //
 // Implementation for G4DisplacedSolid class for boolean 
 // operations between other solids

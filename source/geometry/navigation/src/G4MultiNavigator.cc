@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-// $Id: G4MultiNavigator.cc 84511 2014-10-16 14:26:54Z gcosmo $
+// $Id: G4MultiNavigator.cc 83466 2014-08-25 10:31:39Z gcosmo $
 // GEANT4 tag $ Name:  $
 // 
 // class G4PathFinder Implementation

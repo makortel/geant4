@@ -23,7 +23,7 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: G4JTPolynomialSolver.cc 84516 2014-10-16 15:04:13Z gcosmo $
+// $Id: G4JTPolynomialSolver.cc 83917 2014-09-23 08:38:12Z gcosmo $
 // 
 // --------------------------------------------------------------------
 // GEANT 4 class source file

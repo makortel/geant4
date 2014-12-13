@@ -4,7 +4,7 @@
         ############################################
 
 *************************************************************
- Geant4 version Name: geant4-10-00-patch-02    (13-June-2014)
+ Geant4 version Name: geant4-10-01-ref-00    (5-December-2014)
                       Copyright : Geant4 Collaboration
                       Reference : NIM A 506 (2003), 250-303
                             WWW : http://cern.ch/geant4
@@ -293,7 +293,7 @@ Index : 0     used in the geometry : Yes
   Range cuts : 	 gamma      100 um 	 e-      100 um 
  Energy cuts : 	 gamma  1.11344 keV	 e-  85.1138 keV
 
-  Max_energy _transferable  : 10 MeV (4.93212 cm )
+  Max_energy _transferable  : 10 MeV (4.93186 cm )
 
   processes :                	        eIoni		        eBrem		        total
  
@@ -312,7 +312,7 @@ Index : 0     used in the geometry : Yes
       (MeV/g/cm2)          : 	      1.99147 MeV*cm2/g	      181.698 keV*cm2/g	      2.17317 MeV*cm2/g
  
   range from restrict dE/dx: 	 6.07227 cm  ( 6.07227 g/cm2 )
-  range from full dE/dx    : 	 4.93212 cm  ( 4.93212 g/cm2 )
+  range from full dE/dx    : 	 4.93186 cm  ( 4.93186 g/cm2 )
  
   transport mean free path : 	 27.9107 cm  ( 27.9107 g/cm2 )
  
@@ -320,3 +320,4 @@ Index : 0     used in the geometry : Yes
   Moliere radius           : 	0.269193 X0 =  9.71583 cm 
 -------------------------------------------------------------
 
+Total navigation history collections cleaned: 6

@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-// $Id: testG4ReplicaNavigation.cc 84737 2014-10-20 10:03:38Z gcosmo $
+// $Id: testG4ReplicaNavigation.cc 84735 2014-10-20 10:00:18Z gcosmo $
 //
 // 
 // Test private location & distance computation functions of

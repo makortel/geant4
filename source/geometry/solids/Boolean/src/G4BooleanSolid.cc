@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-// $Id: G4BooleanSolid.cc 84620 2014-10-17 09:30:48Z gcosmo $
+// $Id: G4BooleanSolid.cc 83572 2014-09-01 15:23:27Z gcosmo $
 //
 // Implementation for the abstract base class for solids created by boolean 
 // operations between other solids
