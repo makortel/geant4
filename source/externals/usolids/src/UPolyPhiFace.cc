@@ -265,7 +265,7 @@ void UPolyPhiFace::Diagnose(VUSolid* owner)
     if (owner->Inside(test) != VUSolid::eInside)
     {
       UUtils::Exception("UPolyPhiFace::Diagnose()", "GeomSolids0002",
-                        FatalError, 1, "Bad vertex normal found.");
+                        UUtils::FatalError, 1, "Bad vertex normal found.");
     }
   }
   while (++corner < corners + numEdges);
@@ -1287,7 +1287,7 @@ void UPolyPhiFace::Triangulate()
     if (i >= max_n_loops)
     {
       UUtils::Exception("UPolyPhiFace::Triangulation()",
-                        "GeomSolids0003", FatalError, 1,
+                        "GeomSolids0003", UUtils::FatalError, 1,
                         "Maximum number of steps is reached for triangulation!");
     }
   }  // end outer while loop

@@ -54,7 +54,7 @@ UCons::UCons(const std::string& pName,
     std::ostringstream message;
     message << "Invalid Z half-length for Solid: " << GetName() << std::endl
             << "  hZ = " << pDz;
-    UUtils::Exception("UCons::UCons()", "UGeomSolids", FatalErrorInArguments, 1, message.str().c_str());
+    UUtils::Exception("UCons::UCons()", "UGeomSolids", UUtils::FatalErrorInArguments, 1, message.str().c_str());
   }
 
   // Check radii
@@ -65,7 +65,7 @@ UCons::UCons(const std::string& pName,
     message << "Invalid values of radii for Solid: " << GetName() << std::endl
             << "  pRmin1 = " << pRmin1 << ", pRmin2 = " << pRmin2
             << ", pRmax1 = " << pRmax1 << ", pRmax2 = " << pRmax2;
-    UUtils::Exception("UCons::UCons()", "UGeomSolids", FatalErrorInArguments, 1, message.str().c_str());
+    UUtils::Exception("UCons::UCons()", "UGeomSolids", UUtils::FatalErrorInArguments, 1, message.str().c_str());
 
   }
   if ((pRmin1 == 0.0) && (pRmin2 > 0.0))
@@ -272,7 +272,7 @@ bool UCons::Normal(const UVector3& p, UVector3& n) const
 #ifdef UDEBUG
 
     UUtils::Exception("UCons::SurfaceNormal(p)", "GeomSolids1002",
-                      Warning, 1, "Point p is not on surface !?");
+                      UUtils::Warning, 1, "Point p is not on surface !?");
 #endif
     norm = ApproxSurfaceNormal(p);
   }
@@ -406,7 +406,7 @@ UVector3 UCons::ApproxSurfaceNormal(const UVector3& p) const
       break;
     default:          // Should never reach this case...
       UUtils::Exception("UCons::ApproxSurfaceNormal()",
-                        "GeomSolids1002", Warning, 1,
+                        "GeomSolids1002", UUtils::Warning, 1,
                         "Undefined side for valid surface normal to solid.");
       break;
   }
@@ -1977,7 +1977,7 @@ double UCons::DistanceToOut(const UVector3& p,
               << "Proposed distance :" << std::endl << std::endl
               << "snxt = "    << snxt << " mm" << std::endl;
       message.precision(oldprc);
-      UUtils::Exception("UCons::DistanceToOut()", "UGeomSolids", Warning, 1, message.str().c_str());
+      UUtils::Exception("UCons::DistanceToOut()", "UGeomSolids", UUtils::Warning, 1, message.str().c_str());
       break;
   }
   if (snxt < halfCarTolerance)
@@ -2014,7 +2014,7 @@ double UCons::SafetyFromInside(const UVector3& p, bool) const
            << " degree" << std::endl << std::endl;
     }
     cout.precision(oldprc);
-    UUtils::Exception("UCons::UCons()", "UGeomSolids", Warning, 1, message.str().c_str());
+    UUtils::Exception("UCons::UCons()", "UGeomSolids", UUtils::Warning, 1, message.str().c_str());
 
   }
 #endif

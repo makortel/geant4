@@ -85,7 +85,7 @@ UTet::UTet(const std::string& name,
   if (degeneracyFlag) *degeneracyFlag = degenerate;
   else if (degenerate)
   {
-    UUtils::Exception("UTet::UTet()", "GeomSolids0002", FatalErrorInArguments, 1,
+    UUtils::Exception("UTet::UTet()", "GeomSolids0002", UUtils::FatalErrorInArguments, 1,
                       "Degenerate tetrahedron not allowed.");
   }
 
@@ -477,7 +477,7 @@ double UTet::DistanceToOut(const UVector3&  p, const UVector3& v,
             << t1 << ", " << t2 << ", " << t3 << ", " << t4;
 
     UUtils::Exception("UTet::DistanceToOut(p,v,...)", "GeomSolids1002",
-                      Warning, 1, message.str().c_str());
+                      UUtils::Warning, 1, message.str().c_str());
     if (convex)
     {
       convex = false; // flag normal as meaningless

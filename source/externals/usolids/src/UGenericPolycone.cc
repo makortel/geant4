@@ -69,7 +69,7 @@ void UGenericPolycone::Create(double phiStart,
     message << "Illegal input parameters - " << GetName() << std::endl
             << "				All R values must be >= 0 !";
     UUtils::Exception("UGenericPolycone::Create()", "GeomSolids0002",
-                      FatalErrorInArguments, 1, message.str().c_str());
+                      UUtils::FatalErrorInArguments, 1, message.str().c_str());
   }
 
   double rzArea = rz->Area();
@@ -82,7 +82,7 @@ void UGenericPolycone::Create(double phiStart,
     message << "Illegal input parameters - " << GetName() << std::endl
             << "				R/Z Cross section is zero or near zero: " << rzArea;
     UUtils::Exception("UGenericPolycone::Create()", "GeomSolids0002",
-                      FatalErrorInArguments, 1, message.str().c_str());
+                      UUtils::FatalErrorInArguments, 1, message.str().c_str());
   }
 
   if ((!rz->RemoveDuplicateVertices(VUSolid::Tolerance()))
@@ -92,7 +92,7 @@ void UGenericPolycone::Create(double phiStart,
     message << "Illegal input parameters - " << GetName() << std::endl
             << "				Too few unique R/Z values !";
     UUtils::Exception("UGenericPolycone::Create()", "GeomSolids0002",
-                      FatalErrorInArguments, 1, message.str().c_str());
+                      UUtils::FatalErrorInArguments, 1, message.str().c_str());
   }
 
   if (rz->CrossesItself(1 / UUtils::kInfinity))
@@ -101,7 +101,7 @@ void UGenericPolycone::Create(double phiStart,
     message << "Illegal input parameters - " << GetName() << std::endl
             << "				R/Z segments Cross !";
     UUtils::Exception("UGenericPolycone::Create()", "GeomSolids0002",
-                      FatalErrorInArguments, 1, message.str().c_str());
+                      UUtils::FatalErrorInArguments, 1, message.str().c_str());
   }
 
   numCorner = rz->NumVertices();

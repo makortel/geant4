@@ -128,7 +128,7 @@ inline void UCons::CheckDPhiAngle(double dPhi)
               << "Negative or zero delta-Phi (" << dPhi << ") in solid: "
               << GetName();
       UUtils::Exception("UCons::CheckDPhiAngle()", "GeomSolids0002",
-                        FatalErrorInArguments, 1, message.str().c_str());
+                        UUtils::FatalErrorInArguments, 1, message.str().c_str());
     }
   }
 }

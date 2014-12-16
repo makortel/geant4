@@ -36,7 +36,7 @@ UBox::UBox(const std::string& name, double dx, double dy, double dz)
     std::ostringstream message;
     message << "Dimensions too small for Solid: " << GetName() << "!" << std::endl
             << "     dx, dy, dz = " << dx << ", " << dy << ", " << dz;
-    UUtils::Exception("UBox::UBox()", "UGeomSolids", FatalErrorInArguments, 1, message.str().c_str());
+    UUtils::Exception("UBox::UBox()", "UGeomSolids", UUtils::FatalErrorInArguments, 1, message.str().c_str());
   }
 }
 
@@ -495,7 +495,7 @@ void UBox::SetXHalfLength(double dx)
             << std::endl
             << "       hX = " << dx;
     UUtils::Exception("UBox::SetXHalfLength()", "GeomSolids0002",
-                      FatalErrorInArguments, 1, message.str().c_str());
+                      UUtils::FatalErrorInArguments, 1, message.str().c_str());
   }
   fCubicVolume = 0.;
   fSurfaceArea = 0.;
@@ -515,7 +515,7 @@ void UBox::SetYHalfLength(double dy)
             << std::endl
             << "       hY = " << dy;
     UUtils::Exception("UBox::SetYHalfLength()", "GeomSolids0002",
-                      FatalErrorInArguments, 1, message.str().c_str());
+                      UUtils::FatalErrorInArguments, 1, message.str().c_str());
   }
   fCubicVolume = 0.;
   fSurfaceArea = 0.;
@@ -535,7 +535,7 @@ void UBox::SetZHalfLength(double dz)
             << std::endl
             << "       hZ = " << dz;
     UUtils::Exception("G4Box::SetZHalfLength()", "GeomSolids0002",
-                      FatalErrorInArguments, 1, message.str().c_str());
+                      UUtils::FatalErrorInArguments, 1, message.str().c_str());
   }
   fCubicVolume = 0.;
   fSurfaceArea = 0.;

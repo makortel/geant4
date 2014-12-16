@@ -142,7 +142,7 @@ void UGenericTrap::Initialise(const std::vector<UVector2>&  vertices)
   if (int (vertices.size()) != fgkNofVertices)
   {
     UUtils::Exception("UGenericTrap::UGenericTrap()", "GeomSolids0002",
-                      FatalErrorInArguments, 1, "Number of vertices != 8");
+                      UUtils::FatalErrorInArguments, 1, "Number of vertices != 8");
   }
 
   // Check dZ
@@ -150,7 +150,7 @@ void UGenericTrap::Initialise(const std::vector<UVector2>&  vertices)
   if (fDz < VUSolid::fgTolerance)
   {
     UUtils::Exception("UGenericTrap::UGenericTrap()", "GeomSolids0002",
-                      FatalErrorInArguments, 1, "dZ is too small or negative");
+                      UUtils::FatalErrorInArguments, 1, "dZ is too small or negative");
   }
 
   // Check Ordering and Copy vertices
@@ -190,7 +190,7 @@ void UGenericTrap::Initialise(const std::vector<UVector2>&  vertices)
                 << fVertices[k] << " is only " << length << " mm !"
                 << "Vertices will be collapsed.";
         UUtils::Exception("UGenericTrap::UGenericTrap()", "GeomSolids1001",
-                          Warning, 1, message.str().c_str());
+                          UUtils::Warning, 1, message.str().c_str());
         fVertices[k] = fVertices[k - 1];
       }
     }
@@ -530,7 +530,7 @@ bool UGenericTrap::Normal(const UVector3& p, UVector3& aNormal) const
   {
     #ifdef UDEBUG
     UUtils::Exception("UGenericTrap::SurfaceNormal(p)", "GeomSolids1002",
-                      Warning, 1, "Point p is not on surface !?");
+                      UUtils::Warning, 1, "Point p is not on surface !?");
     if (Inside(p) != eSurface)
     {
       std::cout << "Point is not on Surface, confirmed by Inside()" << p << std::endl;
@@ -1361,7 +1361,7 @@ double UGenericTrap::DistanceToOut(const UVector3& p, const UVector3&  v,
               << "  distmin = " << distmin << " mm";
       message.precision(oldprc);
       UUtils::Exception("UGenericTrap::DistanceToOut(p,v,..)",
-                        "GeomSolids1002", Warning, 1, message.str().c_str());
+                        "GeomSolids1002", UUtils::Warning, 1, message.str().c_str());
       break;
 
   }
@@ -1698,7 +1698,7 @@ bool UGenericTrap::ComputeIsTwisted()
               << "     TwistANGLE = " << twist_angle
               << "*rad  for lateral plane N= " << i;
       UUtils::Exception("UGenericTrap::ComputeIsTwisted()", "GeomSolids1002",
-                        Warning, 4, message.str().c_str());
+                        UUtils::Warning, 4, message.str().c_str());
     }
   }
 
@@ -1730,7 +1730,7 @@ bool UGenericTrap::CheckOrder(const std::vector<UVector2>& vertices) const
     message << "Lower/upper faces defined with opposite clockwise - "
             << GetName();
     UUtils::Exception("UGenericTrap::CheckOrder()", "GeomSolids0002",
-                      FatalError, 1, message.str().c_str());
+                      UUtils::FatalError, 1, message.str().c_str());
   }
 
   if ((sum1 > 0.) || (sum2 > 0.))
@@ -1739,7 +1739,7 @@ bool UGenericTrap::CheckOrder(const std::vector<UVector2>& vertices) const
     message << "Vertices must be defined in clockwise XY planes - "
             << GetName();
     UUtils::Exception("UGenericTrap::CheckOrder()", "GeomSolids1001",
-                      Warning, 1, message.str().c_str());
+                      UUtils::Warning, 1, message.str().c_str());
     clockwise_order = false;
   }
 
@@ -1781,7 +1781,7 @@ bool UGenericTrap::CheckOrder(const std::vector<UVector2>& vertices) const
     std::ostringstream message;
     message << "Malformed polygone with opposite sides - " << GetName();
     UUtils::Exception("UGenericTrap::CheckOrderAndSetup()", "GeomSolids0002",
-                      FatalError, 1, message.str().c_str());
+                      UUtils::FatalError, 1, message.str().c_str());
   }
   return clockwise_order;
 }
@@ -2009,7 +2009,7 @@ UGenericTrap::MakeDownFacet(const std::vector<UVector3>& fromVertices,
     std::ostringstream message;
     message << "Vertices in wrong order - " << GetName();
     UUtils::Exception("UGenericTrap::MakeDownFacet", "GeomSolids0002",
-                      FatalError, 1, message.str().c_str());
+                      UUtils::FatalError, 1, message.str().c_str());
   }
 
   return new UTriangularFacet(vertices[0], vertices[1], vertices[2], UABSOLUTE);
@@ -2049,7 +2049,7 @@ UGenericTrap::MakeUpFacet(const std::vector<UVector3>& fromVertices,
     std::ostringstream message;
     message << "Vertices in wrong order - " << GetName();
     UUtils::Exception("UGenericTrap::MakeUpFacet", "GeomSolids0002",
-                      FatalError, 1, message.str().c_str());
+                      UUtils::FatalError, 1, message.str().c_str());
   }
 
   return new UTriangularFacet(vertices[0], vertices[1], vertices[2], UABSOLUTE);

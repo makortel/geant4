@@ -69,7 +69,7 @@ void UTrd::CheckAndSetAllParameters ( double pdx1,  double pdx2,
                 << "          X - " << pdx1 << ", " << pdx2 << std::endl
                 << "          Y - " << pdy1 << ", " << pdy2 << std::endl
                 << "          Z - " << pdz << std::endl;
-      UUtils::Exception("UTrd::CheckAndSetAllParameters()", "InvalidSetup", FatalErrorInArguments, 1, "Invalid parameters.");
+      UUtils::Exception("UTrd::CheckAndSetAllParameters()", "InvalidSetup", UUtils::FatalErrorInArguments, 1, "Invalid parameters.");
     }
   }
 }
@@ -97,7 +97,7 @@ double UTrd::SafetyFromInside(const UVector3& p, bool aAccurate) const
     std::cout << "p.y() = "   << p.y() / mm << " mm" << std::endl ;
     std::cout << "p.z() = "   << p.z() / mm << " mm" << std::endl << std::endl ;
     std::cout.precision(oldprc) ;
-    UUtils::Exception("UTrd::DistanceToOut(p)", "Notification", Warning, 1,
+    UUtils::Exception("UTrd::DistanceToOut(p)", "Notification", UUtils::Warning, 1,
                       "Point p is outside !?");
   }
 #endif
@@ -920,7 +920,7 @@ double UTrd::DistanceToOut(const UVector3&  p, const UVector3& v,
         n.Set(0, 0, -1);
         break;
       default:
-        UUtils::Exception("UTrd::DistanceToOut(p,v,..)", "Notification", Warning, 1, "Undefined side for valid surface normal to solid.");
+        UUtils::Exception("UTrd::DistanceToOut(p,v,..)", "Notification", UUtils::Warning, 1, "Undefined side for valid surface normal to solid.");
         break;
     }
   }
@@ -974,7 +974,7 @@ bool UTrd::Normal(const UVector3& p, UVector3& norm) const
   if (noSurfaces == 0)
   {
 #ifdef UDEBUG
-    UUtils::Exception("UTrd::SurfaceNormal(p)", "Notification", Warning, 1, "Point p is not on surface !?");
+    UUtils::Exception("UTrd::SurfaceNormal(p)", "Notification", UUtils::Warning, 1, "Point p is not on surface !?");
 #endif
     // point is not on surface, calculate normal closest to surface. this is not likely to be used too often..., normally the user gives point on surface...
     //     norm = ApproxSurfaceNormal(p);

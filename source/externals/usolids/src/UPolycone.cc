@@ -67,7 +67,7 @@ UPolycone::UPolycone(const std::string& name,
     message << "Polycone " << GetName() << "cannot be converted" << std::endl
             << "to Polycone with (Rmin,Rmaz,Z) parameters! Use GenericPolycone" ;
     UUtils::Exception("UPolycone::UPolycone()", "GeomSolids0002",
-                      FatalError, 1, message.str().c_str());
+                      UUtils::FatalError, 1, message.str().c_str());
   }
   else
   {
@@ -154,7 +154,7 @@ void UPolycone::Init(double phiStart,
               << "        rMin[" << j << "] = " << rInner[j]
               << " -- rMax[" << j << "] = " << rOuter[j];
        UUtils::Exception("UPolycone::UPolycone()", "GeomSolids0002",
-                         FatalErrorInArguments, 1, message.str().c_str());
+                         UUtils::FatalErrorInArguments, 1, message.str().c_str());
     }
   }
   //
@@ -181,7 +181,7 @@ void UPolycone::Init(double phiStart,
                 << " rMin[" << i + 1 << "] = " << rInner[i + 1]
                 << " -- rMax[" << i << "] = " << rOuter[i];
         UUtils::Exception("UPolycone::UPolycone()", "GeomSolids0002",
-                          FatalErrorInArguments, 1, message.str().c_str());
+                          UUtils::FatalErrorInArguments, 1, message.str().c_str());
       }
     }
 
@@ -206,7 +206,7 @@ void UPolycone::Init(double phiStart,
                   << "  zPlane[" << i - 1 << "] = " << zPlane[i - 1]
                   << " -- rPlane[" << i << "] = " << zPlane[i];
           UUtils::Exception("UPolycone::UPolycone()", "GeomSolids0002",
-                            FatalErrorInArguments, 1, message.str().c_str());
+                            UUtils::FatalErrorInArguments, 1, message.str().c_str());
 
 
 
@@ -291,7 +291,7 @@ void UPolycone::Init(double phiStart,
      message << "Illegal input parameters - " << GetName() << std::endl
              << "        All R values must be >= 0 !";
      UUtils::Exception("UPolycone::Init()", "GeomSolids0002",
-                       FatalErrorInArguments,1, message.str().c_str());
+                       UUtils::FatalErrorInArguments,1, message.str().c_str());
   }
      
 
@@ -1649,7 +1649,7 @@ bool  UPolycone::SetOriginalParameters(UReduciblePolygon* rz)
     message << "Polycone " << GetName() << std::endl
             << "cannot be converted to Polycone with (Rmin,Rmaz,Z) parameters!";
     UUtils::Exception("UPolycone::SetOriginalParameters()", "GeomSolids0002",
-                      Warning, 1, "can not convert");
+                      UUtils::Warning, 1, "can not convert");
 
     fOriginalParameters = new UPolyconeHistorical;
 

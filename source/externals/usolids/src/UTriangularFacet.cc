@@ -69,7 +69,7 @@ UTriangularFacet::UTriangularFacet(const UVector3& vt0, const UVector3& vt1, con
             << "Side lengths = P[0]->P[1]" << eMag1 << endl
             << "Side lengths = P[0]->P[2]" << eMag2 << endl
             << "Side lengths = P[1]->P[2]" << eMag3;
-    UUtils::Exception("UTriangularFacet::UTriangularFacet()", "GeomSolids1001", Warning, 1, message.str().c_str());
+    UUtils::Exception("UTriangularFacet::UTriangularFacet()", "GeomSolids1001", UUtils::Warning, 1, message.str().c_str());
     fIsDefined     = false;
     fSurfaceNormal.Set(0);
     fA = fB = fC = 0.0;

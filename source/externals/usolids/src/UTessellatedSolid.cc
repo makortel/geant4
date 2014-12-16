@@ -157,7 +157,7 @@ bool UTessellatedSolid::AddFacet(VUFacet* aFacet)
   // Add the facet to the vector.
   if (fSolidClosed)
   {
-    UUtils::Exception("UTessellatedSolid::AddFacet()", "GeomSolids1002", Warning, 1, "Attempt to add facets when solid is closed.");
+    UUtils::Exception("UTessellatedSolid::AddFacet()", "GeomSolids1002", UUtils::Warning, 1, "Attempt to add facets when solid is closed.");
     return false;
   }
   else if (aFacet->IsDefined())
@@ -213,7 +213,7 @@ bool UTessellatedSolid::AddFacet(VUFacet* aFacet)
   }
   else
   {
-    UUtils::Exception("UTessellatedSolid::AddFacet()", "GeomSolids1002", Warning, 1, "Attempt to add facet not properly defined.");
+    UUtils::Exception("UTessellatedSolid::AddFacet()", "GeomSolids1002", UUtils::Warning, 1, "Attempt to add facet not properly defined.");
     aFacet->StreamInfo(cout);
     return false;
   }
@@ -732,7 +732,7 @@ VUSolid::EnumInside UTessellatedSolid::InsideVoxels(const UVector3& p) const
             << "p.z() = "   << p.z() / mm << " mm";
     message.precision(oldprc);
     UUtils::Exception("UTessellatedSolid::Inside()",
-                      "GeomSolids1002", Warning, 1, message.str().c_str());
+                      "GeomSolids1002", UUtils::Warning, 1, message.str().c_str());
   }
 #endif
   //
@@ -910,7 +910,7 @@ VUSolid::EnumInside UTessellatedSolid::InsideNoVoxels(const UVector3& p) const
               << "p.z() = "   << p.z() / mm << " mm";
       message.precision(oldprc);
       UUtils::Exception("UTessellatedSolid::Inside()",
-                        "GeomSolids1002", Warning, 1, message.str().c_str());
+                        "GeomSolids1002", UUtils::Warning, 1, message.str().c_str());
     }
 #endif
     //
@@ -1002,7 +1002,7 @@ bool UTessellatedSolid::Normal(const UVector3& p, UVector3& aNormal) const
             << "          Returning approximated value for normal.";
 
     UUtils::Exception("UTessellatedSolid::SurfaceNormal(p)", "GeomSolids1002",
-                      Warning, 1, message.str().c_str());
+                      UUtils::Warning, 1, message.str().c_str());
 #endif
     aNormal = (p.z > 0 ? UVector3(0, 0, 1) : UVector3(0, 0, -1));
     return false;
@@ -1040,7 +1040,7 @@ double UTessellatedSolid::DistanceToInNoVoxels(const UVector3& p,
             << "DistanceToOut(p) == " << DistanceToOut(p);
     message.precision(oldprc) ;
     UUtils::Exception("UTriangularFacet::DistanceToIn(p,v)", "GeomSolids1002",
-                      Warning, 1, message.str().c_str());
+                      UUtils::Warning, 1, message.str().c_str());
   }
 #endif
 
@@ -1095,7 +1095,7 @@ double UTessellatedSolid::DistanceToOutNoVoxels(const UVector3& p, const UVector
             << "DistanceToIn(p) == " << DistanceToIn(p);
     message.precision(oldprc) ;
     UUtils::Exception("UTriangularFacet::DistanceToOut(p)", "GeomSolids1002",
-                      Warning, 1, message.str().c_str());
+                      UUtils::Warning, 1, message.str().c_str());
   }
 #endif
 
@@ -1407,7 +1407,7 @@ double UTessellatedSolid::SafetyFromOutside(const UVector3& p, bool aAccurate) c
             << "DistanceToOut(p) == " << DistanceToOut(p);
     message.precision(oldprc) ;
     UUtils::Exception("UTriangularFacet::DistanceToIn(p)", "GeomSolids1002",
-                      Warning, 1, message.str().c_str());
+                      UUtils::Warning, 1, message.str().c_str());
   }
 #endif
 
@@ -1470,7 +1470,7 @@ double UTessellatedSolid::SafetyFromInside(const UVector3& p, bool) const
             << "DistanceToIn(p) == " << DistanceToIn(p);
     message.precision(oldprc) ;
     UUtils::Exception("UTriangularFacet::DistanceToOut(p)", "GeomSolids1002",
-                      Warning, 1, message.str().c_str());
+                      UUtils::Warning, 1, message.str().c_str());
   }
 #endif
 

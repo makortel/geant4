@@ -32,7 +32,7 @@ UOrb::UOrb(const std::string& name, double r)
   //
   if (r < 10 * VUSolid::fgTolerance) // cartesian tolerance
   {
-    UUtils::Exception("UOrb::UOrb()", "InvalidSetup", FatalErrorInArguments, 1, "Invalid radius > 10*kCarTolerance.");
+    UUtils::Exception("UOrb::UOrb()", "InvalidSetup", UUtils::FatalErrorInArguments, 1, "Invalid radius > 10*kCarTolerance.");
   }
   // VUSolid::fRTolerance is radial tolerance (note: half of G4 tolerance)
   fRTolerance =  max(VUSolid::frTolerance, epsilon * r);
@@ -167,7 +167,7 @@ double UOrb::DistanceToIn(const UVector3& p,
 #ifdef UDEBUG
   else // inside ???
   {
-    UUtils::Exception("UOrb::DistanceToIn(p,v)", "Notification", Warning, 1, "Point p is inside !?");
+    UUtils::Exception("UOrb::DistanceToIn(p,v)", "Notification", UUtils::Warning, 1, "Point p is inside !?");
   }
 #endif
 
@@ -300,7 +300,7 @@ double UOrb::DistanceToOut(const UVector3&  p, const UVector3& v,
 
     cout.precision(6);
     UUtils::Exception("UOrb::DistanceToOut(p,v,..)", "Notification",
-                      Warning, 1, "Logic error: snxt = kInfinity ???");
+                      UUtils::Warning, 1, "Logic error: snxt = kInfinity ???");
 
   }
 
@@ -332,7 +332,7 @@ double UOrb::DistanceToOut(const UVector3&  p, const UVector3& v,
       cout.precision(6);
 
 
-      UUtils::Exception("UOrb::DistanceToOut(p,v,..)", "Notification", Warning, 1, "Undefined side for valid surface normal to solid.");
+      UUtils::Exception("UOrb::DistanceToOut(p,v,..)", "Notification", UUtils::Warning, 1, "Undefined side for valid surface normal to solid.");
     }
   }
   return snxt;
@@ -367,7 +367,7 @@ double UOrb::SafetyFromInside(const UVector3& p, bool /*aAccurate*/) const
     cout << "p.y = "   << p.y << endl;
     cout << "p.z = "   << p.z << endl << endl;
     //     cout.precision(oldprc);
-    UUtils::Exception("UOrb::DistanceToOut(p)", "Notification", Warning, 1,
+    UUtils::Exception("UOrb::DistanceToOut(p)", "Notification", UUtils::Warning, 1,
                       "Point p is outside !?");
   }
 #endif

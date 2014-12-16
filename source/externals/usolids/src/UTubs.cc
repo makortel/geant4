@@ -42,7 +42,7 @@ UTubs::UTubs(const std::string& pName,
   {
     std::ostringstream message;
     message << "Negative Z half-length (" << pDz << ") in solid: " << GetName();
-    UUtils::Exception("UTubs::UTubs()", "GeomSolids0002", FatalErrorInArguments, 1, message.str().c_str());
+    UUtils::Exception("UTubs::UTubs()", "GeomSolids0002", UUtils::FatalErrorInArguments, 1, message.str().c_str());
   }
   if ((pRMin >= pRMax) || (pRMin < 0))   // Check radii
   {
@@ -50,7 +50,7 @@ UTubs::UTubs(const std::string& pName,
     message << "Invalid values for radii in solid: " << GetName()
             << std::endl
             << "pRMin = " << pRMin << ", pRMax = " << pRMax;
-    UUtils::Exception("UTubs::UTubs()", "GeomSolids0002", FatalErrorInArguments, 1, message.str().c_str());
+    UUtils::Exception("UTubs::UTubs()", "GeomSolids0002", UUtils::FatalErrorInArguments, 1, message.str().c_str());
   }
 
   // Check angles
@@ -443,7 +443,7 @@ bool UTubs::Normal(const UVector3& p, UVector3& n) const
   {
 #ifdef UDEBUG
     UUtils::Exception("UTubs::SurfaceNormal(p)", "GeomSolids1002",
-                      Warning, 1, "Point p is not on surface !?");
+                      UUtils::Warning, 1, "Point p is not on surface !?");
     int oldprc = cout.precision(20);
     cout << "UTubs::SN ( " << p.x << ", " << p.y << ", " << p.z << " ); "
          << std::endl << std::endl;
@@ -581,7 +581,7 @@ UVector3 UTubs::ApproxSurfaceNormal(const UVector3& p) const
     {
       // DumpInfo();
       UUtils::Exception("UTubs::ApproxSurfaceNormal()",
-                        "GeomSolids1002", Warning, 1,
+                        "GeomSolids1002", UUtils::Warning, 1,
                         "Undefined side for valid surface normal to solid.");
       break;
     }
@@ -1515,7 +1515,7 @@ double UTubs::DistanceToOut(const UVector3& p, const UVector3& v, UVector3& n, b
                 << "snxt = "    << snxt << " mm" << std::endl;
         message.precision(oldprc);
         UUtils::Exception("UTubs::DistanceToOut(p,v,..)", "GeomSolids1002",
-                          Warning, 1, message.str().c_str());
+                          UUtils::Warning, 1, message.str().c_str());
         break;
     }
   }
@@ -1548,7 +1548,7 @@ double UTubs::SafetyFromInside(const UVector3& p, bool) const
     cout << "p.z = "   << p.z << " mm" << std::endl << std::endl;
     cout.precision(oldprc);
     UUtils::Exception("UTubs::DistanceToOut(p)", "GeomSolids1002",
-                      Warning, 1, "Point p is outside !?");
+                      UUtils::Warning, 1, "Point p is outside !?");
   }
 #endif
   safe = SafetyFromInsideR(p, rho);

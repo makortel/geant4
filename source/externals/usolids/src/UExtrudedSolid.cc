@@ -136,7 +136,7 @@ void UExtrudedSolid::Initialise(std::vector<UVector2>& polygon,
     std::ostringstream message;
     message << "Number of polygon vertices < 3 - " << GetName().c_str();
     UUtils::Exception("UExtrudedSolid::UExtrudedSolid()", "GeomSolids0002",
-                      FatalErrorInArguments, 2, message.str().c_str());
+                      UUtils::FatalErrorInArguments, 2, message.str().c_str());
   }
 
   if (fNz < 2)
@@ -144,7 +144,7 @@ void UExtrudedSolid::Initialise(std::vector<UVector2>& polygon,
     std::ostringstream message;
     message << "Number of z-sides < 2 - " << GetName().c_str();
     UUtils::Exception("UExtrudedSolid::UExtrudedSolid()", "GeomSolids0002",
-                      FatalErrorInArguments, 2, message.str().c_str());
+                      UUtils::FatalErrorInArguments, 2, message.str().c_str());
   }
 
   for (int i = 0; i < fNz - 1; ++i)
@@ -155,7 +155,7 @@ void UExtrudedSolid::Initialise(std::vector<UVector2>& polygon,
       message << "Z-sections have to be ordered by z value (z0 < z1 < z2...) - "
               << GetName().c_str();
       UUtils::Exception("UExtrudedSolid::UExtrudedSolid()", "GeomSolids0002",
-                        FatalErrorInArguments, 2, message.str().c_str());
+                        UUtils::FatalErrorInArguments, 2, message.str().c_str());
     }
     if (std::fabs(zsections[i + 1].fZ - zsections[i].fZ) < VUSolid::fgTolerance * 0.5)
     {
@@ -163,7 +163,7 @@ void UExtrudedSolid::Initialise(std::vector<UVector2>& polygon,
       message << "Z-sections with the same z position are not supported - "
               << GetName().c_str();
       UUtils::Exception("UExtrudedSolid::UExtrudedSolid()", "GeomSolids0001",
-                        FatalError, 1, message.str().c_str());
+                        UUtils::FatalError, 1, message.str().c_str());
     }
   }
 
@@ -192,7 +192,7 @@ void UExtrudedSolid::Initialise(std::vector<UVector2>& polygon,
   {
     // Polygon vertices are defined anti-clockwise, we revert them
     UUtils::Exception("UExtrudedSolid::UExtrudedSolid()", "GeomSolids1001",
-                      Warning, 4,
+                      UUtils::Warning, 4,
                 "Polygon vertices defined anti-clockwise, reverting polygon");
     for (int i = 0; i < fNv; ++i)
     {
@@ -215,7 +215,7 @@ void UExtrudedSolid::Initialise(std::vector<UVector2>& polygon,
     std::ostringstream message;
     message << "Making facets failed - " << GetName().c_str();
     UUtils::Exception("UExtrudedSolid::UExtrudedSolid()", "GeomSolids0003",
-                     FatalError, 1, message.str().c_str());
+                     UUtils::FatalError, 1, message.str().c_str());
   }
   fIsConvex = IsConvex();
 
@@ -238,7 +238,7 @@ void UExtrudedSolid::Initialise(std::vector<UVector2>& polygon, double dz,
     std::ostringstream message;
     message << "Number of polygon vertices < 3 - " << GetName().c_str();
     UUtils::Exception("UExtrudedSolid::UExtrudedSolid()", "GeomSolids0002",
-                      FatalErrorInArguments, 2, message.str().c_str());
+                      UUtils::FatalErrorInArguments, 2, message.str().c_str());
   }
 
   // Check if polygon vertices are defined clockwise
@@ -270,7 +270,7 @@ void UExtrudedSolid::Initialise(std::vector<UVector2>& polygon, double dz,
   {
     // Polygon vertices are defined anti-clockwise, we revert them
     UUtils::Exception("UExtrudedSolid::UExtrudedSolid()", "GeomSolids1001",
-                      Warning, 4,
+                      UUtils::Warning, 4,
                  "Polygon vertices defined anti-clockwise, reverting polygon");
     for (int i = 0; i < fNv; ++i)
     {
@@ -289,7 +289,7 @@ void UExtrudedSolid::Initialise(std::vector<UVector2>& polygon, double dz,
     std::ostringstream message;
     message << "Making facets failed - " << GetName().c_str();
     UUtils::Exception("UExtrudedSolid::UExtrudedSolid()", "GeomSolids0003",
-                      FatalError, 1, message.str().c_str());
+                      UUtils::FatalError, 1, message.str().c_str());
   }
   fIsConvex = IsConvex();
 
@@ -586,7 +586,7 @@ bool UExtrudedSolid::AddGeneralPolygonFacets()
       if (counter > fNv)
       {
         UUtils::Exception("UExtrudedSolid::AddGeneralPolygonFacets",
-                          "GeomSolids0003", FatalError, 1,
+                          "GeomSolids0003", UUtils::FatalError, 1,
                           "Triangularisation has failed.");
         break;
       }

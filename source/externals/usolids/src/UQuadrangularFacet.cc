@@ -86,7 +86,7 @@ UQuadrangularFacet::UQuadrangularFacet(const UVector3& vt0,
   }
   else
   {
-    UUtils::Exception("UQuadrangularFacet::UQuadrangularFacet()", "InvalidSetup", Warning, 1, "Length of sides of facet are too small or sides not planar.");
+    UUtils::Exception("UQuadrangularFacet::UQuadrangularFacet()", "InvalidSetup", UUtils::Warning, 1, "Length of sides of facet are too small or sides not planar.");
     cerr << endl;
     cerr << "P0 = " << GetVertex(0) << endl;
     cerr << "P1 = " << GetVertex(1) << endl;

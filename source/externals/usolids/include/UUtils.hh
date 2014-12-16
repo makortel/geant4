@@ -31,11 +31,10 @@
 struct UVector3;
 class UTransform3D;
 
-enum ExceptionSeverity
-{ FatalError, FatalErrorInArguments, Error, Warning, Info };
-
 namespace UUtils
 {
+  enum ExceptionSeverity
+  { FatalError, FatalErrorInArguments, Error, Warning, Info };
 
   // Sign
   inline short  Sign(short a, short b);
